@@ -12,6 +12,6 @@ Firmware for Igrogen Board of the DAC-GEN project.
 
 ## Git clone
 ```
-  git clone git@gitlab.in2p3.fr:NEBULA/idrogen-test.git
-  cd idrogen-test
+  git clone git@gitlab.in2p3.fr:NEBULA/idrogen.git
+  cd idrogen
 ```
