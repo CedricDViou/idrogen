@@ -13,11 +13,11 @@ PWD         := $(shell pwd)
 
 all::		etherbone eca tlu sdbfs toolchain firmware driver
 
-gateware:	all nebula
+gateware:	all idrogen_v3_ref_design
 
 install::	etherbone-install tools-install eca-install tlu-install driver-install
 
-clean::		etherbone-clean tools-clean eca-clean tlu-clean sdbfs-clean driver-clean toolchain-clean firmware-clean nebula-clean
+clean::		etherbone-clean tools-clean eca-clean tlu-clean sdbfs-clean driver-clean toolchain-clean firmware-clean idrogen_v3_ref_design-clean
 
 distclean::	clean
 	git clean -xfd .
@@ -99,9 +99,9 @@ firmware::	sdbfs etherbone toolchain ip_cores/wrpc-sw/.config
 firmware-clean::
 	$(MAKE) -C ip_cores/wrpc-sw EB=$(PWD)/ip_cores/etherbone-core/api SDBFS=$(PWD)/ip_cores/fpga-config-space/sdbfs/userspace PATH=$(PWD)/toolchain/bin:$(PATH) clean
 
-idrogen_v3:	firmware
+idrogen_v3_ref_design:	firmware
 	$(MAKE) -C syn/idrogen_v3_ref_design PATH=$(PWD)/toolchain/bin:$(PATH) all
 
-idrogen_v3-clean::
+idrogen_v3_ref_design-clean::
 	$(MAKE) -C syn/idrogen_v3_ref_design PATH=$(PWD)/toolchain/bin:$(PATH) clean
 
