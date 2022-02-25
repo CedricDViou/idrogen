@@ -1,5 +1,5 @@
-NEBuLA
-======
+idrogen_v3
+==========
 
 
 Procedure for compiling an idrogen firmware:
@@ -13,7 +13,7 @@ $ sudo ln -sf /opt/altera/19.3_pro/quartus/bin/quartus /opt/quartus
 
 - Dependencies and tools:
 ```
-$ sudo apt install docbook-utils
+$ sudo apt install docbook-utils libreadline-dev
 ```
 
 
@@ -24,5 +24,4 @@ $ cd idrogen
 $ git submodule update
 $ cd firmware
 $ make idrogen_v3
-
 ```
