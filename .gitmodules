@@ -4,3 +4,9 @@
 [submodule "firmware/ip_cores/wrpc-sw"]
 	path = firmware/ip_cores/wrpc-sw
 	url = https://ohwr.org/project/wrpc-sw
+[submodule "firmware/ip_cores/fpga-config-space"]
+	path = firmware/ip_cores/fpga-config-space
+	url = https://ohwr.org/project/fpga-config-space.git
+[submodule "firmware/ip_cores/etherbone-core"]
+	path = firmware/ip_cores/etherbone-core
+	url = https://ohwr.org/project/etherbone-core.git
