@@ -1,3 +1,6 @@
 [submodule "firmware/ip_cores/wr-cores"]
 	path = firmware/ip_cores/wr-cores
 	url = https://ohwr.org/project/wr-cores
+[submodule "firmware/ip_cores/wrpc-sw"]
+	path = firmware/ip_cores/wrpc-sw
+	url = https://ohwr.org/project/wrpc-sw
