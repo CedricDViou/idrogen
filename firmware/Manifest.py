@@ -5,7 +5,7 @@ modules = {
     "modules",
   ],
   "git" : [
-    "https://ohwr.org/project/fpga-config-space.git",
+    #"https://ohwr.org/project/fpga-config-space.git",
     "https://ohwr.org/project/etherbone-core.git",
     "https://ohwr.org/project/general-cores.git",
     "https://ohwr.org/project/wr-cores.git",
