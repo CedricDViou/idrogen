@@ -11,8 +11,6 @@ syn_package = "F34"
 syn_top = "idrogen_v3_ref_design_top"
 syn_project = "idrogen_v3_ref_design"
 
-
-
 quartus_preflow = "preflow.tcl"
 
 modules = {

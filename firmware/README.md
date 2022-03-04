@@ -19,9 +19,9 @@ $ sudo apt install docbook-utils libreadline-dev
 
 - Fetch sources and compile
 ```
-$ git clone https://gitlab.in2p3.fr/NEBULA/idrogen.git --recursive  
-$ cd idrogen  
+$ git submodule init
 $ git submodule update
-$ cd firmware
-$ make idrogen_v3
+$ cd firmware/idrogen_v3_ref_design
+$ hdlmake
+$ make
 ```
