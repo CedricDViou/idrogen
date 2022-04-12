@@ -1,0 +1,3 @@
+qsys-generate altera_xcvr_native_phy_a10.qsys
+qsys-generate ATX_pll_125_to_625.qsys
+qsys-generate xcvr_phy_reset_controller.qsys
