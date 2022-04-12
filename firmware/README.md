@@ -21,7 +21,15 @@ $ sudo apt install docbook-utils libreadline-dev
 ```
 $ git submodule init
 $ git submodule update
-$ cd firmware/idrogen_v3_ref_design
+$ cd firmware/
+$ make idrogen_v3_ref_design   -> Fail in firmware/syn/idrogen_v3_ref_design because hdlmake has not created a Makefile there
+$ cd syn/idrogen_v3_ref_design/
+Add "matrix_pkg.vhd", in ip_cores/general-cores/modules/common/Manifest.py, l.3
 $ hdlmake
 $ make
 ```
+
+- Harware setup
+  - During the first use of a FPGA running the WhiteRabbit core, we need to format the EEPROM at the wrpc-sw prompt:
+  ```wrc# sdb fs 1 0 80```
+
