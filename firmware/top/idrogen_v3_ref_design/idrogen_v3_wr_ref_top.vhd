@@ -20,10 +20,10 @@ use work.wrcore_pkg.all;
 use work.pll_pkg.all;
 use work.wr_fabric_pkg.all;
 use work.wishbone_pkg.all;
-use work.wr_altera_pkg.all;
+--use work.wr_altera_pkg.all;
 use work.etherbone_pkg.all;
 use work.altera_networks_pkg.all;
-use work.build_id_pkg.all;
+--use work.build_id_pkg.all;
 --use work.wishbone2avalon_pkg.all;
 
 -- Use the General Cores package (for gc_extend_pulse)
@@ -195,10 +195,10 @@ entity idrogen_v3_ref_design_top is
     WR_TX_from_UART : in  std_logic;
 
     PPS_IN                  :    in       STD_LOGIC ;
-    PPS_OUT                 :    out      STD_LOGIC := PPS_IN ;           -- looped-back by default
+    PPS_OUT                 :    out      STD_LOGIC ;           -- looped-back by default
 
     TRIGGER_IN              :    in       STD_LOGIC ;
-    TRIGGER_OUT             :    out      STD_LOGIC := TRIGGER_IN ;       -- looped-back by default
+    TRIGGER_OUT             :    out      STD_LOGIC ;           -- looped-back by default
 
 
     -- Spare IOs
@@ -333,17 +333,23 @@ architecture rtl of idrogen_v3_ref_design_top is
   constant c_top_masters    : natural := 1;
   constant c_topm_ebs       : natural := 0;
 
-  constant c_top_slaves     : natural := 3;
+--  constant c_top_slaves     : natural := 3;
+--  constant c_tops_wrc       : natural := 0;
+--  constant c_tops_build_id  : natural := 1;
+--  constant c_tops_ebm       : natural := 2;
+
+
+  constant c_top_slaves     : natural := 2;
   constant c_tops_wrc       : natural := 0;
-  constant c_tops_build_id  : natural := 1;
-  constant c_tops_ebm       : natural := 2;
+  constant c_tops_ebm       : natural := 1;
+
 
   -- We have to specify the values for WRC as there is no generic out in vhdl
   constant c_wrcore_bridge_sdb : t_sdb_bridge := f_xwb_bridge_manual_sdb(x"0003ffff", x"00030000");
 
   constant c_top_layout_req : t_sdb_record_array(c_top_slaves-1 downto 0) :=
    (c_tops_wrc       => f_sdb_auto_bridge(c_wrcore_bridge_sdb,                 true),
-    c_tops_build_id  => f_sdb_auto_device(c_build_id_sdb,                      true),
+--    c_tops_build_id  => f_sdb_auto_device(c_build_id_sdb,                      true),
     c_tops_ebm       => f_sdb_auto_device(c_ebm_sdb,                           true)
     );
 
@@ -453,43 +459,47 @@ begin --rtl
   dmtd_inst : dmtd_pll10_hydrogen port map(
     rst      => pll_rst,
     refclk   => WR_CLK_DMTD,    --  125  MHz
-    outclk_0 => clk_dmtd0,      --  62.5MHz
+--    outclk_0 => clk_dmtd0,      --  62.5MHz
+    outclk_0 => clk_dmtd,      --  62.5MHz
     locked   => dmtd_locked);
 
-  dmtd_clk : single_region port map(
-    inclk  => clk_dmtd0,
-    outclk => clk_dmtd);
+--  dmtd_clk : single_region port map(
+--    inclk  => clk_dmtd0,
+--    outclk => clk_dmtd);
 
   sys_inst : sys_pll10 port map(
     rst      => pll_rst,
     refclk   => core_clk_125m_local_i, -- 125  Mhz
-    outclk_0 => clk_sys0,           --  62.5MHz
-    outclk_1 => clk_sys1,           -- 100  MHz +0   ns
+    --outclk_0 => clk_sys0,           --  62.5MHz
+    outclk_0 => clk_sys,           --  62.5MHz
+--    outclk_1 => clk_sys1,           -- 100  MHz +0   ns
+    outclk_1 => clk_reconf,           -- 100  MHz +0   ns
     outclk_2 => clk_sys2,           --  20  MHz
     outclk_3 => clk_sys3,           --  10  MHz
     outclk_4 => clk_sys4,           -- 100  MHz +0.5 ns
     outclk_5 => clk_sys5,           -- 100  MHz +1.0 ns
     locked   => sys_locked);
 
-  sys_clk : global_region port map(
-    inclk  => clk_sys0,
-    outclk => clk_sys);
+--  sys_clk : global_region port map(
+--    inclk  => clk_sys0,
+--    outclk => clk_sys);
 
-  reconf_clk : global_region port map(
-    inclk  => clk_sys1,
-    outclk => clk_reconf);
+--  reconf_clk : global_region port map(
+--    inclk  => clk_sys1,
+--    outclk => clk_reconf);
 
 
   ref_inst : ref_pll10 port map(
     rst        => pll_rst,
     refclk     => core_clk_125m_pllref_i, -- 125 MHz
-    outclk_0   => clk_ref0,         -- 125 MHz
+--    outclk_0   => clk_ref0,         -- 125 MHz
+    outclk_0   => clk_ref,         -- 125 MHz
     locked     => ref_locked);
 
 
-  ref_clk : global_region port map(
-    inclk  => clk_ref0,
-    outclk => clk_ref);
+--  ref_clk : global_region port map(
+--    inclk  => clk_ref0,
+--    outclk => clk_ref);
 
   -- END OF Reset and PLLs
   ----------------------------------------------------------------------------------
@@ -656,7 +666,7 @@ begin --rtl
   -- Gigabit Ethernet PHYfor arra5.
   -----------------------------------------------------------------------------
 
-  phy :  wr_arria10_phy
+  phy : entity work.wr_arria10_phy
    port map (
      clk_reconf_i   => clk_free,  -- clk_reconf,
      clk_phy_i      => core_clk_125m_sfpref_i,
@@ -679,12 +689,12 @@ begin --rtl
 
 
 
-  id : build_id
-    port map(
-      clk_i   => clk_sys,
-      rst_n_i => rstn_sys,
-      slave_i => top_cbar_master_o(c_tops_build_id),
-      slave_o => top_cbar_master_i(c_tops_build_id));
+--  id : build_id
+--    port map(
+--      clk_i   => clk_sys,
+--      rst_n_i => rstn_sys,
+--      slave_i => top_cbar_master_o(c_tops_build_id),
+--      slave_o => top_cbar_master_i(c_tops_build_id));
 
 
 
