@@ -1,0 +1,4 @@
+altera_xcvr_native_phy_a10/*
+ATX_pll_125_to_625/*
+xcvr_phy_reset_controller/*
+.qsys_edit/*
