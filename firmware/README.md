@@ -26,7 +26,7 @@ $ make idrogen_v3_ref_design   -> Fail in firmware/syn/idrogen_v3_ref_design bec
 $ cd syn/idrogen_v3_ref_design/
 Add "matrix_pkg.vhd", in ip_cores/general-cores/modules/common/Manifest.py, l.3
 $ hdlmake
-$ make
+$ make idrogen_v3_ref_design
 ```
 
 - Harware setup
