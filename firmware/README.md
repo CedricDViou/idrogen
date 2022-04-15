@@ -14,6 +14,8 @@ $ sudo ln -sf /opt/altera/19.3_pro/quartus/bin/quartus /opt/quartus
 - Dependencies and tools:
 ```
 $ sudo apt install docbook-utils libreadline-dev
+$ yum install docbook-utils readline-devel.x86_64 glibs.i686 zlib.i686
+$ pip install hdlmake
 ```
 
 
@@ -25,7 +27,7 @@ $ cd firmware/
 $ make idrogen_v3_ref_design   -> Fail in firmware/syn/idrogen_v3_ref_design because hdlmake has not created a Makefile there
 $ cd syn/idrogen_v3_ref_design/
 Add "matrix_pkg.vhd", in ip_cores/general-cores/modules/common/Manifest.py, l.3
-$ hdlmake
+$ hdlmake makefile
 $ make idrogen_v3_ref_design
 ```
 
