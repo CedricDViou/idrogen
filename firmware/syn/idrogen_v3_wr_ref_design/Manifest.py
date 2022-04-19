@@ -8,8 +8,8 @@ syn_family  = "Arria 10"
 syn_device = "10AX027H4"
 syn_grade = "I3SG"
 syn_package = "F34"
-syn_top = "idrogen_v3_ref_design_top"
-syn_project = "idrogen_v3_ref_design"
+syn_top = "idrogen_v3_wr_ref_design_top"
+syn_project = "idrogen_v3_wr_ref_design"
 syn_tool = "quartus"
 syn_properties = [
     {"name": "VHDL_INPUT_VERSION", "value": "VHDL_2008"},
@@ -25,7 +25,7 @@ files = [
 
 modules = {
   "local" : [ 
-    "../../top/idrogen_v3_ref_design", 
+    "../../top/idrogen_v3_wr_ref_design", 
   ]
 }
 

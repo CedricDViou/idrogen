@@ -3,7 +3,7 @@ post_message "Assigning pinout"
 # Load Quartus II Tcl Project package
 package require ::quartus::project
 
-project_open -revision idrogen_v3_ref_design idrogen_v3_ref_design 
+project_open -revision idrogen_v3_wr_ref_design idrogen_v3_wr_ref_design 
 
 
 # set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA2UC_PWRDWN  # not connected anymore

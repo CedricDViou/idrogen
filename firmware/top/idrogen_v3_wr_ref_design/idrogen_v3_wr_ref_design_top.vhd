@@ -31,7 +31,7 @@ use work.gencores_pkg.all;
 
 
 
-entity idrogen_v3_ref_design_top is
+entity idrogen_v3_wr_ref_design_top is
 --  generic (
 --    -- Simulation mode enable parameter. Set by default (synthesis) to 0, and
 --    -- changed to non-zero in the instantiation of the top level DUT in the testbench.
@@ -210,9 +210,9 @@ entity idrogen_v3_ref_design_top is
     -------------------------------------------------------------------------
      LEDn  :    out      STD_LOGIC_VECTOR(3 downto 0) := (others => '0')
     );
-end idrogen_v3_ref_design_top;
+end idrogen_v3_wr_ref_design_top;
 
-architecture rtl of idrogen_v3_ref_design_top is
+architecture rtl of idrogen_v3_wr_ref_design_top is
 
   -----------------------------------------------------------------------------
   -- Function declarations
