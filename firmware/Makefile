@@ -100,8 +100,10 @@ firmware-clean::
 	$(MAKE) -C ip_cores/wrpc-sw EB=$(PWD)/ip_cores/etherbone-core/api SDBFS=$(PWD)/ip_cores/fpga-config-space/sdbfs/userspace PATH=$(PWD)/toolchain/bin:$(PATH) clean
 
 idrogen_v3_wr_ref_design:	firmware
+	cd syn/idrogen_v3_wr_ref_design && hdlmake makefile
 	$(MAKE) -C syn/idrogen_v3_wr_ref_design PATH=$(PWD)/toolchain/bin:$(PATH) all
 
 idrogen_v3_wr_ref_design-clean::
 	$(MAKE) -C syn/idrogen_v3_wr_ref_design PATH=$(PWD)/toolchain/bin:$(PATH) clean
+	rm -f syn/idrogen_v3_wr_ref_design/Makefile
 
