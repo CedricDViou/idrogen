@@ -24,11 +24,7 @@ $ pip install hdlmake
 $ git submodule init
 $ git submodule update
 $ cd firmware/
-$ make idrogen_v3_wr_ref_design   -> Fail in firmware/syn/idrogen_v3_wr_ref_design because hdlmake has not created a Makefile there
-$ cd syn/idrogen_v3_wr_ref_design/
-Add "matrix_pkg.vhd", in ip_cores/general-cores/modules/common/Manifest.py, l.3
-$ hdlmake makefile
-$ make idrogen_v3_ref_design
+$ make idrogen_v3_wr_ref_design
 ```
 
 - Harware setup
