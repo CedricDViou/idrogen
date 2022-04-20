@@ -14,16 +14,15 @@ $ sudo ln -sf /opt/altera/19.3_pro/quartus/bin/quartus /opt/quartus
 - Dependencies and tools:
 ```
 $ sudo apt install docbook-utils libreadline-dev
+or
 $ yum install docbook-utils readline-devel.x86_64 glibs.i686 zlib.i686
+
 $ pip install hdlmake
 ```
 
 
-- Fetch sources and compile
+- Compile
 ```
-$ git submodule init
-$ git submodule update
-$ cd firmware/
 $ make idrogen_v3_wr_ref_design
 ```
 

@@ -10,13 +10,17 @@ git config --local user.name "Cedric Viou"
 git config --local user.email "cedric.dumez-viou@obs-nancay.fr"
 ```
 
-## Git clone
+## Download repository and start building a firmware
 ```
 git clone https://gitlab.in2p3.fr/NEBULA/idrogen.git
 cd idrogen
+git submodule init
+git submodule update
+cd firmware
+more README.md  -> to install dependencies and start compiling designs
 ```
 
-## Git add, commit and push
+## Modify and contribute
 ```
 git add monfichier_a_versionner
 git commit -m "commentaire de commit"
