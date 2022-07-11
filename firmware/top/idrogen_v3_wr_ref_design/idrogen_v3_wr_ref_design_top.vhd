@@ -245,7 +245,6 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
   -- Non-PLL reset stuff
   signal clk_free         : std_logic;
   signal rstn_free        : std_logic;
-  signal gxb_locked       : std_logic;
   signal pll_rst          : std_logic;
 
   -- Sys PLL from clk_125m_local_i
@@ -426,11 +425,10 @@ begin --rtl
   core_rstn_i           <= DEV_CLRn;
 
 
-  gxb_locked <= '1';
   
   reset : altera_reset
     generic map(
-      g_plls   => 4,
+      g_plls   => 2,
       g_clocks => 3,
       g_areset => f_pick(c_is_arria10, 100, 1)*1024,
       g_stable => f_pick(c_is_arria10, 100, 1)*1024)
@@ -438,9 +436,7 @@ begin --rtl
       clk_free_i    => clk_free,
       rstn_i        => core_rstn_i,
       pll_lock_i(0) => dmtd_locked,
-      pll_lock_i(1) => ref_locked,
-      pll_lock_i(2) => sys_locked,
-      pll_lock_i(3) => gxb_locked,
+      pll_lock_i(1) => sys_locked,
       pll_arst_o    => pll_rst,
       clocks_i(0)   => clk_free,
       clocks_i(1)   => clk_sys,
@@ -459,47 +455,23 @@ begin --rtl
   dmtd_inst : dmtd_pll10_hydrogen port map(
     rst      => pll_rst,
     refclk   => WR_CLK_DMTD,    --  125  MHz
---    outclk_0 => clk_dmtd0,      --  62.5MHz
     outclk_0 => clk_dmtd,      --  62.5MHz
     locked   => dmtd_locked);
 
---  dmtd_clk : single_region port map(
---    inclk  => clk_dmtd0,
---    outclk => clk_dmtd);
+
 
   sys_inst : sys_pll10 port map(
     rst      => pll_rst,
     refclk   => core_clk_125m_local_i, -- 125  Mhz
-    --outclk_0 => clk_sys0,           --  62.5MHz
     outclk_0 => clk_sys,           --  62.5MHz
---    outclk_1 => clk_sys1,           -- 100  MHz +0   ns
     outclk_1 => clk_reconf,           -- 100  MHz +0   ns
-    outclk_2 => clk_sys2,           --  20  MHz
+    outclk_2 => clk_ref,           --  125  MHz
     outclk_3 => clk_sys3,           --  10  MHz
     outclk_4 => clk_sys4,           -- 100  MHz +0.5 ns
     outclk_5 => clk_sys5,           -- 100  MHz +1.0 ns
     locked   => sys_locked);
 
---  sys_clk : global_region port map(
---    inclk  => clk_sys0,
---    outclk => clk_sys);
 
---  reconf_clk : global_region port map(
---    inclk  => clk_sys1,
---    outclk => clk_reconf);
-
-
-  ref_inst : ref_pll10 port map(
-    rst        => pll_rst,
-    refclk     => core_clk_125m_pllref_i, -- 125 MHz
---    outclk_0   => clk_ref0,         -- 125 MHz
-    outclk_0   => clk_ref,         -- 125 MHz
-    locked     => ref_locked);
-
-
---  ref_clk : global_region port map(
---    inclk  => clk_ref0,
---    outclk => clk_ref);
 
   -- END OF Reset and PLLs
   ----------------------------------------------------------------------------------
@@ -666,25 +638,41 @@ begin --rtl
   -- Gigabit Ethernet PHYfor arra5.
   -----------------------------------------------------------------------------
 
-  phy : entity work.wr_arria10_phy
-   port map (
-     clk_reconf_i   => clk_free,  -- clk_reconf,
-     clk_phy_i      => core_clk_125m_sfpref_i,
-     ready_o        => phy_rdy,
-     loopen_i       => phy_loopen,
-     drop_link_i    => phy_rst,
-     tx_clk_o       => phy_tx_clk,
-     tx_data_i      => phy_tx_data,
-     tx_k_i         => phy_tx_k,
-     tx_disparity_o => phy_tx_disparity,
-     tx_enc_err_o   => phy_tx_enc_err,
-     rx_rbclk_o     => phy_rx_rbclk,
-     rx_data_o      => phy_rx_data,
-     rx_k_o         => phy_rx_k,
-     rx_enc_err_o   => phy_rx_enc_err,
-     rx_bitslide_o  => phy_rx_bitslide,
-     pad_txp_o      => WR_SFP_TX,
-     pad_rxp_i      => WR_SFP_RX);
+  phy : entity work.wr_arria10_transceiver
+    generic map (
+	    g_family       => "Arria 10 GX SCU4"
+				    )
+	  port map (
+      clk_ref_i              => core_clk_125m_sfpref_i  ,    --                   ,  in  std_logic := '0';                                 -- Input clock from WR extension [125Mhz]
+      clk_phy_i              => core_clk_125m_sfpref_i  ,    --                                      ,  in  std_logic := '0';                                 -- Input clock from WR extension [125Mhz]
+      reconfig_write_i       => open                    ,    --                  ,  in  std_logic_vector(0 downto 0) := (others => '0');  -- Reconfig interface -> write
+      reconfig_read_i        => open                    ,    --                  ,  in  std_logic_vector(0 downto 0) := (others => '0');  -- Reconfig interface -> read
+      reconfig_address_i     => open                    ,    --                  ,  in  std_logic_vector(9 downto 0) := (others => '0');  -- Reconfig interface -> address
+      reconfig_writedata_i   => open                    ,    --                  ,  in  std_logic_vector(31 downto 0) := (others => '0'); -- Reconfig interface -> data to write
+      reconfig_readdata_o    => open                    ,    --                  ,  out std_logic_vector(31 downto 0);                    -- Reconfig interface -> read data from reconfig
+      reconfig_waitrequest_o => open                    ,    --                  ,  out std_logic_vector(0 downto 0);                     -- Reconfig interface -> wait
+      reconfig_clk_i         => (0 => clk_free)         ,    --                      ,  in  std_logic_vector(0 downto 0) := (others => '0');  -- Reconfig interface -> input clock
+      reconfig_reset_i       => open                    ,    --                  ,  in  std_logic_vector(0 downto 0) := (others => '0');  -- Reconfig interfacer -> reset
+      ready_o                => phy_rdy                 ,    --                                          ,  out std_logic;                                        -- TX and RX ready
+      drop_link_i            => phy_rst                 ,    --                     ,  in  std_logic := '0';                                 -- Drop link (reset)
+      loopen_i               => phy_loopen              ,    --                        ,  in  std_logic := '0';                                 -- Loop enable
+      sfp_los_i              => WR_SFP_LOS              ,    --                        ,  in  std_logic := '0';                                 -- SFP LOS
+      tx_clk_o               => phy_tx_clk              ,    --                        ,  out std_logic;                                        -- TX clock to WR core
+      tx_data_i              => phy_tx_data             ,    --                         ,  in  std_logic_vector(7 downto 0) := (others => '0');  -- Data from WR core
+      tx_ready_o             => open                    ,    --                   ,  out std_logic;                                        -- TX ready
+      tx_disparity_o         => phy_tx_disparity        ,    --                              ,  out std_logic;                                        -- Always zero
+      tx_enc_err_o           => phy_tx_enc_err          ,    --                            ,  out std_logic;                                        -- Always zero
+      tx_data_k_i            => phy_tx_k                ,    --                      ,  in  std_logic := '0';                                 -- TX data k
+      rx_clk_o               => phy_rx_rbclk            ,    --                          ,  out std_logic;                                        -- RX clock to WR core
+      rx_data_o              => phy_rx_data             ,    --                         ,  out std_logic_vector(7 downto 0);                     -- Data to WR core
+      rx_ready_o             => open                    ,    --                  ,  out std_logic;                                        -- RX ready
+      rx_data_k_o            => phy_rx_k                ,    --                      ,  out std_logic;                                        -- RX data k
+      rx_enc_err_o           => phy_rx_enc_err          ,    --                            ,  out std_logic;                                        -- RX Enc. error
+      rx_bitslide_o          => phy_rx_bitslide         ,    --                             ,  out std_logic_vector(3 downto 0);                     -- RX bitslide
+      debug_o                => open                    ,    --                 ,  out std_logic;                                        -- For debugging
+      debug_i                => open                    ,    --                 ,  in  std_logic_vector(7 downto 0) := (others => '0');  -- For debugging
+      pad_txp_o              => WR_SFP_TX               ,    --                       ,  out std_logic;                                        -- SFP out
+      pad_rxp_i              => WR_SFP_RX               );   --                        ,  in  std_logic := '0'                                  -- SFP in
 
 
 

@@ -20,8 +20,8 @@ set_clock_groups -asynchronous                 \
  -group { CLKUSR                             } \
  -group { AMC_PCI_CLK                        } \
  -group { REFCLK_40G                         } \
- -group { WR_CLK_DMTD    dmtd_inst|*                    } \
- -group { WR_REFCLK_125  sys_inst|*    ref_inst|*       } \
+ -group { WR_CLK_DMTD    dmtd_inst|*         } \
+ -group { WR_REFCLK_125  sys_inst|*          } \
  -group { LMK_CLKREF_12                      } \
  -group { phy|*|tx_clkout                    } \
  -group { phy|*|rx_clkout                    } \
