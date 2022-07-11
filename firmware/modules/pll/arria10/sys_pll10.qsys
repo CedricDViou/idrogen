@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<system name="$${FILENAME}">
+<system name="sys_pll10">
  <component
    name="$${FILENAME}"
    displayName="$${FILENAME}"
    version="1.0"
    description=""
-   tags="INTERNAL_COMPONENT=true"
-   categories="System" />
+   tags="AUTHORSHIP=Intel Corporation /// INTERNAL_COMPONENT=true"
+   categories="System"
+   tool="QsysStandard" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element $system
+   {
+   }
    element iopll_0
    {
       datum _sortIndex
@@ -19,7 +23,6 @@
    }
 }
 ]]></parameter>
- <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
  <parameter name="device" value="10AX027H4F34I3SG" />
  <parameter name="deviceFamily" value="Arria 10" />
  <parameter name="deviceSpeedGrade" value="3" />
@@ -30,10 +33,91 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="true" />
  <parameter name="lockedInterfaceDefinition" value="" />
- <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
+ <parameter name="systemInfos"><![CDATA[<systemInfosDefinition>
+    <connPtSystemInfos>
+        <entry>
+            <key>outclk0</key>
+            <value>
+                <connectionPointName>outclk0</connectionPointName>
+                <suppliedSystemInfos/>
+                <consumedSystemInfos>
+                    <entry>
+                        <key>CLOCK_RATE</key>
+                        <value>62500000</value>
+                    </entry>
+                </consumedSystemInfos>
+            </value>
+        </entry>
+        <entry>
+            <key>outclk1</key>
+            <value>
+                <connectionPointName>outclk1</connectionPointName>
+                <suppliedSystemInfos/>
+                <consumedSystemInfos>
+                    <entry>
+                        <key>CLOCK_RATE</key>
+                        <value>125000000</value>
+                    </entry>
+                </consumedSystemInfos>
+            </value>
+        </entry>
+        <entry>
+            <key>outclk2</key>
+            <value>
+                <connectionPointName>outclk2</connectionPointName>
+                <suppliedSystemInfos/>
+                <consumedSystemInfos>
+                    <entry>
+                        <key>CLOCK_RATE</key>
+                        <value>125000000</value>
+                    </entry>
+                </consumedSystemInfos>
+            </value>
+        </entry>
+        <entry>
+            <key>outclk3</key>
+            <value>
+                <connectionPointName>outclk3</connectionPointName>
+                <suppliedSystemInfos/>
+                <consumedSystemInfos>
+                    <entry>
+                        <key>CLOCK_RATE</key>
+                        <value>10000000</value>
+                    </entry>
+                </consumedSystemInfos>
+            </value>
+        </entry>
+        <entry>
+            <key>outclk4</key>
+            <value>
+                <connectionPointName>outclk4</connectionPointName>
+                <suppliedSystemInfos/>
+                <consumedSystemInfos>
+                    <entry>
+                        <key>CLOCK_RATE</key>
+                        <value>100000000</value>
+                    </entry>
+                </consumedSystemInfos>
+            </value>
+        </entry>
+        <entry>
+            <key>outclk5</key>
+            <value>
+                <connectionPointName>outclk5</connectionPointName>
+                <suppliedSystemInfos/>
+                <consumedSystemInfos>
+                    <entry>
+                        <key>CLOCK_RATE</key>
+                        <value>100000000</value>
+                    </entry>
+                </consumedSystemInfos>
+            </value>
+        </entry>
+    </connPtSystemInfos>
+</systemInfosDefinition>]]></parameter>
+ <parameter name="systemScripts" value="" />
  <parameter name="testBenchDutName" value="" />
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
@@ -65,10 +149,11 @@
  <interface name="reset" internal="iopll_0.reset" type="reset" dir="end">
   <port name="rst" internal="rst" />
  </interface>
+ <interface name="zdbfbclk" internal="iopll_0.zdbfbclk" />
  <module
    name="iopll_0"
    kind="altera_iopll"
-   version="18.1"
+   version="19.3.0"
    enabled="1"
    autoexport="1">
   <parameter name="gui_active_clk" value="false" />
@@ -176,22 +261,25 @@
   <parameter name="gui_enable_cascade_out" value="false" />
   <parameter name="gui_enable_mif_dps" value="false" />
   <parameter name="gui_enable_output_counter_cascading" value="false" />
+  <parameter name="gui_enable_permit_cal" value="false" />
   <parameter name="gui_existing_mif_file_path" value="~/pll.mif" />
   <parameter name="gui_extclkout_0_source" value="C0" />
   <parameter name="gui_extclkout_1_source" value="C0" />
   <parameter name="gui_feedback_clock" value="Global Clock" />
   <parameter name="gui_fix_vco_frequency" value="false" />
   <parameter name="gui_fixed_vco_frequency" value="600.0" />
+  <parameter name="gui_fixed_vco_frequency_ps" value="1667.0" />
   <parameter name="gui_frac_multiply_factor" value="1" />
   <parameter name="gui_fractional_cout" value="32" />
   <parameter name="gui_include_iossm" value="false" />
+  <parameter name="gui_location_type" value="I/O Bank" />
   <parameter name="gui_lock_setting" value="Low Lock Time" />
   <parameter name="gui_mif_config_name" value="unnamed" />
   <parameter name="gui_mif_gen_options">Generate New MIF File</parameter>
   <parameter name="gui_multiply_factor" value="6" />
   <parameter name="gui_new_mif_file_path" value="~/pll.mif" />
   <parameter name="gui_number_of_clocks" value="6" />
-  <parameter name="gui_operation_mode" value="direct" />
+  <parameter name="gui_operation_mode" value="normal" />
   <parameter name="gui_output_clock_frequency0" value="62.5" />
   <parameter name="gui_output_clock_frequency1" value="125.0" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
@@ -202,7 +290,7 @@
   <parameter name="gui_output_clock_frequency15" value="100.0" />
   <parameter name="gui_output_clock_frequency16" value="100.0" />
   <parameter name="gui_output_clock_frequency17" value="100.0" />
-  <parameter name="gui_output_clock_frequency2" value="20.0" />
+  <parameter name="gui_output_clock_frequency2" value="125.0" />
   <parameter name="gui_output_clock_frequency3" value="10.0" />
   <parameter name="gui_output_clock_frequency4" value="100.0" />
   <parameter name="gui_output_clock_frequency5" value="100.0" />
@@ -210,6 +298,24 @@
   <parameter name="gui_output_clock_frequency7" value="100.0" />
   <parameter name="gui_output_clock_frequency8" value="100.0" />
   <parameter name="gui_output_clock_frequency9" value="100.0" />
+  <parameter name="gui_output_clock_frequency_ps0" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps1" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps10" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps11" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps12" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps13" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps14" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps15" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps16" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps17" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps2" value="8000.0" />
+  <parameter name="gui_output_clock_frequency_ps3" value="100000.0" />
+  <parameter name="gui_output_clock_frequency_ps4" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps5" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps6" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps7" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps8" value="10000.0" />
+  <parameter name="gui_output_clock_frequency_ps9" value="10000.0" />
   <parameter name="gui_parameter_table_hex_file" value="seq_params_sim.hex" />
   <parameter name="gui_phase_shift0" value="0.0" />
   <parameter name="gui_phase_shift1" value="0.0" />
@@ -261,6 +367,7 @@
   <parameter name="gui_pll_type" value="S10_Simple" />
   <parameter name="gui_pll_vco_freq_band_0">pll_freq_clk0_disabled</parameter>
   <parameter name="gui_pll_vco_freq_band_1">pll_freq_clk1_disabled</parameter>
+  <parameter name="gui_prot_mode" value="UNUSED" />
   <parameter name="gui_ps_units0" value="ps" />
   <parameter name="gui_ps_units1" value="ps" />
   <parameter name="gui_ps_units10" value="ps" />
@@ -280,12 +387,17 @@
   <parameter name="gui_ps_units8" value="ps" />
   <parameter name="gui_ps_units9" value="ps" />
   <parameter name="gui_refclk1_frequency" value="100.0" />
+  <parameter name="gui_refclk_might_change" value="false" />
   <parameter name="gui_refclk_switch" value="false" />
   <parameter name="gui_reference_clock_frequency" value="125.0" />
+  <parameter name="gui_reference_clock_frequency_ps" value="8000.0" />
+  <parameter name="gui_skip_sdc_generation" value="false" />
   <parameter name="gui_switchover_delay" value="0" />
   <parameter name="gui_switchover_mode">Automatic Switchover</parameter>
   <parameter name="gui_use_NDFB_modes" value="false" />
+  <parameter name="gui_use_coreclk" value="false" />
   <parameter name="gui_use_locked" value="true" />
+  <parameter name="gui_use_logical" value="false" />
   <parameter name="gui_usr_device_speed_grade" value="1" />
   <parameter name="gui_vco_frequency" value="600.0" />
   <parameter name="hp_qsys_scripting_mode" value="false" />
@@ -294,8 +406,4 @@
   <parameter name="system_info_device_speed_grade" value="3" />
   <parameter name="system_part_trait_speed_grade" value="3" />
  </module>
- <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
- <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
