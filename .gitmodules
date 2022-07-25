@@ -13,3 +13,4 @@
 [submodule "firmware/ip_cores/general-cores"]
 	path = firmware/ip_cores/general-cores
 	url = https://ohwr.org/project/general-cores.git
+	ignore = dirty
