@@ -3,8 +3,8 @@
 git submodule init
 git submodule update
 
-TMP="ip_cores/general-cores/modules/common/tmp.py"
-FILE="ip_cores/general-cores/modules/common/Manifest.py"
+TMP="firmware/ip_cores/general-cores/modules/common/tmp.py"
+FILE="firmware/ip_cores/general-cores/modules/common/Manifest.py"
 
 if grep -q "matrix_pkg.vhd" "$FILE"; then
     echo "Manifest already contains matrix_pkg.vhd file."
