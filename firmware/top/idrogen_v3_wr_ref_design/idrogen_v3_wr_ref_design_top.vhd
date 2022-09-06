@@ -49,7 +49,7 @@ entity idrogen_v3_wr_ref_design_top is
         AMC_NPERSTL             :    in       STD_LOGIC ;
         AMC_PCIE_RX             :    in       STD_LOGIC_VECTOR(3 downto 0) ;
         AMC_PCIE_TX             :    out      STD_LOGIC_VECTOR(3 downto 0) ;
-        -- AMC_PCI_CLK             :    in       STD_LOGIC ;
+        AMC_PCI_CLK             :    in       STD_LOGIC ;
         
         ---------------------------------------------------------------------------
         -- Clock signals
@@ -321,6 +321,41 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
 
     signal probe : STD_LOGIC_VECTOR(8 downto 0);
 
+    ----------------------------------------------------------------------------------
+    -- PCIe Qsys signals -------------------------------------------------------------
+    ----------------------------------------------------------------------------------
+
+    signal PCI_to_WR        : STD_LOGIC;
+    signal WR_to_PCI        : STD_LOGIC;
+    signal pio_port         : STD_LOGIC_VECTOR(31 downto 0);
+    signal hip_ctrl_test_in : STD_LOGIC_VECTOR(31 downto 0);
+    
+
+    component pcie_qsys is
+		port (
+			pcie_refclk_clk                  : in  std_logic                     := 'X';             -- clk
+			pcie_npor_npor                   : in  std_logic                     := 'X';             -- npor
+			pcie_npor_pin_perst              : in  std_logic                     := 'X';             -- pin_perst
+			pcie_hip_serial_rx_in0           : in  std_logic                     := 'X';             -- rx_in0
+			pcie_hip_serial_rx_in1           : in  std_logic                     := 'X';             -- rx_in1
+			pcie_hip_serial_rx_in2           : in  std_logic                     := 'X';             -- rx_in2
+			pcie_hip_serial_rx_in3           : in  std_logic                     := 'X';             -- rx_in3
+			pcie_hip_serial_tx_out0          : out std_logic;                                        -- tx_out0
+			pcie_hip_serial_tx_out1          : out std_logic;                                        -- tx_out1
+			pcie_hip_serial_tx_out2          : out std_logic;                                        -- tx_out2
+			pcie_hip_serial_tx_out3          : out std_logic;                                        -- tx_out3
+            pcie_hip_ctrl_test_in            : in  std_logic_vector(31 downto 0) := (others => 'X'); -- test_in
+            pcie_hip_pipe_eidleinfersel0     : out std_logic_vector(2 downto 0);                     -- eidleinfersel0
+			pcie_hip_pipe_eidleinfersel1     : out std_logic_vector(2 downto 0);                     -- eidleinfersel1
+			pcie_hip_pipe_eidleinfersel2     : out std_logic_vector(2 downto 0);                     -- eidleinfersel2
+			pcie_hip_pipe_eidleinfersel3     : out std_logic_vector(2 downto 0);                     -- eidleinfersel3
+            pio_external_connection_out_port : out std_logic_vector(31 downto 0);                    -- out_port
+			uart_external_connection_rxd     : in  std_logic                     := 'X';             -- rxd
+			uart_external_connection_txd     : out std_logic                                         -- txd
+		);
+	end component pcie_qsys;
+
+
 begin --rtl
     ----------------------------------------------------------------------------------
     -- Reset and PLLs ----------------------------------------------------------------
@@ -335,7 +370,7 @@ begin --rtl
     core_rstn_i            <= DEV_CLRn;
     gxb_locked             <= '1';
     
-    pcie_hip_ctrl_test_in  <= '392';
+    -- pcie_hip_ctrl_test_in  <= '392';
 
     reset : altera_reset
         generic map(
@@ -457,8 +492,10 @@ begin --rtl
             wrf_snk_i    => eb_src_out,
 
             -- Miscellanous pins
-            uart_rxd_i => WR_TX_from_UART,      -- WR UART RX (input)
-            uart_txd_o => WR_RX_to_UART,        -- WR UART TX (output)
+            -- uart_rxd_i => WR_TX_from_UART,      -- WR UART RX (input)
+            -- uart_txd_o => WR_RX_to_UART,        -- WR UART TX (output)
+            uart_rxd_i => PCI_to_WR,
+            uart_txd_o => WR_to_PCI,
 
             scl_o => fmc_scl_o,
             scl_i => WR_SCL_FLASH_b,
@@ -602,7 +639,7 @@ begin --rtl
     PPS_OUT <= pps_long;
     LEDn(0) <= not pulse_1s; -- led D21
     LEDn(1) <= not link_up;  -- led D21
-    LEDn(2) <= not link_act; -- led D20
+    -- LEDn(2) <= not link_act; -- led D20
     LEDn(3) <= not pps_long; -- led D19
     --  LEDn(1) <= not pulse_1s2;  -- led D20
     --  LEDn(2) <= not pulse_1s3;  -- led D19
@@ -633,5 +670,27 @@ begin --rtl
 
         -- WR_TX_from_UART  -->  WR UART RX (input of wr-core)
         -- WR_RX_to_UART    -->  WR UART TX (output of wr-core)
+
+    LEDn(2)             <= pio_port(0);
+    hip_ctrl_test_in    <= 32x"188";
+
+    pcie_qsys_inst : component pcie_qsys
+		port map (
+			pcie_refclk_clk                  => AMC_PCI_CLK,                    --              pcie_refclk.clk
+			pcie_npor_npor                   => rstn_sys,                       --                pcie_npor.npor
+			pcie_npor_pin_perst              => AMC_NPERSTL,                    --                         .pin_perst
+			pcie_hip_ctrl_test_in            => hip_ctrl_test_in,               --            pcie_hip_ctrl.test_in
+			pcie_hip_serial_rx_in0           => AMC_PCIE_RX(0),                 --          pcie_hip_serial.rx_in0
+			pcie_hip_serial_rx_in1           => AMC_PCIE_RX(1),                 --                         .rx_in1
+			pcie_hip_serial_rx_in2           => AMC_PCIE_RX(2),                 --                         .rx_in2
+			pcie_hip_serial_rx_in3           => AMC_PCIE_RX(3),                 --                         .rx_in3
+			pcie_hip_serial_tx_out0          => AMC_PCIE_TX(0),                 --                         .tx_out0
+			pcie_hip_serial_tx_out1          => AMC_PCIE_TX(1),                 --                         .tx_out1
+			pcie_hip_serial_tx_out2          => AMC_PCIE_TX(2),                 --                         .tx_out2
+			pcie_hip_serial_tx_out3          => AMC_PCIE_TX(3),                 --                         .tx_out3
+			pio_external_connection_out_port => pio_port,                       --  pio_external_connection.out_port
+			uart_external_connection_rxd     => WR_to_PCI,                      -- uart_external_connection.rxd
+			uart_external_connection_txd     => PCI_to_WR                       --                         .txd
+		);
 
 end rtl;
