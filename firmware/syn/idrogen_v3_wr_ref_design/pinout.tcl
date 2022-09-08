@@ -109,8 +109,8 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to WR_SFP_sda_b
 set_instance_assignment -name IO_STANDARD "1.8 V" -to WR_SFP_RATE_SELECT
 set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to WR_SFP_RX
 set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to WR_SFP_TX
-set_instance_assignment -name IO_STANDARD "1.8 V" -to WR_RX_to_UART
-set_instance_assignment -name IO_STANDARD "1.8 V" -to WR_TX_from_UART
+set_instance_assignment -name IO_STANDARD "1.8 V" -to USB_RX
+set_instance_assignment -name IO_STANDARD "1.8 V" -to USB_TX
 
 set_instance_assignment -name IO_STANDARD LVDS -to PPS_IN
 set_instance_assignment -name IO_STANDARD LVDS -to PPS_OUT
@@ -360,8 +360,8 @@ set_location_assignment PIN_B18 -to WR_SFP_sda_b
 set_location_assignment PIN_B20 -to WR_SFP_RATE_SELECT
 set_location_assignment PIN_C30 -to WR_SFP_RX
 set_location_assignment PIN_B32 -to WR_SFP_TX
-set_location_assignment PIN_AP16 -to WR_RX_to_UART
-set_location_assignment PIN_AN20 -to WR_TX_from_UART
+set_location_assignment PIN_AP16 -to USB_RX
+set_location_assignment PIN_AN20 -to USB_TX
 
 set_location_assignment PIN_J27 -to PPS_IN
 set_location_assignment PIN_AF23 -to PPS_OUT
