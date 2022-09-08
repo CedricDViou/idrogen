@@ -14,7 +14,3 @@
 	path = firmware/ip_cores/general-cores
 	url = https://ohwr.org/project/general-cores.git
 	ignore = dirty
-[submodule "firmware/ip_cores/firmware-pcie"]
-	path = firmware/ip_cores/firmware-pcie
-	url = https://gitlab.in2p3.fr/antoine.back/firmware-pcie.git
-	branch = White-Rabbit-UART
