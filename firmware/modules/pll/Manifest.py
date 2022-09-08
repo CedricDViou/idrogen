@@ -5,9 +5,7 @@ def __helper():
 
 files = [
   "pll_pkg.vhd",
-  "altera_butis.vhd",
-  "altera_phase.vhd",
-  "altera_reset.vhd" ]
+  ]
   
 modules = {"local": __helper() }
 
