@@ -7,5 +7,6 @@ files = [
 modules = {
   "local" : [
     "../..",
+    "../../board/idrogen_v3",
   ]
 }

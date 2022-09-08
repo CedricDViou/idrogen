@@ -34,7 +34,7 @@ package pll_pkg is
   
    component dmtd_pll10_hydrogen is -- arria10
     port(
-      refclk   : in  std_logic := 'X'; -- 25   MHz
+      refclk   : in  std_logic := 'X'; -- 125  MHz
       outclk_0 : out std_logic;        -- 62.5 MHz
       rst      : in  std_logic := 'X';
       locked   : out std_logic);
@@ -42,7 +42,7 @@ package pll_pkg is
 
   component ref_pll10 is  -- arria10
     port(
-      refclk     : in  std_logic := 'X'; -- 125 MHz
+      refclk     : in  std_logic := 'X'; -- 10 MHz
       outclk_0   : out std_logic;        -- 125 MHz
       rst        : in  std_logic := 'X';
       locked     : out std_logic);
@@ -52,11 +52,7 @@ package pll_pkg is
     port(
       refclk   : in  std_logic := 'X'; -- 125   MHz
       outclk_0 : out std_logic;        --  62.5 MHz
-      outclk_1 : out std_logic;        -- 100   MHz (flash+reconfig)
-      outclk_2 : out std_logic;        --  20   MHz (display+scubus)
-      outclk_3 : out std_logic;        --  10   MHz (remote update)
-      outclk_4 : out std_logic;        -- 100   MHz +1.0 ns
-      outclk_5 : out std_logic;        -- 100   MHz +1.5 ns
+      outclk_1 : out std_logic;        -- 125   MHz
       rst      : in  std_logic := 'X';
       locked   : out std_logic);
   end component;
