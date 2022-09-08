@@ -1,8 +1,10 @@
 files = []
-modules = {'local': [#'build_id',
-                     'misc',
-                     'pll',
-                     'wr_arria10_phy',
-                     
-                     ]
-           }
+
+modules = {
+    'local': [
+        'misc',
+        'pll',
+        'wr_arria10_phy',
+        'pcie_qsys'
+    ]
+}
