@@ -2,7 +2,7 @@
 <ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
   <ipxact:library>pcie_qsys_pcie</ipxact:library>
-  <ipxact:name>pcie_a10_hip_1</ipxact:name>
+  <ipxact:name>pcie_qsys_pcie</ipxact:name>
   <ipxact:version>19.1</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
@@ -1296,7 +1296,7 @@
         <ipxact:parameter parameterId="addressSpan" type="string">
           <ipxact:name>addressSpan</ipxact:name>
           <ipxact:displayName>Address span</ipxact:displayName>
-          <ipxact:value>1099511627776</ipxact:value>
+          <ipxact:value>4194304</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="addressUnits" type="string">
           <ipxact:name>addressUnits</ipxact:name>
@@ -5434,7 +5434,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>39</ipxact:right>
+              <ipxact:right>21</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -6621,7 +6621,7 @@
         <ipxact:parameter parameterId="txs_addr_width_integer_hwtcl" type="int">
           <ipxact:name>txs_addr_width_integer_hwtcl</ipxact:name>
           <ipxact:displayName>txs_addr_width_integer_hwtcl</ipxact:displayName>
-          <ipxact:value>40</ipxact:value>
+          <ipxact:value>22</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="interface_type_integer_hwtcl" type="int">
           <ipxact:name>interface_type_integer_hwtcl</ipxact:name>
@@ -6731,7 +6731,7 @@
         <ipxact:parameter parameterId="user_txs_addr_width_hwtcl" type="int">
           <ipxact:name>user_txs_addr_width_hwtcl</ipxact:name>
           <ipxact:displayName>Address width of accessible PCIe memory space</ipxact:displayName>
-          <ipxact:value>40</ipxact:value>
+          <ipxact:value>22</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="cg_a2p_addr_map_num_entries_hwtcl" type="int">
           <ipxact:name>cg_a2p_addr_map_num_entries_hwtcl</ipxact:name>
@@ -14056,13 +14056,8 @@
          type = "String";
       }
    }
-   element pcie_a10_hip_1
+   element pcie_qsys_pcie
    {
-      datum _originalVersion
-      {
-         value = "18.1";
-         type = "String";
-      }
    }
 }
 </ipxact:value>
@@ -15244,7 +15239,7 @@
                     &lt;name&gt;txs_address_i&lt;/name&gt;
                     &lt;role&gt;address&lt;/role&gt;
                     &lt;direction&gt;Input&lt;/direction&gt;
-                    &lt;width&gt;40&lt;/width&gt;
+                    &lt;width&gt;22&lt;/width&gt;
                     &lt;lowerBound&gt;0&lt;/lowerBound&gt;
                     &lt;vhdlType&gt;STD_LOGIC_VECTOR&lt;/vhdlType&gt;
                 &lt;/port&gt;
@@ -15345,7 +15340,7 @@
                     &lt;/entry&gt;
                     &lt;entry&gt;
                         &lt;key&gt;addressSpan&lt;/key&gt;
-                        &lt;value&gt;1099511627776&lt;/value&gt;
+                        &lt;value&gt;4194304&lt;/value&gt;
                     &lt;/entry&gt;
                     &lt;entry&gt;
                         &lt;key&gt;addressUnits&lt;/key&gt;
@@ -17307,11 +17302,11 @@
                 &lt;consumedSystemInfos&gt;
                     &lt;entry&gt;
                         &lt;key&gt;ADDRESS_MAP&lt;/key&gt;
-                        &lt;value&gt;&amp;lt;address-map&amp;gt;&amp;lt;slave name='txs' start='0x0' end='0x10000000000' datawidth='32' /&amp;gt;&amp;lt;/address-map&amp;gt;&lt;/value&gt;
+                        &lt;value&gt;&amp;lt;address-map&amp;gt;&amp;lt;slave name='txs' start='0x0' end='0x400000' datawidth='32' /&amp;gt;&amp;lt;/address-map&amp;gt;&lt;/value&gt;
                     &lt;/entry&gt;
                     &lt;entry&gt;
                         &lt;key&gt;ADDRESS_WIDTH&lt;/key&gt;
-                        &lt;value&gt;40&lt;/value&gt;
+                        &lt;value&gt;22&lt;/value&gt;
                     &lt;/entry&gt;
                     &lt;entry&gt;
                         &lt;key&gt;MAX_SLAVE_DATA_WIDTH&lt;/key&gt;
@@ -17347,14 +17342,13 @@
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
-      <altera:interface_mapping altera:name="app_nreset_status" altera:internal="pcie_a10_hip_1.app_nreset_status" altera:type="reset" altera:dir="start">
+      <altera:interface_mapping altera:name="app_nreset_status" altera:internal="pcie_qsys_pcie.app_nreset_status" altera:type="reset" altera:dir="start">
         <altera:port_mapping altera:name="app_nreset_status" altera:internal="app_nreset_status"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="coreclkout_hip" altera:internal="pcie_a10_hip_1.coreclkout_hip" altera:type="clock" altera:dir="start">
+      <altera:interface_mapping altera:name="coreclkout_hip" altera:internal="pcie_qsys_pcie.coreclkout_hip" altera:type="clock" altera:dir="start">
         <altera:port_mapping altera:name="coreclkout_hip" altera:internal="coreclkout_hip"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="cra" altera:internal="pcie_a10_hip_1.cra"></altera:interface_mapping>
-      <altera:interface_mapping altera:name="dma_rd_master" altera:internal="pcie_a10_hip_1.dma_rd_master" altera:type="avalon" altera:dir="start">
+      <altera:interface_mapping altera:name="dma_rd_master" altera:internal="pcie_qsys_pcie.dma_rd_master" altera:type="avalon" altera:dir="start">
         <altera:port_mapping altera:name="rd_dma_address_o" altera:internal="rd_dma_address_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dma_burst_count_o" altera:internal="rd_dma_burst_count_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dma_byte_enable_o" altera:internal="rd_dma_byte_enable_o"></altera:port_mapping>
@@ -17362,7 +17356,7 @@
         <altera:port_mapping altera:name="rd_dma_write_data_o" altera:internal="rd_dma_write_data_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dma_write_o" altera:internal="rd_dma_write_o"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="dma_wr_master" altera:internal="pcie_a10_hip_1.dma_wr_master" altera:type="avalon" altera:dir="start">
+      <altera:interface_mapping altera:name="dma_wr_master" altera:internal="pcie_qsys_pcie.dma_wr_master" altera:type="avalon" altera:dir="start">
         <altera:port_mapping altera:name="wr_dma_address_o" altera:internal="wr_dma_address_o"></altera:port_mapping>
         <altera:port_mapping altera:name="wr_dma_burst_count_o" altera:internal="wr_dma_burst_count_o"></altera:port_mapping>
         <altera:port_mapping altera:name="wr_dma_read_data_i" altera:internal="wr_dma_read_data_i"></altera:port_mapping>
@@ -17370,11 +17364,11 @@
         <altera:port_mapping altera:name="wr_dma_read_o" altera:internal="wr_dma_read_o"></altera:port_mapping>
         <altera:port_mapping altera:name="wr_dma_wait_request_i" altera:internal="wr_dma_wait_request_i"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="hip_ctrl" altera:internal="pcie_a10_hip_1.hip_ctrl" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="hip_ctrl" altera:internal="pcie_qsys_pcie.hip_ctrl" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="simu_mode_pipe" altera:internal="simu_mode_pipe"></altera:port_mapping>
         <altera:port_mapping altera:name="test_in" altera:internal="test_in"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="hip_pipe" altera:internal="pcie_a10_hip_1.hip_pipe" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="hip_pipe" altera:internal="pcie_qsys_pcie.hip_pipe" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="currentcoeff0" altera:internal="currentcoeff0"></altera:port_mapping>
         <altera:port_mapping altera:name="currentcoeff1" altera:internal="currentcoeff1"></altera:port_mapping>
         <altera:port_mapping altera:name="currentcoeff2" altera:internal="currentcoeff2"></altera:port_mapping>
@@ -17483,7 +17477,7 @@
         <altera:port_mapping altera:name="txsynchd2" altera:internal="txsynchd2"></altera:port_mapping>
         <altera:port_mapping altera:name="txsynchd3" altera:internal="txsynchd3"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="hip_serial" altera:internal="pcie_a10_hip_1.hip_serial" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="hip_serial" altera:internal="pcie_qsys_pcie.hip_serial" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="rx_in0" altera:internal="rx_in0"></altera:port_mapping>
         <altera:port_mapping altera:name="rx_in1" altera:internal="rx_in1"></altera:port_mapping>
         <altera:port_mapping altera:name="rx_in2" altera:internal="rx_in2"></altera:port_mapping>
@@ -17493,11 +17487,11 @@
         <altera:port_mapping altera:name="tx_out2" altera:internal="tx_out2"></altera:port_mapping>
         <altera:port_mapping altera:name="tx_out3" altera:internal="tx_out3"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="npor" altera:internal="pcie_a10_hip_1.npor" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="npor" altera:internal="pcie_qsys_pcie.npor" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="npor" altera:internal="npor"></altera:port_mapping>
         <altera:port_mapping altera:name="pin_perst" altera:internal="pin_perst"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="rd_dcm_master" altera:internal="pcie_a10_hip_1.rd_dcm_master" altera:type="avalon" altera:dir="start">
+      <altera:interface_mapping altera:name="rd_dcm_master" altera:internal="pcie_qsys_pcie.rd_dcm_master" altera:type="avalon" altera:dir="start">
         <altera:port_mapping altera:name="rd_dcm_address_o" altera:internal="rd_dcm_address_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dcm_byte_enable_o" altera:internal="rd_dcm_byte_enable_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dcm_read_data_i" altera:internal="rd_dcm_read_data_i"></altera:port_mapping>
@@ -17507,7 +17501,7 @@
         <altera:port_mapping altera:name="rd_dcm_write_o" altera:internal="rd_dcm_write_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dcm_writedata_o" altera:internal="rd_dcm_writedata_o"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="rd_dts_slave" altera:internal="pcie_a10_hip_1.rd_dts_slave" altera:type="avalon" altera:dir="end">
+      <altera:interface_mapping altera:name="rd_dts_slave" altera:internal="pcie_qsys_pcie.rd_dts_slave" altera:type="avalon" altera:dir="end">
         <altera:port_mapping altera:name="rd_dts_address_i" altera:internal="rd_dts_address_i"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dts_burst_count_i" altera:internal="rd_dts_burst_count_i"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dts_chip_select_i" altera:internal="rd_dts_chip_select_i"></altera:port_mapping>
@@ -17515,10 +17509,10 @@
         <altera:port_mapping altera:name="rd_dts_write_data_i" altera:internal="rd_dts_write_data_i"></altera:port_mapping>
         <altera:port_mapping altera:name="rd_dts_write_i" altera:internal="rd_dts_write_i"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="refclk" altera:internal="pcie_a10_hip_1.refclk" altera:type="clock" altera:dir="end">
+      <altera:interface_mapping altera:name="refclk" altera:internal="pcie_qsys_pcie.refclk" altera:type="clock" altera:dir="end">
         <altera:port_mapping altera:name="refclk" altera:internal="refclk"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="rxm_bar2" altera:internal="pcie_a10_hip_1.rxm_bar2" altera:type="avalon" altera:dir="start">
+      <altera:interface_mapping altera:name="rxm_bar2" altera:internal="pcie_qsys_pcie.rxm_bar2" altera:type="avalon" altera:dir="start">
         <altera:port_mapping altera:name="rxm_bar2_address_o" altera:internal="rxm_bar2_address_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rxm_bar2_byteenable_o" altera:internal="rxm_bar2_byteenable_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rxm_bar2_read_o" altera:internal="rxm_bar2_read_o"></altera:port_mapping>
@@ -17528,7 +17522,7 @@
         <altera:port_mapping altera:name="rxm_bar2_write_o" altera:internal="rxm_bar2_write_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rxm_bar2_writedata_o" altera:internal="rxm_bar2_writedata_o"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="rxm_bar4" altera:internal="pcie_a10_hip_1.rxm_bar4" altera:type="avalon" altera:dir="start">
+      <altera:interface_mapping altera:name="rxm_bar4" altera:internal="pcie_qsys_pcie.rxm_bar4" altera:type="avalon" altera:dir="start">
         <altera:port_mapping altera:name="rxm_bar4_address_o" altera:internal="rxm_bar4_address_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rxm_bar4_byteenable_o" altera:internal="rxm_bar4_byteenable_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rxm_bar4_read_o" altera:internal="rxm_bar4_read_o"></altera:port_mapping>
@@ -17538,7 +17532,7 @@
         <altera:port_mapping altera:name="rxm_bar4_write_o" altera:internal="rxm_bar4_write_o"></altera:port_mapping>
         <altera:port_mapping altera:name="rxm_bar4_writedata_o" altera:internal="rxm_bar4_writedata_o"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="txs" altera:internal="pcie_a10_hip_1.txs" altera:type="avalon" altera:dir="end">
+      <altera:interface_mapping altera:name="txs" altera:internal="pcie_qsys_pcie.txs" altera:type="avalon" altera:dir="end">
         <altera:port_mapping altera:name="txs_address_i" altera:internal="txs_address_i"></altera:port_mapping>
         <altera:port_mapping altera:name="txs_byteenable_i" altera:internal="txs_byteenable_i"></altera:port_mapping>
         <altera:port_mapping altera:name="txs_chipselect_i" altera:internal="txs_chipselect_i"></altera:port_mapping>
@@ -17549,7 +17543,7 @@
         <altera:port_mapping altera:name="txs_write_i" altera:internal="txs_write_i"></altera:port_mapping>
         <altera:port_mapping altera:name="txs_writedata_i" altera:internal="txs_writedata_i"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="wr_dcm_master" altera:internal="pcie_a10_hip_1.wr_dcm_master" altera:type="avalon" altera:dir="start">
+      <altera:interface_mapping altera:name="wr_dcm_master" altera:internal="pcie_qsys_pcie.wr_dcm_master" altera:type="avalon" altera:dir="start">
         <altera:port_mapping altera:name="wr_dcm_address_o" altera:internal="wr_dcm_address_o"></altera:port_mapping>
         <altera:port_mapping altera:name="wr_dcm_byte_enable_o" altera:internal="wr_dcm_byte_enable_o"></altera:port_mapping>
         <altera:port_mapping altera:name="wr_dcm_read_data_i" altera:internal="wr_dcm_read_data_i"></altera:port_mapping>
@@ -17559,7 +17553,7 @@
         <altera:port_mapping altera:name="wr_dcm_write_o" altera:internal="wr_dcm_write_o"></altera:port_mapping>
         <altera:port_mapping altera:name="wr_dcm_writedata_o" altera:internal="wr_dcm_writedata_o"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="wr_dts_slave" altera:internal="pcie_a10_hip_1.wr_dts_slave" altera:type="avalon" altera:dir="end">
+      <altera:interface_mapping altera:name="wr_dts_slave" altera:internal="pcie_qsys_pcie.wr_dts_slave" altera:type="avalon" altera:dir="end">
         <altera:port_mapping altera:name="wr_dts_address_i" altera:internal="wr_dts_address_i"></altera:port_mapping>
         <altera:port_mapping altera:name="wr_dts_burst_count_i" altera:internal="wr_dts_burst_count_i"></altera:port_mapping>
         <altera:port_mapping altera:name="wr_dts_chip_select_i" altera:internal="wr_dts_chip_select_i"></altera:port_mapping>

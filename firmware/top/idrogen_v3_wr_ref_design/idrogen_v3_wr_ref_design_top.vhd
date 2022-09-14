@@ -348,6 +348,7 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
 			pcie_hip_serial_tx_out3          : out STD_LOGIC;                                        -- tx_out3
             pcie_hip_ctrl_test_in            : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X'); -- test_in
             pio_external_connection_export   : out STD_LOGIC_VECTOR(31 downto 0);                    -- out_port
+            sys_reset_reset_n                : in  STD_LOGIC                     := 'X';             -- reset_n
 			uart_external_connection_rxd     : in  STD_LOGIC                     := 'X';             -- rxd
 			uart_external_connection_txd     : out STD_LOGIC                                         -- txd
 		);
@@ -709,6 +710,7 @@ begin --rtl
 			pcie_hip_serial_tx_out2          => AMC_PCIE_TX(2),     --                         .tx_out2
 			pcie_hip_serial_tx_out3          => AMC_PCIE_TX(3),     --                         .tx_out3
 			pio_external_connection_export   => pio_port,           --  pio_external_connection.out_port
+            sys_reset_reset_n                => rstn_sys,           --                sys_reset.reset_n
 			uart_external_connection_rxd     => PCIE_RX,            -- uart_external_connection.rxd
 			uart_external_connection_txd     => PCIE_TX             --                         .txd
 		);
