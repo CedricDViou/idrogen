@@ -1,6 +1,6 @@
 # Git repository for Idrogen
 
-Firmware for Igrogen Board of the DAC-GEN project.
+Firmware for Idrogen Board of DAC-GEN project.
 
 ## Command line instructions
 
