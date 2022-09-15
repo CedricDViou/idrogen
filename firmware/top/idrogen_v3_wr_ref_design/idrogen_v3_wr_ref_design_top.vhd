@@ -54,7 +54,9 @@ entity idrogen_v3_wr_ref_design_top is
         ---------------------------------------------------------------------------
         -- Clock signals
         ---------------------------------------------------------------------------
-    
+        
+        AMC_REFCLK_1G : in STD_LOGIC;
+
         -- Reference clocks from LMK
         -- Local system clock (also from LMK, but could be a fixed Xtal)
         LMK_CLKREF_2 : in STD_LOGIC;
@@ -335,6 +337,7 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
 
     component pcie_qsys is
 		port (
+            pcie_sys_clk_clk                 : in  std_logic                     := 'X';             -- clk
 			pcie_refclk_clk                  : in  STD_LOGIC                     := 'X';             -- clk
 			pcie_npor_npor                   : in  STD_LOGIC                     := 'X';             -- npor
 			pcie_npor_pin_perst              : in  STD_LOGIC                     := 'X';             -- pin_perst
@@ -697,8 +700,9 @@ begin --rtl
 
     pcie_qsys_inst : component pcie_qsys
 		port map (
+            pcie_sys_clk_clk                 => AMC_REFCLK_1G,      --             pcie_sys_clk.clk
 			pcie_refclk_clk                  => AMC_PCI_CLK,        --              pcie_refclk.clk
-			pcie_npor_npor                   => rstn_sys,           --                pcie_npor.npor
+			pcie_npor_npor                   => DEV_CLRn,           --                pcie_npor.npor
 			pcie_npor_pin_perst              => AMC_NPERSTL,        --                         .pin_perst
 			pcie_hip_ctrl_test_in            => hip_ctrl_test_in,   --            pcie_hip_ctrl.test_in
 			pcie_hip_serial_rx_in0           => AMC_PCIE_RX(0),     --          pcie_hip_serial.rx_in0
@@ -710,7 +714,7 @@ begin --rtl
 			pcie_hip_serial_tx_out2          => AMC_PCIE_TX(2),     --                         .tx_out2
 			pcie_hip_serial_tx_out3          => AMC_PCIE_TX(3),     --                         .tx_out3
 			pio_external_connection_export   => pio_port,           --  pio_external_connection.out_port
-            sys_reset_reset_n                => rstn_sys,           --                sys_reset.reset_n
+            sys_reset_reset_n                => DEV_CLRn,           --                sys_reset.reset_n
 			uart_external_connection_rxd     => PCIE_RX,            -- uart_external_connection.rxd
 			uart_external_connection_txd     => PCIE_TX             --                         .txd
 		);

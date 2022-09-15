@@ -5,6 +5,6 @@ modules = {
         'misc',
         'pll',
         'wr_arria10_phy',
-        'pcie_qsys'
+        'pcie_qsys',
     ]
 }
