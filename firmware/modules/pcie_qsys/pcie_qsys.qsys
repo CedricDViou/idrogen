@@ -11951,6 +11951,26 @@
   <parameter name="qsys_mm.syncResets" value="FALSE" />
   <parameter name="qsys_mm.widthAdapterImplementation" value="GENERIC_CONVERTER" />
  </connection>
+ <connection
+   kind="avalon"
+   version="19.3"
+   start="pcie.rxm_bar2"
+   end="sysid.control_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xa000" />
+  <parameter name="defaultConnection" value="false" />
+  <parameter name="domainAlias" value="" />
+  <parameter name="qsys_mm.burstAdapterImplementation" value="GENERIC_CONVERTER" />
+  <parameter name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+  <parameter name="qsys_mm.enableEccProtection" value="FALSE" />
+  <parameter name="qsys_mm.enableInstrumentation" value="FALSE" />
+  <parameter name="qsys_mm.insertDefaultSlave" value="FALSE" />
+  <parameter name="qsys_mm.interconnectResetSource" value="DEFAULT" />
+  <parameter name="qsys_mm.interconnectType" value="STANDARD" />
+  <parameter name="qsys_mm.maxAdditionalLatency" value="1" />
+  <parameter name="qsys_mm.syncResets" value="FALSE" />
+  <parameter name="qsys_mm.widthAdapterImplementation" value="GENERIC_CONVERTER" />
+ </connection>
  <connection kind="avalon" version="19.3" start="pcie.rxm_bar2" end="pio.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x8000" />
