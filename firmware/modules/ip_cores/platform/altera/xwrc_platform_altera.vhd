@@ -305,8 +305,8 @@ begin  -- architecture rtl
   cmp_phy : wr_arria10_transceiver
     generic map (
       g_family       => "Arria 10 GX SCU4",
-      g_use_atx_pll  => true,  -- Use ATX PLL?
-      g_use_cmu_pll  => false -- Use CMU PLL?
+      g_use_atx_pll  => false,  -- Use ATX PLL?
+      g_use_cmu_pll  => true    -- Use CMU PLL?
       )
     port map (
       clk_ref_i      => clk_pll_ref,
