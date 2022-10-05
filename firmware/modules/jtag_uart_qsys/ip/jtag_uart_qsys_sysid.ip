@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
-  <ipxact:library>pcie_qsys_sysid</ipxact:library>
-  <ipxact:name>sysid_qsys_0</ipxact:name>
+  <ipxact:library>jtag_uart_qsys_sysid</ipxact:library>
+  <ipxact:name>jtag_uart_qsys_sysid</ipxact:name>
   <ipxact:version>19.1</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
@@ -413,7 +413,7 @@
   <ipxact:vendorExtensions>
     <altera:entity_info>
       <ipxact:vendor>Intel Corporation</ipxact:vendor>
-      <ipxact:library>pcie_qsys_sysid</ipxact:library>
+      <ipxact:library>jtag_uart_qsys_sysid</ipxact:library>
       <ipxact:name>altera_avalon_sysid_qsys</ipxact:name>
       <ipxact:version>19.1</ipxact:version>
     </altera:entity_info>
@@ -422,12 +422,12 @@
         <ipxact:parameter parameterId="id" type="int">
           <ipxact:name>id</ipxact:name>
           <ipxact:displayName>32 bit System ID</ipxact:displayName>
-          <ipxact:value>305419896</ipxact:value>
+          <ipxact:value>2023406814</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="ID_VALUE" type="int">
           <ipxact:name>ID_VALUE</ipxact:name>
           <ipxact:displayName>32 bit System ID</ipxact:displayName>
-          <ipxact:value>305419896</ipxact:value>
+          <ipxact:value>2023406814</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="TIMESTAMP" type="int">
           <ipxact:name>TIMESTAMP</ipxact:name>
@@ -440,7 +440,7 @@
       <ipxact:parameters>
         <ipxact:parameter parameterId="embeddedsw.CMacro.ID" type="string">
           <ipxact:name>embeddedsw.CMacro.ID</ipxact:name>
-          <ipxact:value>305419896</ipxact:value>
+          <ipxact:value>2023406814</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.CMacro.TIMESTAMP" type="string">
           <ipxact:name>embeddedsw.CMacro.TIMESTAMP</ipxact:name>
@@ -460,7 +460,7 @@
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.dts.params.id" type="string">
           <ipxact:name>embeddedsw.dts.params.id</ipxact:name>
-          <ipxact:value>305419896</ipxact:value>
+          <ipxact:value>2023406814</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.dts.params.timestamp" type="string">
           <ipxact:name>embeddedsw.dts.params.timestamp</ipxact:name>
@@ -507,13 +507,8 @@
          type = "String";
       }
    }
-   element sysid_qsys_0
+   element jtag_uart_qsys_sysid
    {
-      datum _originalVersion
-      {
-         value = "18.1";
-         type = "String";
-      }
    }
 }
 </ipxact:value>
@@ -858,7 +853,7 @@
                     &lt;/entry&gt;
                     &lt;entry&gt;
                         &lt;key&gt;sysid_id_value&lt;/key&gt;
-                        &lt;value&gt;0x12345678&lt;/value&gt;
+                        &lt;value&gt;0x789abcde&lt;/value&gt;
                     &lt;/entry&gt;
                 &lt;/cmsisVars&gt;
             &lt;/cmsisInfo&gt;
@@ -898,14 +893,14 @@
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
-      <altera:interface_mapping altera:name="clk" altera:internal="sysid_qsys_0.clk" altera:type="clock" altera:dir="end">
+      <altera:interface_mapping altera:name="clk" altera:internal="jtag_uart_qsys_sysid.clk" altera:type="clock" altera:dir="end">
         <altera:port_mapping altera:name="clock" altera:internal="clock"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="control_slave" altera:internal="sysid_qsys_0.control_slave" altera:type="avalon" altera:dir="end">
+      <altera:interface_mapping altera:name="control_slave" altera:internal="jtag_uart_qsys_sysid.control_slave" altera:type="avalon" altera:dir="end">
         <altera:port_mapping altera:name="address" altera:internal="address"></altera:port_mapping>
         <altera:port_mapping altera:name="readdata" altera:internal="readdata"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="reset" altera:internal="sysid_qsys_0.reset" altera:type="reset" altera:dir="end">
+      <altera:interface_mapping altera:name="reset" altera:internal="jtag_uart_qsys_sysid.reset" altera:type="reset" altera:dir="end">
         <altera:port_mapping altera:name="reset_n" altera:internal="reset_n"></altera:port_mapping>
       </altera:interface_mapping>
     </altera:altera_interface_boundary>

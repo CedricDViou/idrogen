@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
-  <ipxact:library>pcie_qsys_jtag</ipxact:library>
-  <ipxact:name>pcie_qsys_jtag</ipxact:name>
+  <ipxact:library>jtag_uart_qsys_jtag_master</ipxact:library>
+  <ipxact:name>jtag_uart_qsys_jtag_master</ipxact:name>
   <ipxact:version>19.1</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
@@ -574,7 +574,7 @@
   <ipxact:vendorExtensions>
     <altera:entity_info>
       <ipxact:vendor>Intel Corporation</ipxact:vendor>
-      <ipxact:library>pcie_qsys_jtag</ipxact:library>
+      <ipxact:library>jtag_uart_qsys_jtag_master</ipxact:library>
       <ipxact:name>altera_jtag_avalon_master</ipxact:name>
       <ipxact:version>19.1</ipxact:version>
     </altera:entity_info>
@@ -665,7 +665,7 @@
          type = "String";
       }
    }
-   element pcie_qsys_jtag
+   element jtag_uart_qsys_jtag_master
    {
    }
 }
@@ -1022,13 +1022,13 @@
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
-      <altera:interface_mapping altera:name="clk" altera:internal="pcie_qsys_jtag.clk" altera:type="clock" altera:dir="end">
+      <altera:interface_mapping altera:name="clk" altera:internal="jtag_uart_qsys_jtag_master.clk" altera:type="clock" altera:dir="end">
         <altera:port_mapping altera:name="clk_clk" altera:internal="clk_clk"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="clk_reset" altera:internal="pcie_qsys_jtag.clk_reset" altera:type="reset" altera:dir="end">
+      <altera:interface_mapping altera:name="clk_reset" altera:internal="jtag_uart_qsys_jtag_master.clk_reset" altera:type="reset" altera:dir="end">
         <altera:port_mapping altera:name="clk_reset_reset" altera:internal="clk_reset_reset"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="master" altera:internal="pcie_qsys_jtag.master" altera:type="avalon" altera:dir="start">
+      <altera:interface_mapping altera:name="master" altera:internal="jtag_uart_qsys_jtag_master.master" altera:type="avalon" altera:dir="start">
         <altera:port_mapping altera:name="master_address" altera:internal="master_address"></altera:port_mapping>
         <altera:port_mapping altera:name="master_byteenable" altera:internal="master_byteenable"></altera:port_mapping>
         <altera:port_mapping altera:name="master_read" altera:internal="master_read"></altera:port_mapping>
@@ -1038,7 +1038,7 @@
         <altera:port_mapping altera:name="master_write" altera:internal="master_write"></altera:port_mapping>
         <altera:port_mapping altera:name="master_writedata" altera:internal="master_writedata"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="master_reset" altera:internal="pcie_qsys_jtag.master_reset" altera:type="reset" altera:dir="start">
+      <altera:interface_mapping altera:name="master_reset" altera:internal="jtag_uart_qsys_jtag_master.master_reset" altera:type="reset" altera:dir="start">
         <altera:port_mapping altera:name="master_reset_reset" altera:internal="master_reset_reset"></altera:port_mapping>
       </altera:interface_mapping>
     </altera:altera_interface_boundary>

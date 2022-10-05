@@ -2,7 +2,7 @@
 <ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
   <ipxact:library>pcie_qsys_pio</ipxact:library>
-  <ipxact:name>pcie_qsys_pio</ipxact:name>
+  <ipxact:name>pio_0</ipxact:name>
   <ipxact:version>19.1</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
@@ -605,7 +605,7 @@
         <ipxact:parameter parameterId="clockRate" type="longint">
           <ipxact:name>clockRate</ipxact:name>
           <ipxact:displayName>clockRate</ipxact:displayName>
-          <ipxact:value>25000000</ipxact:value>
+          <ipxact:value>250000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="derived_has_tri" type="bit">
           <ipxact:name>derived_has_tri</ipxact:name>
@@ -681,7 +681,7 @@
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.CMacro.FREQ" type="string">
           <ipxact:name>embeddedsw.CMacro.FREQ</ipxact:name>
-          <ipxact:value>25000000</ipxact:value>
+          <ipxact:value>250000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.CMacro.HAS_IN" type="string">
           <ipxact:name>embeddedsw.CMacro.HAS_IN</ipxact:name>
@@ -764,8 +764,13 @@
          type = "String";
       }
    }
-   element pcie_qsys_pio
+   element pio_0
    {
+      datum _originalVersion
+      {
+         value = "18.1";
+         type = "String";
+      }
    }
 }
 </ipxact:value>
@@ -1251,7 +1256,7 @@
                 &lt;suppliedSystemInfos&gt;
                     &lt;entry&gt;
                         &lt;key&gt;CLOCK_RATE&lt;/key&gt;
-                        &lt;value&gt;25000000&lt;/value&gt;
+                        &lt;value&gt;250000000&lt;/value&gt;
                     &lt;/entry&gt;
                 &lt;/suppliedSystemInfos&gt;
                 &lt;consumedSystemInfos/&gt;
@@ -1284,16 +1289,16 @@
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
-      <altera:interface_mapping altera:name="clk" altera:internal="pcie_qsys_pio.clk" altera:type="clock" altera:dir="end">
+      <altera:interface_mapping altera:name="clk" altera:internal="pio_0.clk" altera:type="clock" altera:dir="end">
         <altera:port_mapping altera:name="clk" altera:internal="clk"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="external_connection" altera:internal="pcie_qsys_pio.external_connection" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="external_connection" altera:internal="pio_0.external_connection" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="out_port" altera:internal="out_port"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="reset" altera:internal="pcie_qsys_pio.reset" altera:type="reset" altera:dir="end">
+      <altera:interface_mapping altera:name="reset" altera:internal="pio_0.reset" altera:type="reset" altera:dir="end">
         <altera:port_mapping altera:name="reset_n" altera:internal="reset_n"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="s1" altera:internal="pcie_qsys_pio.s1" altera:type="avalon" altera:dir="end">
+      <altera:interface_mapping altera:name="s1" altera:internal="pio_0.s1" altera:type="avalon" altera:dir="end">
         <altera:port_mapping altera:name="address" altera:internal="address"></altera:port_mapping>
         <altera:port_mapping altera:name="chipselect" altera:internal="chipselect"></altera:port_mapping>
         <altera:port_mapping altera:name="readdata" altera:internal="readdata"></altera:port_mapping>

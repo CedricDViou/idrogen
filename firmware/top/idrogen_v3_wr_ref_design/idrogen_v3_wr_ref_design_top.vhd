@@ -54,9 +54,9 @@ entity idrogen_v3_wr_ref_design_top is
         ---------------------------------------------------------------------------
         -- Clock signals
         ---------------------------------------------------------------------------
-        
-        AMC_REFCLK_1G : in STD_LOGIC;
 
+        AMC_REFCLK_1G : in STD_LOGIC ;
+    
         -- Reference clocks from LMK
         -- Local system clock (also from LMK, but could be a fixed Xtal)
         LMK_CLKREF_2 : in STD_LOGIC;
@@ -337,7 +337,6 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
 
     component pcie_qsys is
 		port (
-            pcie_sys_clk_clk                 : in  std_logic                     := 'X';             -- clk
 			pcie_refclk_clk                  : in  STD_LOGIC                     := 'X';             -- clk
 			pcie_npor_npor                   : in  STD_LOGIC                     := 'X';             -- npor
 			pcie_npor_pin_perst              : in  STD_LOGIC                     := 'X';             -- pin_perst
@@ -351,12 +350,26 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
 			pcie_hip_serial_tx_out3          : out STD_LOGIC;                                        -- tx_out3
             pcie_hip_ctrl_test_in            : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X'); -- test_in
             pio_external_connection_export   : out STD_LOGIC_VECTOR(31 downto 0);                    -- out_port
-            sys_reset_reset_n                : in  STD_LOGIC                     := 'X';             -- reset_n
 			uart_external_connection_rxd     : in  STD_LOGIC                     := 'X';             -- rxd
 			uart_external_connection_txd     : out STD_LOGIC                                         -- txd
 		);
 	end component pcie_qsys;
 
+    ----------------------------------------------------------------------------------
+    -- JTAG to UART ------------------------------------------------------------------
+    ----------------------------------------------------------------------------------
+
+    signal JTAG_RX          : STD_LOGIC;
+    signal JTAG_TX          : STD_LOGIC;
+
+    component jtag_uart_qsys is
+		port (
+			clk_clk       : in  std_logic := 'X'; -- clk
+			jtag_uart_rxd : in  std_logic := 'X'; -- rxd
+			jtag_uart_txd : out std_logic;        -- txd
+			reset_reset_n : in  std_logic := 'X'  -- reset
+		);
+	end component jtag_uart_qsys;
 
 begin --rtl
     ----------------------------------------------------------------------------------
@@ -598,7 +611,7 @@ begin --rtl
         );
 
     -----------------------------------------------------------------------------
-    -- Gigabit Ethernet PHYfor arra5.
+    -- Gigabit Ethernet PHY for Arria 10.
     -----------------------------------------------------------------------------
 
     phy : entity work.wr_arria10_phy
@@ -694,13 +707,16 @@ begin --rtl
     LEDn(2)             <= pio_port(0);
     
     -- UART connections between WR, PCIe and USB
-    WR_RX               <= PCIE_TX when pio_port(0) = '1' else USB_TX;
+    WR_RX   <=  USB_TX  when pio_port(1 downto 0) = "00" else
+                PCIE_TX when pio_port(1 downto 0) = "01" else
+                JTAG_TX when pio_port(1 downto 0) = "10";
+
     USB_RX              <= WR_TX;
     PCIE_RX             <= WR_TX;
+    JTAG_RX             <= WR_TX;
 
     pcie_qsys_inst : component pcie_qsys
 		port map (
-            pcie_sys_clk_clk                 => AMC_REFCLK_1G,      --             pcie_sys_clk.clk
 			pcie_refclk_clk                  => AMC_PCI_CLK,        --              pcie_refclk.clk
 			pcie_npor_npor                   => DEV_CLRn,           --                pcie_npor.npor
 			pcie_npor_pin_perst              => AMC_NPERSTL,        --                         .pin_perst
@@ -714,9 +730,16 @@ begin --rtl
 			pcie_hip_serial_tx_out2          => AMC_PCIE_TX(2),     --                         .tx_out2
 			pcie_hip_serial_tx_out3          => AMC_PCIE_TX(3),     --                         .tx_out3
 			pio_external_connection_export   => pio_port,           --  pio_external_connection.out_port
-            sys_reset_reset_n                => DEV_CLRn,           --                sys_reset.reset_n
 			uart_external_connection_rxd     => PCIE_RX,            -- uart_external_connection.rxd
 			uart_external_connection_txd     => PCIE_TX             --                         .txd
+		);
+
+	jtag_uart_qsys_inst : component jtag_uart_qsys
+		port map (
+			clk_clk       => AMC_REFCLK_1G, --       clk.clk
+			jtag_uart_rxd => JTAG_RX,       -- jtag_uart.rxd
+			jtag_uart_txd => JTAG_TX,       --          .txd
+			reset_reset_n => DEV_CLRn       --     reset.reset
 		);
 
 end rtl;
