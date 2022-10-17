@@ -14,3 +14,6 @@
 	path = firmware/ip_cores/general-cores
 	url = https://ohwr.org/project/general-cores.git
 	ignore = dirty
+[submodule "firmware/ip_cores/ipbus-1g"]
+	path = firmware/ip_cores/ipbus-1g
+	url = https://gitlab.in2p3.fr/NEBULA/ipbus-1g.git
