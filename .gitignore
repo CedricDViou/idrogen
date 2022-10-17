@@ -25,6 +25,7 @@ toolchain/
 *.qip
 *.qpf
 *.qsf
+*.qws
 *.regmap
 *.rel
 *.rpt
