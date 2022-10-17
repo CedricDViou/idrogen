@@ -50,6 +50,25 @@ entity idrogen_v3_wr_ref_design_top is
         AMC_PCIE_RX             :    in       STD_LOGIC_VECTOR(3 downto 0) ;
         AMC_PCIE_TX             :    out      STD_LOGIC_VECTOR(3 downto 0) ;
         AMC_PCI_CLK             :    in       STD_LOGIC ;
+
+        ---------------------------------------------------------------------------
+        -- SPI interface to AtMega
+        ---------------------------------------------------------------------------
+
+        uC_INT                  :    out      STD_LOGIC := '0' ;
+        uC_MISO                 :    inout    STD_LOGIC := 'Z' ;
+        uC_MOSI                 :    inout    STD_LOGIC := 'Z' ;
+        uC_SCLK                 :    inout    STD_LOGIC := 'Z' ;
+        uC_CSn                  :    inout    STD_LOGIC := 'Z' ;
+
+        ---------------------------------------------------------------------------
+        -- IpBus
+        ---------------------------------------------------------------------------
+
+        QSFP_RX         : in    STD_LOGIC_VECTOR(3 downto 0);
+        QSFP_TX         : out   STD_LOGIC_VECTOR(3 downto 0);
+        AMC_1GbE_RX     : in    STD_LOGIC_VECTOR(1 downto 0);
+        AMC_1GbE_TX     : out   STD_LOGIC_VECTOR(1 downto 0);
         
         ---------------------------------------------------------------------------
         -- Clock signals
@@ -359,17 +378,41 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
     -- JTAG to UART ------------------------------------------------------------------
     ----------------------------------------------------------------------------------
 
-    signal JTAG_RX          : STD_LOGIC;
-    signal JTAG_TX          : STD_LOGIC;
+    signal JTAG_RX : STD_LOGIC;
+    signal JTAG_TX : STD_LOGIC;
 
     component jtag_uart_qsys is
 		port (
-			clk_clk       : in  std_logic := 'X'; -- clk
-			jtag_uart_rxd : in  std_logic := 'X'; -- rxd
-			jtag_uart_txd : out std_logic;        -- txd
-			reset_reset_n : in  std_logic := 'X'  -- reset
+			clk_clk       : in  STD_LOGIC := 'X'; -- clk
+			jtag_uart_rxd : in  STD_LOGIC := 'X'; -- rxd
+			jtag_uart_txd : out STD_LOGIC ;        -- txd
+			reset_reset_n : in  STD_LOGIC := 'X'  -- reset
 		);
 	end component jtag_uart_qsys;
+
+    ----------------------------------------------------------------------------------
+    -- IpBus to UART ------------------------------------------------------------------
+    ----------------------------------------------------------------------------------
+
+    signal IPBUS_RX : STD_LOGIC;
+    signal IPBUS_TX : STD_LOGIC;
+
+    -- component top_ipbus is
+	-- 	port (
+	-- 		refclk_1G       : in  STD_LOGIC := 'X';
+	-- 		nreset          : in  STD_LOGIC := 'X';
+	-- 		spi_clk         : in  STD_LOGIC := 'X';
+    --         csn             : in  STD_LOGIC := 'X';
+    --         mosi            : in  STD_LOGIC := 'X';
+    --         miso            : out STD_LOGIC ;
+    --         rx_gbt          : in  STD_LOGIC := 'X';
+    --         tx_gbt          : out STD_LOGIC ;
+    --         interrupt       : out STD_LOGIC ;
+    --         ipbus_uart_rxd  : in  STD_LOGIC := 'X';
+    --         ipbus_uart_txd  : out STD_LOGIC
+	-- 	);
+	-- end component top_ipbus;
+
 
 begin --rtl
     ----------------------------------------------------------------------------------
@@ -653,7 +696,7 @@ begin --rtl
 
     PPS_OUT <= pps_long;
     LEDn(0) <= not pulse_1s; -- led D21
-    LEDn(1) <= not link_up;  -- led D21
+    -- LEDn(1) <= not link_up;  -- led D21
     -- LEDn(2) <= not link_act; -- led D20
     LEDn(3) <= not pps_long; -- led D19
     --  LEDn(1) <= not pulse_1s2;  -- led D20
@@ -704,16 +747,19 @@ begin --rtl
     hip_ctrl_test_in    <= 32x"188";
 
     -- PIO turning on/off LED
-    LEDn(2)             <= pio_port(0);
+    LEDn(2) <= not pio_port(0);
+    LEDn(1) <= not pio_port(1);
     
     -- UART connections between WR, PCIe and USB
-    WR_RX   <=  USB_TX  when pio_port(1 downto 0) = "00" else
-                PCIE_TX when pio_port(1 downto 0) = "01" else
-                JTAG_TX when pio_port(1 downto 0) = "10";
+    WR_RX   <=  USB_TX   when pio_port(1 downto 0) = "00" else
+                PCIE_TX  when pio_port(1 downto 0) = "01" else
+                JTAG_TX  when pio_port(1 downto 0) = "10" else
+                IPBUS_TX when pio_port(1 downto 0) = "11" ;
 
-    USB_RX              <= WR_TX;
-    PCIE_RX             <= WR_TX;
-    JTAG_RX             <= WR_TX;
+    USB_RX      <= WR_TX;
+    PCIE_RX     <= WR_TX;
+    JTAG_RX     <= WR_TX;
+    IPBUS_RX    <= WR_TX;
 
     pcie_qsys_inst : component pcie_qsys
 		port map (
@@ -741,5 +787,21 @@ begin --rtl
 			jtag_uart_txd => JTAG_TX,       --          .txd
 			reset_reset_n => DEV_CLRn       --     reset.reset
 		);
+
+
+    -- top_ipbus_inst : component top_ipbus
+    --     port map (
+    --         refclk_1G       => AMC_REFCLK_1G,
+    --         nreset          => DEV_CLRn,
+    --         spi_clk         => uC_SCLK,
+    --         csn             => uC_CSn,
+    --         mosi            => uC_MOSI,
+    --         miso            => uC_MISO,
+    --         rx_gbt          => AMC_1GbE_RX(0), -- QSFP_RX[0]
+    --         tx_gbt          => AMC_1GbE_TX(0), -- QSFP_TX[0]
+    --         interrupt       => uC_INT,
+    --         ipbus_uart_rxd  => IPBUS_RX,
+    --         ipbus_uart_txd  => IPBUS_TX
+    --     );
 
 end rtl;
