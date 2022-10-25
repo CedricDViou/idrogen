@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<system name="$${FILENAME}">
+<system name="altera_xcvr_native_phy_a10">
  <component
    name="$${FILENAME}"
    displayName="$${FILENAME}"
    version="1.0"
    description=""
-   tags="INTERNAL_COMPONENT=true"
-   categories="System" />
+   tags="AUTHORSHIP=Intel Corporation /// INTERNAL_COMPONENT=true"
+   categories="System"
+   tool="QsysPro" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element $system
+   {
+   }
    element xcvr_native_a10_0
    {
       datum _sortIndex
@@ -19,7 +23,6 @@
    }
 }
 ]]></parameter>
- <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
  <parameter name="device" value="10AX027H4F34I3SG" />
  <parameter name="deviceFamily" value="Arria 10" />
  <parameter name="deviceSpeedGrade" value="3" />
@@ -30,10 +33,12 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="true" />
  <parameter name="lockedInterfaceDefinition" value="" />
- <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
+ <parameter name="systemInfos"><![CDATA[<systemInfosDefinition>
+    <connPtSystemInfos/>
+</systemInfosDefinition>]]></parameter>
+ <parameter name="systemScripts" value="" />
  <parameter name="testBenchDutName" value="" />
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
@@ -43,12 +48,12 @@
    internal="xcvr_native_a10_0.reconfig_avmm"
    type="conduit"
    dir="end">
-  <port name="reconfig_write" internal="reconfig_write" />
-  <port name="reconfig_read" internal="reconfig_read" />
   <port name="reconfig_address" internal="reconfig_address" />
-  <port name="reconfig_writedata" internal="reconfig_writedata" />
+  <port name="reconfig_read" internal="reconfig_read" />
   <port name="reconfig_readdata" internal="reconfig_readdata" />
   <port name="reconfig_waitrequest" internal="reconfig_waitrequest" />
+  <port name="reconfig_write" internal="reconfig_write" />
+  <port name="reconfig_writedata" internal="reconfig_writedata" />
  </interface>
  <interface
    name="reconfig_clk"
@@ -290,7 +295,7 @@
  <module
    name="xcvr_native_a10_0"
    kind="altera_xcvr_native_a10"
-   version="18.1"
+   version="19.1"
    enabled="1"
    autoexport="1">
   <parameter name="anlg_enable_rx_default_ovr" value="0" />
@@ -351,6 +356,7 @@
   <parameter name="enable_port_rx_enh_bitslip" value="0" />
   <parameter name="enable_port_rx_enh_blk_lock" value="1" />
   <parameter name="enable_port_rx_enh_clr_errblk_count" value="0" />
+  <parameter name="enable_port_rx_enh_clr_errblk_count_c10" value="0" />
   <parameter name="enable_port_rx_enh_crc32_err" value="0" />
   <parameter name="enable_port_rx_enh_data_valid" value="1" />
   <parameter name="enable_port_rx_enh_fifo_align_clr" value="0" />
@@ -424,6 +430,7 @@
   <parameter name="enable_skp_ports" value="0" />
   <parameter name="enable_split_interface" value="0" />
   <parameter name="enable_transparent_pcs" value="0" />
+  <parameter name="enable_upi_pipeline_options" value="0" />
   <parameter name="enh_low_latency_enable" value="0" />
   <parameter name="enh_pcs_pma_width" value="32" />
   <parameter name="enh_pld_pcs_width" value="66" />
@@ -468,6 +475,9 @@
   <parameter name="number_physical_bonding_clocks" value="1" />
   <parameter name="pcie_rate_match" value="Bypass" />
   <parameter name="pcs_direct_width" value="8" />
+  <parameter name="pcs_tx_delay1_ctrl" value="delay1_path0" />
+  <parameter name="pcs_tx_delay1_data_sel" value="one_ff_delay" />
+  <parameter name="pcs_tx_delay2_ctrl" value="delay2_path0" />
   <parameter name="pll_select" value="0" />
   <parameter name="plls" value="1" />
   <parameter name="pma_mode" value="basic" />
@@ -546,8 +556,4 @@
   <parameter name="tx_pma_div_clkout_divider" value="33" />
   <parameter name="validation_rule_select" value="" />
  </module>
- <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
- <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

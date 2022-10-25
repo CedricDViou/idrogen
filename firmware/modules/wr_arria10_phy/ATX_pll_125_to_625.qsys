@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<system name="$${FILENAME}">
+<system name="ATX_pll_125_to_625">
  <component
    name="$${FILENAME}"
    displayName="$${FILENAME}"
    version="1.0"
    description=""
-   tags="INTERNAL_COMPONENT=true"
-   categories="System" />
+   tags="AUTHORSHIP=Intel Corporation /// INTERNAL_COMPONENT=true"
+   categories="System"
+   tool="QsysPro" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element $system
+   {
+   }
    element xcvr_atx_pll_a10_0
    {
       datum _sortIndex
@@ -19,7 +23,6 @@
    }
 }
 ]]></parameter>
- <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
  <parameter name="device" value="10AX027H4F34I3SG" />
  <parameter name="deviceFamily" value="Arria 10" />
  <parameter name="deviceSpeedGrade" value="3" />
@@ -30,10 +33,34 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="true" />
  <parameter name="lockedInterfaceDefinition" value="" />
- <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
+ <parameter name="systemInfos"><![CDATA[<systemInfosDefinition>
+    <connPtSystemInfos>
+        <entry>
+            <key>reconfig_avmm0</key>
+            <value>
+                <connectionPointName>reconfig_avmm0</connectionPointName>
+                <suppliedSystemInfos/>
+                <consumedSystemInfos>
+                    <entry>
+                        <key>ADDRESS_MAP</key>
+                        <value>&lt;address-map&gt;&lt;slave name='reconfig_avmm0' start='0x0' end='0x1000' datawidth='32' /&gt;&lt;/address-map&gt;</value>
+                    </entry>
+                    <entry>
+                        <key>ADDRESS_WIDTH</key>
+                        <value>12</value>
+                    </entry>
+                    <entry>
+                        <key>MAX_SLAVE_DATA_WIDTH</key>
+                        <value>32</value>
+                    </entry>
+                </consumedSystemInfos>
+            </value>
+        </entry>
+    </connPtSystemInfos>
+</systemInfosDefinition>]]></parameter>
+ <parameter name="systemScripts" value="" />
  <parameter name="testBenchDutName" value="" />
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
@@ -71,12 +98,12 @@
    internal="xcvr_atx_pll_a10_0.reconfig_avmm0"
    type="avalon"
    dir="end">
-  <port name="reconfig_write0" internal="reconfig_write0" />
-  <port name="reconfig_read0" internal="reconfig_read0" />
   <port name="reconfig_address0" internal="reconfig_address0" />
-  <port name="reconfig_writedata0" internal="reconfig_writedata0" />
+  <port name="reconfig_read0" internal="reconfig_read0" />
   <port name="reconfig_readdata0" internal="reconfig_readdata0" />
   <port name="reconfig_waitrequest0" internal="reconfig_waitrequest0" />
+  <port name="reconfig_write0" internal="reconfig_write0" />
+  <port name="reconfig_writedata0" internal="reconfig_writedata0" />
  </interface>
  <interface
    name="reconfig_clk0"
@@ -102,7 +129,7 @@
  <module
    name="xcvr_atx_pll_a10_0"
    kind="altera_xcvr_atx_pll_a10"
-   version="18.1"
+   version="19.1"
    enabled="1"
    autoexport="1">
   <parameter name="base_device" value="NIGHTFURY2" />
@@ -177,8 +204,4 @@
   <parameter name="support_mode" value="user_mode" />
   <parameter name="test_mode" value="0" />
  </module>
- <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
- <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
