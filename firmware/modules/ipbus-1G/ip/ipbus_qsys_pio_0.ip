@@ -605,7 +605,7 @@
         <ipxact:parameter parameterId="clockRate" type="longint">
           <ipxact:name>clockRate</ipxact:name>
           <ipxact:displayName>clockRate</ipxact:displayName>
-          <ipxact:value>50000000</ipxact:value>
+          <ipxact:value>125000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="derived_has_tri" type="bit">
           <ipxact:name>derived_has_tri</ipxact:name>
@@ -681,7 +681,7 @@
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.CMacro.FREQ" type="string">
           <ipxact:name>embeddedsw.CMacro.FREQ</ipxact:name>
-          <ipxact:value>50000000</ipxact:value>
+          <ipxact:value>125000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.CMacro.HAS_IN" type="string">
           <ipxact:name>embeddedsw.CMacro.HAS_IN</ipxact:name>
@@ -766,11 +766,6 @@
    }
    element pio_0
    {
-      datum _originalVersion
-      {
-         value = "18.1";
-         type = "String";
-      }
    }
 }
 </ipxact:value>
@@ -1256,7 +1251,7 @@
                 &lt;suppliedSystemInfos&gt;
                     &lt;entry&gt;
                         &lt;key&gt;CLOCK_RATE&lt;/key&gt;
-                        &lt;value&gt;50000000&lt;/value&gt;
+                        &lt;value&gt;125000000&lt;/value&gt;
                     &lt;/entry&gt;
                 &lt;/suppliedSystemInfos&gt;
                 &lt;consumedSystemInfos/&gt;

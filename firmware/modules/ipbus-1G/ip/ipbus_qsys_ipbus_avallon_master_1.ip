@@ -765,7 +765,7 @@
         <ipxact:parameter parameterId="clockrate" type="string">
           <ipxact:name>clockrate</ipxact:name>
           <ipxact:displayName>clockrate</ipxact:displayName>
-          <ipxact:value>70 MHz</ipxact:value>
+          <ipxact:value>125 MHz</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="AUTO_INR_IRQ0_INTERRUPTS_USED" type="string">
           <ipxact:name>AUTO_INR_IRQ0_INTERRUPTS_USED</ipxact:name>
