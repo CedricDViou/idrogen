@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_arith.all;
 use IEEE.STD_LOGIC_unsigned.all;
 use work.pack_ipv4_types.all;
--- use work.ipbus.all;
+use work.ipbus.all;
 
 --library unisim;
 --use unisim.VComponents.all;
@@ -33,7 +33,7 @@ entity ipbus_1G is
         bridge_external_interface_acknowledge : out STD_LOGIC;                      -- acknowledge
         bridge_external_interface_read_data   : out STD_LOGIC_VECTOR(31 downto 0);  -- read_data
         uc_interrupt                          : out STD_LOGIC;
-        ipbus_uart_rxd                        : in  STD_LOGIC                       -- uart.rxd
+        ipbus_uart_rxd                        : in  STD_LOGIC;                      -- uart.rxd
 		ipbus_uart_txd                        : out STD_LOGIC                       --     .txd
     );
 end ipbus_1G;

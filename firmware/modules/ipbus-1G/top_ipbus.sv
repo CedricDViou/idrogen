@@ -24,7 +24,7 @@ module top_ipbus (
     logic [31:0] bridge_external_interface_write_data   ;
 
     ipbus_1G ipbus_1G_inst (
-        .clk12                                  (refclk_1G),
+        .clk125                                 (refclk_1G),
         .rst_125                                (~nreset),
         .rx_gbt                                 (rx_gbt), //! Configure pour passer par le fond de panier (AMC_1GbE_RX[0]) mais peut être remplace par QSFP_RX[0]
         .tx_gbt                                 (tx_gbt), //! Configure pour passer par le fond de panier (AMC_1GbE_TX[0]) mais peut être remplace par QSFP_TX[0]
@@ -51,9 +51,9 @@ module top_ipbus (
         .avallon_write          (bridge_external_interface_write),          //! Signal positionne a "1" pour indiquer au bus avallon que l'on souhaite realiser une operation d'ecriture
         .address                (bridge_external_interface_address),		//! Adresse de lecture/ecriture sur le bus avallon
         .read_data_from_avallon (bridge_external_interface_read_data),      //! Donnee de lecture a transmettre au processus SPI
-        .write_data_to_avallon  (bridge_external_interface_write_data)      //! Donnee d'ecriture a transmettre a l'interface avallon
+        .write_data_to_avallon  (bridge_external_interface_write_data),     //! Donnee d'ecriture a transmettre a l'interface avallon
         .acknowledge            (bridge_external_interface_acknowledge),    //! Signal d'acknoledge provenant du bus avalon pour signaler que l'operation de lecture/ecriture est terminee.
-        .byte_enable            (bridge_external_interface_byte_enable),    //! Indique les octets a lire/ecrire dans le mot de 32 bits
+        .byte_enable            (bridge_external_interface_byte_enable)     //! Indique les octets a lire/ecrire dans le mot de 32 bits
     );
 
 endmodule

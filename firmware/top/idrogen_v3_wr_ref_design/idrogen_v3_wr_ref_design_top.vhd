@@ -397,21 +397,21 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
     signal IPBUS_RX : STD_LOGIC;
     signal IPBUS_TX : STD_LOGIC;
 
-    -- component top_ipbus is
-	-- 	port (
-	-- 		refclk_1G       : in  STD_LOGIC := 'X';
-	-- 		nreset          : in  STD_LOGIC := 'X';
-	-- 		spi_clk         : in  STD_LOGIC := 'X';
-    --         csn             : in  STD_LOGIC := 'X';
-    --         mosi            : in  STD_LOGIC := 'X';
-    --         miso            : out STD_LOGIC ;
-    --         rx_gbt          : in  STD_LOGIC := 'X';
-    --         tx_gbt          : out STD_LOGIC ;
-    --         interrupt       : out STD_LOGIC ;
-    --         ipbus_uart_rxd  : in  STD_LOGIC := 'X';
-    --         ipbus_uart_txd  : out STD_LOGIC
-	-- 	);
-	-- end component top_ipbus;
+    component top_ipbus is
+        port (
+            refclk_1G       : in  STD_LOGIC := 'X';
+            nreset          : in  STD_LOGIC := 'X';
+            spi_clk         : in  STD_LOGIC := 'X';
+            csn             : in  STD_LOGIC := 'X';
+            mosi            : in  STD_LOGIC := 'X';
+            miso            : out STD_LOGIC ;
+            rx_gbt          : in  STD_LOGIC := 'X';
+            tx_gbt          : out STD_LOGIC ;
+            interrupt       : out STD_LOGIC ;
+            ipbus_uart_rxd  : in  STD_LOGIC := 'X';
+            ipbus_uart_txd  : out STD_LOGIC
+        );
+    end component top_ipbus;
 
 
 begin --rtl
@@ -788,20 +788,19 @@ begin --rtl
 			reset_reset_n => DEV_CLRn       --     reset.reset
 		);
 
-
-    -- top_ipbus_inst : component top_ipbus
-    --     port map (
-    --         refclk_1G       => AMC_REFCLK_1G,
-    --         nreset          => DEV_CLRn,
-    --         spi_clk         => uC_SCLK,
-    --         csn             => uC_CSn,
-    --         mosi            => uC_MOSI,
-    --         miso            => uC_MISO,
-    --         rx_gbt          => AMC_1GbE_RX(0), -- QSFP_RX[0]
-    --         tx_gbt          => AMC_1GbE_TX(0), -- QSFP_TX[0]
-    --         interrupt       => uC_INT,
-    --         ipbus_uart_rxd  => IPBUS_RX,
-    --         ipbus_uart_txd  => IPBUS_TX
-    --     );
+    top_ipbus_inst : top_ipbus 
+        port map (
+            refclk_1G       => AMC_REFCLK_1G,
+            nreset          => DEV_CLRn,
+            spi_clk         => uC_SCLK,
+            csn             => uC_CSn,
+            mosi            => uC_MOSI,
+            miso            => uC_MISO,
+            rx_gbt          => QSFP_RX(0), -- AMC_1GbE_RX(0), -- 
+            tx_gbt          => QSFP_TX(0), -- AMC_1GbE_TX(0), -- 
+            interrupt       => uC_INT,
+            ipbus_uart_rxd  => IPBUS_RX,
+            ipbus_uart_txd  => IPBUS_TX
+        );
 
 end rtl;
