@@ -1,8 +1,8 @@
 files = [
-    "ipbus_avallon_master_v4.vhd",
-    "slave_with_wait_signal.vhd",
-    "ipbus_avallon_master_hw.tcl",
-    "slave_with_wait_signal_hw.tcl",
+    # "ipbus_avallon_master_v4.vhd",
+    # "slave_with_wait_signal.vhd",
+    # "ipbus_avallon_master_hw.tcl",
+    # "slave_with_wait_signal_hw.tcl",
     "ipbus_qsys_bridge_1.ip",
     "ipbus_qsys_fifo_0.ip",
     "ipbus_qsys_ipbus_avallon_master_1.ip",
