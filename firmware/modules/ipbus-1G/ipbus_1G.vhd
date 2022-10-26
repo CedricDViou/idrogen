@@ -20,21 +20,21 @@ entity ipbus_1G is
         MAX_ARP_ENTRIES      : INTEGER                       := 255        -- max entries in the ARP store
     );
     port (
-        clk125                                : in  STD_LOGIC;
-        rst_125                               : in  STD_LOGIC;
-        phy_rstb                              : out STD_LOGIC;
-        rx_gbt                                : in  STD_LOGIC;
-        tx_gbt                                : out STD_LOGIC;
-        bridge_external_interface_address     : in  STD_LOGIC_VECTOR(26 downto 0);  -- address
-        bridge_external_interface_byte_enable : in  STD_LOGIC_VECTOR(3 downto 0);   -- byte_enable
-        bridge_external_interface_read        : in  STD_LOGIC;                      -- read
-        bridge_external_interface_write       : in  STD_LOGIC;                      -- write
-        bridge_external_interface_write_data  : in  STD_LOGIC_VECTOR(31 downto 0);  -- write_data
-        bridge_external_interface_acknowledge : out STD_LOGIC;                      -- acknowledge
-        bridge_external_interface_read_data   : out STD_LOGIC_VECTOR(31 downto 0);  -- read_data
-        uc_interrupt                          : out STD_LOGIC;
-        ipbus_uart_rxd                        : in  STD_LOGIC;                      -- uart.rxd
-		ipbus_uart_txd                        : out STD_LOGIC                       --     .txd
+        clk125                          : in  STD_LOGIC;
+        rst_125                         : in  STD_LOGIC;
+        phy_rstb                        : out STD_LOGIC;
+        rx_gbt                          : in  STD_LOGIC;
+        tx_gbt                          : out STD_LOGIC;
+        spi_interface_address           : in  STD_LOGIC_VECTOR(26 downto 0);  -- address
+        spi_interface_byte_enable       : in  STD_LOGIC_VECTOR(3 downto 0);   -- byte_enable
+        spi_interface_read              : in  STD_LOGIC;                      -- read
+        spi_interface_write             : in  STD_LOGIC;                      -- write
+        spi_interface_write_data        : in  STD_LOGIC_VECTOR(31 downto 0);  -- write_data
+        spi_interface_acknowledge       : out STD_LOGIC;                      -- acknowledge
+        spi_interface_read_data         : out STD_LOGIC_VECTOR(31 downto 0);  -- read_data
+        uc_interrupt                    : out STD_LOGIC;
+        ipbus_uart_rxd                  : in  STD_LOGIC;                      -- uart.rxd
+		ipbus_uart_txd                  : out STD_LOGIC                       --     .txd
     );
 end ipbus_1G;
 
@@ -129,17 +129,18 @@ architecture RTL of ipbus_1G is
             ipbus_avallon_master_1_ipbuswrite_ipbus_write_writedata : in  STD_LOGIC_VECTOR(31 downto 0)  := (others => 'X');  -- ipbus_write_writedata
             ipbus_avallon_master_1_ipbuswrite_ipbus_write_strobe    : in  STD_LOGIC                      := 'X';              -- ipbus_write_strobe
             ipbus_avallon_master_1_ipbuswrite_ipbus_write_write     : in  STD_LOGIC                      := 'X';              -- ipbus_write_write
-            pio_0_external_connection_export                        : out STD_LOGIC_VECTOR(31 downto 0);                      -- export
             reset_reset                                             : in  STD_LOGIC                      := 'X';              -- reset
-            external_interface_address                              : in  STD_LOGIC_VECTOR(26 downto 0)  := (others => 'X');
-            external_interface_byte_enable                          : in  STD_LOGIC_VECTOR(3 downto 0)   := (others => 'X');
-            external_interface_read                                 : in  STD_LOGIC                      := 'X';
-            external_interface_write                                : in  STD_LOGIC                      := 'X';
-            external_interface_write_data                           : in  STD_LOGIC_VECTOR(31 downto 0)  := (others => 'X');
-            external_interface_acknowledge                          : out STD_LOGIC;
-            external_interface_read_data                            : out STD_LOGIC_VECTOR(31 downto 0);
-            ipbus_qsys_uart_rxd                                     : in  STD_LOGIC                     := 'X';               -- uart.rxd
-			ipbus_qsys_uart_txd                                     : out STD_LOGIC                                           --     .txd
+            spi_interface_address                                   : in  STD_LOGIC_VECTOR(26 downto 0)  := (others => 'X');
+            spi_interface_byte_enable                               : in  STD_LOGIC_VECTOR(3 downto 0)   := (others => 'X');
+            spi_interface_read                                      : in  STD_LOGIC                      := 'X';
+            spi_interface_write                                     : in  STD_LOGIC                      := 'X';
+            spi_interface_write_data                                : in  STD_LOGIC_VECTOR(31 downto 0)  := (others => 'X');
+            spi_interface_acknowledge                               : out STD_LOGIC;
+            spi_interface_read_data                                 : out STD_LOGIC_VECTOR(31 downto 0);
+            ipbus_to_uart_rxd                                       : in  STD_LOGIC                     := 'X';               -- uart.rxd
+			ipbus_to_uart_txd                                       : out STD_LOGIC;                                          --     .txd
+            spi_export                                              : out STD_LOGIC_VECTOR(7 downto 0);                       -- export
+            mac_address_export                                      : out STD_LOGIC_VECTOR(7 downto 0)
         );
     end component ipbus_qsys;
 
@@ -272,7 +273,9 @@ architecture RTL of ipbus_1G is
     signal src_udp_tx_result         : Array2bit_ip(0 to nb_src - 1);     -- tx status (changes during transmission)
     signal src_udp_tx_data_out_ready : STD_LOGIC_VECTOR(0 to nb_src - 1); -- indicates udp_tx is ready to take data
 
-    signal pio_0_export : STD_LOGIC_VECTOR (31 downto 0);
+    signal spi_export                : STD_LOGIC_VECTOR (7 downto 0);
+    signal mac_address_export        : STD_LOGIC_VECTOR (7 downto 0);
+    
 begin
 
     -------------------------------------------------------------------------------
@@ -326,7 +329,7 @@ begin
         gmii_rx_dv  => rx_dv_r,
         gmii_rx_er  => '0');
 
-    our_mac_address                              <= x"0022_8f03_0001";
+    our_mac_address                              <= x"0022_8f03_00" & mac_address_export;
     control.ip_controls.arp_controls.clear_cache <= '0';
 
     -------------------------------------------------------------------------------
@@ -432,20 +435,21 @@ begin
             ipbus_avallon_master_1_ipbuswrite_ipbus_write_writedata => ipb_out.ipb_wdata,  --                                  .ipbus_write_writedata
             ipbus_avallon_master_1_ipbuswrite_ipbus_write_strobe    => ipb_out.ipb_strobe, --                                  .ipbus_write_strobe
             ipbus_avallon_master_1_ipbuswrite_ipbus_write_write     => ipb_out.ipb_write,  --                                  .ipbus_write_write
-            pio_0_external_connection_export                        => pio_0_export,       --         pio_0_external_connection.export
             reset_reset                                             => rst_125,            --                             reset.reset
-            external_interface_address                              => bridge_external_interface_address,
-            external_interface_byte_enable                          => bridge_external_interface_byte_enable,
-            external_interface_read                                 => bridge_external_interface_read,
-            external_interface_write                                => bridge_external_interface_write,
-            external_interface_write_data                           => bridge_external_interface_write_data,
-            external_interface_acknowledge                          => bridge_external_interface_acknowledge,
-            external_interface_read_data                            => bridge_external_interface_read_data,
-            ipbus_qsys_uart_rxd                                     => ipbus_uart_rxd,
-			ipbus_qsys_uart_txd                                     => ipbus_uart_txd
+            spi_interface_address                                   => spi_interface_address,
+            spi_interface_byte_enable                               => spi_interface_byte_enable,
+            spi_interface_read                                      => spi_interface_read,
+            spi_interface_write                                     => spi_interface_write,
+            spi_interface_write_data                                => spi_interface_write_data,
+            spi_interface_acknowledge                               => spi_interface_acknowledge,
+            spi_interface_read_data                                 => spi_interface_read_data,
+            ipbus_to_uart_rxd                                       => ipbus_uart_rxd,
+			ipbus_to_uart_txd                                       => ipbus_uart_txd,
+            spi_export                                              => spi_export,       --         pio_0_external_connection.export
+            mac_address_export                                      => mac_address_export
         );
 
-    uc_interrupt <= pio_0_export(0);
+    uc_interrupt <= spi_export(0);
 
     -------------------------------------------------------------------------------
     -- IO interface

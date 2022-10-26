@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
-  <ipxact:library>ipbus_qsys_pio_0</ipxact:library>
-  <ipxact:name>pio_0</ipxact:name>
+  <ipxact:library>ipbus_qsys_pio_mac</ipxact:library>
+  <ipxact:name>ipbus_qsys_pio_mac</ipxact:name>
   <ipxact:version>19.1</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
@@ -541,7 +541,7 @@
   <ipxact:vendorExtensions>
     <altera:entity_info>
       <ipxact:vendor>Intel Corporation</ipxact:vendor>
-      <ipxact:library>ipbus_qsys_pio_0</ipxact:library>
+      <ipxact:library>ipbus_qsys_pio_mac</ipxact:library>
       <ipxact:name>altera_avalon_pio</ipxact:name>
       <ipxact:version>19.1</ipxact:version>
     </altera:entity_info>
@@ -585,7 +585,7 @@
         <ipxact:parameter parameterId="resetValue" type="longint">
           <ipxact:name>resetValue</ipxact:name>
           <ipxact:displayName>Output Port Reset Value</ipxact:displayName>
-          <ipxact:value>0</ipxact:value>
+          <ipxact:value>1</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="simDoTestBenchWiring" type="bit">
           <ipxact:name>simDoTestBenchWiring</ipxact:name>
@@ -701,7 +701,7 @@
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.CMacro.RESET_VALUE" type="string">
           <ipxact:name>embeddedsw.CMacro.RESET_VALUE</ipxact:name>
-          <ipxact:value>0</ipxact:value>
+          <ipxact:value>1</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.dts.compatible" type="string">
           <ipxact:name>embeddedsw.dts.compatible</ipxact:name>
@@ -721,7 +721,7 @@
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.dts.params.resetvalue" type="string">
           <ipxact:name>embeddedsw.dts.params.resetvalue</ipxact:name>
-          <ipxact:value>0</ipxact:value>
+          <ipxact:value>1</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.dts.vendor" type="string">
           <ipxact:name>embeddedsw.dts.vendor</ipxact:name>
@@ -764,7 +764,7 @@
          type = "String";
       }
    }
-   element pio_0
+   element ipbus_qsys_pio_mac
    {
    }
 }
@@ -1284,16 +1284,16 @@
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
-      <altera:interface_mapping altera:name="clk" altera:internal="pio_0.clk" altera:type="clock" altera:dir="end">
+      <altera:interface_mapping altera:name="clk" altera:internal="ipbus_qsys_pio_mac.clk" altera:type="clock" altera:dir="end">
         <altera:port_mapping altera:name="clk" altera:internal="clk"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="external_connection" altera:internal="pio_0.external_connection" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="external_connection" altera:internal="ipbus_qsys_pio_mac.external_connection" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="out_port" altera:internal="out_port"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="reset" altera:internal="pio_0.reset" altera:type="reset" altera:dir="end">
+      <altera:interface_mapping altera:name="reset" altera:internal="ipbus_qsys_pio_mac.reset" altera:type="reset" altera:dir="end">
         <altera:port_mapping altera:name="reset_n" altera:internal="reset_n"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="s1" altera:internal="pio_0.s1" altera:type="avalon" altera:dir="end">
+      <altera:interface_mapping altera:name="s1" altera:internal="ipbus_qsys_pio_mac.s1" altera:type="avalon" altera:dir="end">
         <altera:port_mapping altera:name="address" altera:internal="address"></altera:port_mapping>
         <altera:port_mapping altera:name="chipselect" altera:internal="chipselect"></altera:port_mapping>
         <altera:port_mapping altera:name="readdata" altera:internal="readdata"></altera:port_mapping>
