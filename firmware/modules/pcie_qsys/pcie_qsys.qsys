@@ -14,7 +14,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "0";
          type = "int";
       }
    }
@@ -22,7 +22,7 @@
    {
       datum _sortIndex
       {
-         value = "0";
+         value = "1";
          type = "int";
       }
    }
@@ -54,7 +54,7 @@
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "3";
          type = "int";
       }
    }
@@ -8003,19 +8003,19 @@
     <hdlLibraryName>pcie_qsys_pio</hdlLibraryName>
     <fileSets>
         <fileSet>
-            <fileSetName>pcie_qsys_pio_0</fileSetName>
+            <fileSetName>pcie_qsys_pio</fileSetName>
             <fileSetFixedName>pcie_qsys_pio</fileSetFixedName>
             <fileSetKind>QUARTUS_SYNTH</fileSetKind>
             <fileSetFiles/>
         </fileSet>
         <fileSet>
-            <fileSetName>pcie_qsys_pio_0</fileSetName>
+            <fileSetName>pcie_qsys_pio</fileSetName>
             <fileSetFixedName>pcie_qsys_pio</fileSetFixedName>
             <fileSetKind>SIM_VERILOG</fileSetKind>
             <fileSetFiles/>
         </fileSet>
         <fileSet>
-            <fileSetName>pcie_qsys_pio_0</fileSetName>
+            <fileSetName>pcie_qsys_pio</fileSetName>
             <fileSetFixedName>pcie_qsys_pio</fileSetFixedName>
             <fileSetKind>SIM_VHDL</fileSetKind>
             <fileSetFiles/>
@@ -9022,14 +9022,6 @@
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
-                    <port>
-                        <name>endofpacket</name>
-                        <role>endofpacket</role>
-                        <direction>Output</direction>
-                        <width>1</width>
-                        <lowerBound>0</lowerBound>
-                        <vhdlType>STD_LOGIC</vhdlType>
-                    </port>
                 </ports>
                 <assignments>
                     <assignmentValueMap>
@@ -9743,14 +9735,6 @@
                     <lowerBound>0</lowerBound>
                     <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                 </port>
-                <port>
-                    <name>endofpacket</name>
-                    <role>endofpacket</role>
-                    <direction>Output</direction>
-                    <width>1</width>
-                    <lowerBound>0</lowerBound>
-                    <vhdlType>STD_LOGIC</vhdlType>
-                </port>
             </ports>
             <assignments>
                 <assignmentValueMap>
@@ -9808,7 +9792,6 @@
                     </entry>
                     <entry>
                         <key>bridgedAddressOffset</key>
-                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToMaster</key>
@@ -10203,7 +10186,7 @@
             <ports>
                 <port>
                     <name>rxd</name>
-                    <role>rxd</role>
+                    <role>export</role>
                     <direction>Input</direction>
                     <width>1</width>
                     <lowerBound>0</lowerBound>
@@ -10211,7 +10194,7 @@
                 </port>
                 <port>
                     <name>txd</name>
-                    <role>txd</role>
+                    <role>export</role>
                     <direction>Output</direction>
                     <width>1</width>
                     <lowerBound>0</lowerBound>
@@ -10257,7 +10240,7 @@
                 <parameterValueMap>
                     <entry>
                         <key>associatedAddressablePoint</key>
-                        <value>uart.s1</value>
+                        <value>pcie_qsys_uart.s1</value>
                     </entry>
                     <entry>
                         <key>associatedClock</key>
@@ -10269,7 +10252,6 @@
                     </entry>
                     <entry>
                         <key>bridgedReceiverOffset</key>
-                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToReceiver</key>
@@ -10287,19 +10269,19 @@
     <hdlLibraryName>pcie_qsys_uart</hdlLibraryName>
     <fileSets>
         <fileSet>
-            <fileSetName>pcie_qsys_uart_0</fileSetName>
+            <fileSetName>pcie_qsys_uart</fileSetName>
             <fileSetFixedName>pcie_qsys_uart</fileSetFixedName>
             <fileSetKind>QUARTUS_SYNTH</fileSetKind>
             <fileSetFiles/>
         </fileSet>
         <fileSet>
-            <fileSetName>pcie_qsys_uart_0</fileSetName>
+            <fileSetName>pcie_qsys_uart</fileSetName>
             <fileSetFixedName>pcie_qsys_uart</fileSetFixedName>
             <fileSetKind>SIM_VERILOG</fileSetKind>
             <fileSetFiles/>
         </fileSet>
         <fileSet>
-            <fileSetName>pcie_qsys_uart_0</fileSetName>
+            <fileSetName>pcie_qsys_uart</fileSetName>
             <fileSetFixedName>pcie_qsys_uart</fileSetFixedName>
             <fileSetKind>SIM_VHDL</fileSetKind>
             <fileSetFiles/>
@@ -10352,7 +10334,7 @@
         </entry>
         <entry>
             <key>embeddedsw.CMacro.USE_EOP_REGISTER</key>
-            <value>1</value>
+            <value>0</value>
         </entry>
         <entry>
             <key>embeddedsw.dts.compatible</key>
@@ -10514,12 +10496,12 @@
   <parameter name="qsys_mm.syncResets" value="FALSE" />
   <parameter name="qsys_mm.widthAdapterImplementation" value="GENERIC_CONVERTER" />
  </connection>
- <connection kind="clock" version="19.3" start="pcie.coreclkout_hip" end="pio.clk" />
  <connection
    kind="clock"
    version="19.3"
    start="pcie.coreclkout_hip"
    end="sysid.clk" />
+ <connection kind="clock" version="19.3" start="pcie.coreclkout_hip" end="pio.clk" />
  <connection
    kind="clock"
    version="19.3"
@@ -10534,12 +10516,12 @@
    kind="reset"
    version="19.3"
    start="pcie.app_nreset_status"
-   end="pio.reset" />
+   end="sysid.reset" />
  <connection
    kind="reset"
    version="19.3"
    start="pcie.app_nreset_status"
-   end="sysid.reset" />
+   end="pio.reset" />
  <connection
    kind="reset"
    version="19.3"

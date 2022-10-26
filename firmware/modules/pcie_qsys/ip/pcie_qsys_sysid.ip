@@ -509,11 +509,6 @@
    }
    element sysid_qsys_0
    {
-      datum _originalVersion
-      {
-         value = "18.1";
-         type = "String";
-      }
    }
 }
 </ipxact:value>

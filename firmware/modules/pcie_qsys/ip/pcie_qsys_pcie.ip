@@ -14058,11 +14058,6 @@
    }
    element pcie_a10_hip_1
    {
-      datum _originalVersion
-      {
-         value = "18.1";
-         type = "String";
-      }
    }
 }
 </ipxact:value>

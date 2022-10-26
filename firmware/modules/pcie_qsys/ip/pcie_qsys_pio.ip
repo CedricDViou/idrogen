@@ -2,7 +2,7 @@
 <ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
   <ipxact:library>pcie_qsys_pio</ipxact:library>
-  <ipxact:name>pio_0</ipxact:name>
+  <ipxact:name>pcie_qsys_pio</ipxact:name>
   <ipxact:version>19.1</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
@@ -764,13 +764,8 @@
          type = "String";
       }
    }
-   element pio_0
+   element pcie_qsys_pio
    {
-      datum _originalVersion
-      {
-         value = "18.1";
-         type = "String";
-      }
    }
 }
 </ipxact:value>
@@ -1289,16 +1284,16 @@
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
-      <altera:interface_mapping altera:name="clk" altera:internal="pio_0.clk" altera:type="clock" altera:dir="end">
+      <altera:interface_mapping altera:name="clk" altera:internal="pcie_qsys_pio.clk" altera:type="clock" altera:dir="end">
         <altera:port_mapping altera:name="clk" altera:internal="clk"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="external_connection" altera:internal="pio_0.external_connection" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="external_connection" altera:internal="pcie_qsys_pio.external_connection" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="out_port" altera:internal="out_port"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="reset" altera:internal="pio_0.reset" altera:type="reset" altera:dir="end">
+      <altera:interface_mapping altera:name="reset" altera:internal="pcie_qsys_pio.reset" altera:type="reset" altera:dir="end">
         <altera:port_mapping altera:name="reset_n" altera:internal="reset_n"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="s1" altera:internal="pio_0.s1" altera:type="avalon" altera:dir="end">
+      <altera:interface_mapping altera:name="s1" altera:internal="pcie_qsys_pio.s1" altera:type="avalon" altera:dir="end">
         <altera:port_mapping altera:name="address" altera:internal="address"></altera:port_mapping>
         <altera:port_mapping altera:name="chipselect" altera:internal="chipselect"></altera:port_mapping>
         <altera:port_mapping altera:name="readdata" altera:internal="readdata"></altera:port_mapping>
