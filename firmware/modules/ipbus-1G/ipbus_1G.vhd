@@ -140,9 +140,31 @@ architecture RTL of ipbus_1G is
             ipbus_to_uart_rxd                                       : in  STD_LOGIC                     := 'X';               -- uart.rxd
 			ipbus_to_uart_txd                                       : out STD_LOGIC;                                          --     .txd
             spi_export                                              : out STD_LOGIC_VECTOR(7 downto 0);                       -- export
-            mac_address_export                                      : out STD_LOGIC_VECTOR(7 downto 0)
+            mac_address_export                                      : out STD_LOGIC_VECTOR(7 downto 0);
+            bridge_uart_address                                     : in  STD_LOGIC_VECTOR(5 downto 0)  := (others => 'X'); -- address
+			bridge_uart_byte_enable                                 : in  STD_LOGIC_VECTOR(3 downto 0)  := (others => 'X'); -- byte_enable
+			bridge_uart_read                                        : in  STD_LOGIC                     := 'X';             -- read
+			bridge_uart_write                                       : in  STD_LOGIC                     := 'X';             -- write
+			bridge_uart_write_data                                  : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X'); -- write_data
+			bridge_uart_acknowledge                                 : out STD_LOGIC;                                        -- acknowledge
+			bridge_uart_read_data                                   : out STD_LOGIC_VECTOR(31 downto 0)                     -- read_data
         );
     end component ipbus_qsys;
+
+    component wr_monitor
+        port (
+            clock                   : in  STD_LOGIC;
+            nreset                  : in  STD_LOGIC;
+            bridge_uart_acknowledge : in  STD_LOGIC;
+            bridge_uart_read_data   : in  STD_LOGIC_VECTOR (31 downto 0);
+            bridge_uart_read        : out STD_LOGIC;
+            bridge_uart_write       : out STD_LOGIC;
+            bridge_uart_byte_enable : out STD_LOGIC_VECTOR ( 3 downto 0);
+            bridge_uart_address     : out STD_LOGIC_VECTOR ( 5 downto 0);
+            bridge_uart_write_data  : out STD_LOGIC_VECTOR (31 downto 0)
+        );
+    end component;
+
 
     component MyGbt
         port (
@@ -275,6 +297,14 @@ architecture RTL of ipbus_1G is
 
     signal spi_export                : STD_LOGIC_VECTOR (7 downto 0);
     signal mac_address_export        : STD_LOGIC_VECTOR (7 downto 0);
+
+    signal bridge_uart_read          : STD_LOGIC;
+    signal bridge_uart_write         : STD_LOGIC;
+    signal bridge_uart_acknowledge   : STD_LOGIC;
+    signal bridge_uart_byte_enable   : STD_LOGIC_VECTOR ( 3 downto 0);
+    signal bridge_uart_address       : STD_LOGIC_VECTOR ( 5 downto 0);
+    signal bridge_uart_read_data     : STD_LOGIC_VECTOR (31 downto 0);
+    signal bridge_uart_write_data    : STD_LOGIC_VECTOR (31 downto 0);
     
 begin
 
@@ -446,7 +476,27 @@ begin
             ipbus_to_uart_rxd                                       => ipbus_uart_rxd,
 			ipbus_to_uart_txd                                       => ipbus_uart_txd,
             spi_export                                              => spi_export,       --         pio_0_external_connection.export
-            mac_address_export                                      => mac_address_export
+            mac_address_export                                      => mac_address_export,
+            bridge_uart_address                                     => bridge_uart_address,
+			bridge_uart_byte_enable                                 => bridge_uart_byte_enable,
+			bridge_uart_read                                        => bridge_uart_read,
+			bridge_uart_write                                       => bridge_uart_write,
+			bridge_uart_write_data                                  => bridge_uart_write_data,
+			bridge_uart_acknowledge                                 => bridge_uart_acknowledge,
+			bridge_uart_read_data                                   => bridge_uart_read_data
+        );
+
+    wr_monitor_inst : wr_monitor
+        port map (
+            clock                   => clk125,
+            nreset                  => rst_125,
+            bridge_uart_acknowledge => bridge_uart_acknowledge,
+            bridge_uart_read_data   => bridge_uart_read_data,
+            bridge_uart_read        => bridge_uart_read,
+            bridge_uart_write       => bridge_uart_write,
+            bridge_uart_byte_enable => bridge_uart_byte_enable,
+            bridge_uart_address     => bridge_uart_address,
+            bridge_uart_write_data  => bridge_uart_write_data
         );
 
     uc_interrupt <= spi_export(0);

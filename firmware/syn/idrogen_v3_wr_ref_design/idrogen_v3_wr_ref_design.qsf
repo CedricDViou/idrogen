@@ -324,6 +324,7 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VERILOG_FILE "../../modules/ipbus-1G/wr_monitor.v"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_arp_types.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_axi.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_ipv4_types.vhd"
@@ -554,3 +555,5 @@ set_global_assignment -name QSYS_FILE ../../modules/wr_arria10_phy/altera_xcvr_n
 set_global_assignment -name QSYS_FILE "../../ip_cores/ipbus-1g/ipbus/qsys_sysco.qsys"
 set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_uart.ip"
 set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_pio_mac.ip"
+set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_bridge_uart.ip"
+set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_fifo_uart.ip"
