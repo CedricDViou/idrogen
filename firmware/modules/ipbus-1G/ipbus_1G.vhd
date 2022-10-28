@@ -34,7 +34,7 @@ entity ipbus_1G is
         spi_interface_read_data         : out STD_LOGIC_VECTOR(31 downto 0);  -- read_data
         uc_interrupt                    : out STD_LOGIC;
         ipbus_uart_rxd                  : in  STD_LOGIC;                      -- uart.rxd
-		ipbus_uart_txd                  : out STD_LOGIC                       --     .txd
+        ipbus_uart_txd                  : out STD_LOGIC                       --     .txd
     );
 end ipbus_1G;
 
@@ -78,7 +78,7 @@ architecture RTL of ipbus_1G is
             ip_pkt_count  : out STD_LOGIC_VECTOR(7 downto 0); -- number of IP pkts received for us
 
             -- gmii TX interface
-            -- 	gmii_gtx_clk : out STD_LOGIC; -- must be generated with appropriate system
+            --     gmii_gtx_clk : out STD_LOGIC; -- must be generated with appropriate system
             gmii_tx_en : out STD_LOGIC;
             gmii_tx_er : out STD_LOGIC;
             gmii_txd   : out STD_LOGIC_VECTOR(7 downto 0);
@@ -138,16 +138,16 @@ architecture RTL of ipbus_1G is
             spi_interface_acknowledge                               : out STD_LOGIC;
             spi_interface_read_data                                 : out STD_LOGIC_VECTOR(31 downto 0);
             ipbus_to_uart_rxd                                       : in  STD_LOGIC                     := 'X';               -- uart.rxd
-			ipbus_to_uart_txd                                       : out STD_LOGIC;                                          --     .txd
+            ipbus_to_uart_txd                                       : out STD_LOGIC;                                          --     .txd
             spi_export                                              : out STD_LOGIC_VECTOR(7 downto 0);                       -- export
             mac_address_export                                      : out STD_LOGIC_VECTOR(7 downto 0);
             bridge_uart_address                                     : in  STD_LOGIC_VECTOR(5 downto 0)  := (others => 'X'); -- address
-			bridge_uart_byte_enable                                 : in  STD_LOGIC_VECTOR(3 downto 0)  := (others => 'X'); -- byte_enable
-			bridge_uart_read                                        : in  STD_LOGIC                     := 'X';             -- read
-			bridge_uart_write                                       : in  STD_LOGIC                     := 'X';             -- write
-			bridge_uart_write_data                                  : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X'); -- write_data
-			bridge_uart_acknowledge                                 : out STD_LOGIC;                                        -- acknowledge
-			bridge_uart_read_data                                   : out STD_LOGIC_VECTOR(31 downto 0)                     -- read_data
+            bridge_uart_byte_enable                                 : in  STD_LOGIC_VECTOR(3 downto 0)  := (others => 'X'); -- byte_enable
+            bridge_uart_read                                        : in  STD_LOGIC                     := 'X';             -- read
+            bridge_uart_write                                       : in  STD_LOGIC                     := 'X';             -- write
+            bridge_uart_write_data                                  : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X'); -- write_data
+            bridge_uart_acknowledge                                 : out STD_LOGIC;                                        -- acknowledge
+            bridge_uart_read_data                                   : out STD_LOGIC_VECTOR(31 downto 0)                     -- read_data
         );
     end component ipbus_qsys;
 
@@ -348,7 +348,7 @@ begin
         ip_pkt_count  => open,
 
         -- gmii TX interface
-        -- 	gmii_gtx_clk : out STD_LOGIC; -- must be generated with appropriate system
+        -- gmii_gtx_clk : out STD_LOGIC; -- must be generated with appropriate system
         gmii_txd   => txd_e,
         gmii_tx_en => tx_en_e,
         gmii_tx_er => tx_er_e,
@@ -359,11 +359,11 @@ begin
         gmii_rx_dv  => rx_dv_r,
         gmii_rx_er  => '0');
 
-    our_mac_address                              <= x"0022_8f03_00" & mac_address_export;
+    our_mac_address                              <= x"00228f5555" & mac_address_export;
     control.ip_controls.arp_controls.clear_cache <= '0';
 
     -------------------------------------------------------------------------------
-    --	dhcp block
+    --  dhcp block
     -------------------------------------------------------------------------------
     lbl_dhcp : dhcp_client generic map(
         CLOCK_FREQ        => DHCP_CLOCK_FREQ,
@@ -391,7 +391,7 @@ begin
     );
 
     -------------------------------------------------------------------------------
-    --	IPBUS block
+    -- IPBUS block
     -------------------------------------------------------------------------------
     lbl_ipbus : ipbus_main generic map(
         -- Number of RX and TX buffers is 2**BUFWIDTH
@@ -424,7 +424,7 @@ begin
     );
 
     -------------------------------------------------------------------------------
-    --	IPBUS/UDP arbitrer
+    -- IPBUS/UDP arbitrer
     -------------------------------------------------------------------------------
     lbl_udp_arb : udp_tx_arbitrer generic map(nb_src)
     port map(
@@ -474,16 +474,16 @@ begin
             spi_interface_acknowledge                               => spi_interface_acknowledge,
             spi_interface_read_data                                 => spi_interface_read_data,
             ipbus_to_uart_rxd                                       => ipbus_uart_rxd,
-			ipbus_to_uart_txd                                       => ipbus_uart_txd,
+            ipbus_to_uart_txd                                       => ipbus_uart_txd,
             spi_export                                              => spi_export,       --         pio_0_external_connection.export
             mac_address_export                                      => mac_address_export,
             bridge_uart_address                                     => bridge_uart_address,
-			bridge_uart_byte_enable                                 => bridge_uart_byte_enable,
-			bridge_uart_read                                        => bridge_uart_read,
-			bridge_uart_write                                       => bridge_uart_write,
-			bridge_uart_write_data                                  => bridge_uart_write_data,
-			bridge_uart_acknowledge                                 => bridge_uart_acknowledge,
-			bridge_uart_read_data                                   => bridge_uart_read_data
+            bridge_uart_byte_enable                                 => bridge_uart_byte_enable,
+            bridge_uart_read                                        => bridge_uart_read,
+            bridge_uart_write                                       => bridge_uart_write,
+            bridge_uart_write_data                                  => bridge_uart_write_data,
+            bridge_uart_acknowledge                                 => bridge_uart_acknowledge,
+            bridge_uart_read_data                                   => bridge_uart_read_data
         );
 
     wr_monitor_inst : wr_monitor
