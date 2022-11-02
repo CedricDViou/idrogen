@@ -1,6 +1,7 @@
 [submodule "firmware/ip_cores/wr-cores"]
 	path = firmware/ip_cores/wr-cores
 	url = https://ohwr.org/project/wr-cores.git
+	ignore = dirty
 [submodule "firmware/ip_cores/wrpc-sw"]
 	path = firmware/ip_cores/wrpc-sw
 	url = https://ohwr.org/project/wrpc-sw.git
@@ -13,3 +14,7 @@
 [submodule "firmware/ip_cores/general-cores"]
 	path = firmware/ip_cores/general-cores
 	url = https://ohwr.org/project/general-cores.git
+	ignore = dirty
+[submodule "firmware/ip_cores/ipbus-1g"]
+	path = firmware/ip_cores/ipbus-1g
+	url = https://gitlab.in2p3.fr/NEBULA/ipbus-1g.git
