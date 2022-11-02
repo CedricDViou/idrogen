@@ -6,7 +6,7 @@
    version="1.0"
    description=""
    tags=""
-   categories=""
+   categories="System"
    tool="QsysPro" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
@@ -1622,6 +1622,7 @@
                     </entry>
                     <entry>
                         <key>bridgedAddressOffset</key>
+                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToMaster</key>
@@ -1839,6 +1840,7 @@
                     </entry>
                     <entry>
                         <key>bridgedAddressOffset</key>
+                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToMaster</key>
@@ -2072,6 +2074,7 @@
                     </entry>
                     <entry>
                         <key>bridgedAddressOffset</key>
+                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToMaster</key>
@@ -3266,7 +3269,7 @@
                 <parameterValueMap>
                     <entry>
                         <key>associatedAddressablePoint</key>
-                        <value>ipbus_qsys_ipbus_avallon_master_wr.avm_m0</value>
+                        <value>ipbus_avallon_master_wr.avm_m0</value>
                     </entry>
                     <entry>
                         <key>associatedClock</key>
@@ -5047,6 +5050,7 @@
                     </entry>
                     <entry>
                         <key>bridgedAddressOffset</key>
+                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToMaster</key>
@@ -7965,16 +7969,20 @@
             <assignments>
                 <assignmentValueMap>
                     <entry>
+                        <key>embeddedsw.configuration.isFlash</key>
+                        <value>0</value>
+                    </entry>
+                    <entry>
                         <key>embeddedsw.configuration.isMemoryDevice</key>
-                        <value>false</value>
+                        <value>0</value>
                     </entry>
                     <entry>
                         <key>embeddedsw.configuration.isNonVolatileStorage</key>
-                        <value>false</value>
+                        <value>0</value>
                     </entry>
                     <entry>
                         <key>embeddedsw.configuration.isPrintableDevice</key>
-                        <value>false</value>
+                        <value>0</value>
                     </entry>
                 </assignmentValueMap>
             </assignments>
@@ -8014,6 +8022,7 @@
                     </entry>
                     <entry>
                         <key>bridgedAddressOffset</key>
+                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToMaster</key>
