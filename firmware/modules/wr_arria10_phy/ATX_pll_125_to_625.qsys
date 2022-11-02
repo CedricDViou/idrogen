@@ -7,7 +7,7 @@
    description=""
    tags="AUTHORSHIP=Intel Corporation /// INTERNAL_COMPONENT=true"
    categories="System"
-   tool="QsysStandard" />
+   tool="QsysPro" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
    element xcvr_atx_pll_a10_0
@@ -20,9 +20,9 @@
    }
 }
 ]]></parameter>
- <parameter name="device" value="10AX027H4F34I3SG" />
+ <parameter name="device" value="10AS016C3U19E2LG" />
  <parameter name="deviceFamily" value="Arria 10" />
- <parameter name="deviceSpeedGrade" value="3" />
+ <parameter name="deviceSpeedGrade" value="2" />
  <parameter name="fabricMode" value="QSYS" />
  <parameter name="generateLegacySim" value="false" />
  <parameter name="generationId" value="0" />
@@ -33,29 +33,7 @@
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="systemInfos"><![CDATA[<systemInfosDefinition>
-    <connPtSystemInfos>
-        <entry>
-            <key>reconfig_avmm0</key>
-            <value>
-                <connectionPointName>reconfig_avmm0</connectionPointName>
-                <suppliedSystemInfos/>
-                <consumedSystemInfos>
-                    <entry>
-                        <key>ADDRESS_MAP</key>
-                        <value>&lt;address-map&gt;&lt;slave name='reconfig_avmm0' start='0x0' end='0x1000' datawidth='32' /&gt;&lt;/address-map&gt;</value>
-                    </entry>
-                    <entry>
-                        <key>ADDRESS_WIDTH</key>
-                        <value>12</value>
-                    </entry>
-                    <entry>
-                        <key>MAX_SLAVE_DATA_WIDTH</key>
-                        <value>32</value>
-                    </entry>
-                </consumedSystemInfos>
-            </value>
-        </entry>
-    </connPtSystemInfos>
+    <connPtSystemInfos/>
 </systemInfosDefinition>]]></parameter>
  <parameter name="systemScripts" value="" />
  <parameter name="testBenchDutName" value="" />
@@ -106,9 +84,9 @@
    version="19.1"
    enabled="1"
    autoexport="1">
-  <parameter name="base_device" value="NIGHTFURY2" />
+  <parameter name="base_device" value="NIGHTFURY1" />
   <parameter name="bw_sel" value="medium" />
-  <parameter name="device" value="10AX027H4F34I3SG" />
+  <parameter name="device" value="10AS016C3U19E2LG" />
   <parameter name="device_family" value="Arria 10" />
   <parameter name="enable_16G_path" value="0" />
   <parameter name="enable_8G_path" value="1" />

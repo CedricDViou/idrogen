@@ -7,7 +7,7 @@
    description=""
    tags="AUTHORSHIP=Intel Corporation /// INTERNAL_COMPONENT=true"
    categories="System"
-   tool="QsysStandard" />
+   tool="QsysPro" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
    element xcvr_native_a10_0
@@ -20,9 +20,9 @@
    }
 }
 ]]></parameter>
- <parameter name="device" value="10AX027H4F34I3SG" />
+ <parameter name="device" value="10AS016C3U19E2LG" />
  <parameter name="deviceFamily" value="Arria 10" />
- <parameter name="deviceSpeedGrade" value="3" />
+ <parameter name="deviceSpeedGrade" value="2" />
  <parameter name="fabricMode" value="QSYS" />
  <parameter name="generateLegacySim" value="false" />
  <parameter name="generationId" value="0" />
@@ -329,13 +329,13 @@
   <parameter name="anlg_tx_term_sel" value="r_r1" />
   <parameter name="anlg_tx_vod_output_swing_ctrl" value="0" />
   <parameter name="anlg_voltage" value="1_0V" />
-  <parameter name="base_device" value="NIGHTFURY2" />
+  <parameter name="base_device" value="NIGHTFURY1" />
   <parameter name="bonded_mode" value="not_bonded" />
   <parameter name="cdr_refclk_cnt" value="1" />
   <parameter name="cdr_refclk_select" value="0" />
   <parameter name="channels" value="1" />
   <parameter name="design_environment" value="NATIVE" />
-  <parameter name="device" value="10AX027H4F34I3SG" />
+  <parameter name="device" value="10AS016C3U19E2LG" />
   <parameter name="device_family" value="Arria 10" />
   <parameter name="disable_continuous_dfe" value="false" />
   <parameter name="duplex_mode" value="duplex" />
