@@ -379,81 +379,28 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
     signal pulse_1s4 : STD_LOGIC;
     signal cnt4      : unsigned(31 downto 0);
 
-    component top_ipbus_wr
+    component ipbus_wr
+        generic (
+            IN_SIMULATION           : BOOLEAN                       := false;
+            SIMUL_DST_MAC_NUMBER    : STD_LOGIC_VECTOR(47 downto 0) := x"AAAA_BBBB_CCCC";
+            CLOCK_FREQ              : INTEGER                       := 125000000;
+            ARP_TIMEOUT             : INTEGER                       := 60;
+            ARP_MAX_PKT_TMO         : INTEGER                       := 5;
+            MAX_ARP_ENTRIES         : INTEGER                       := 255
+        );
         port (
-            refclk_1G    : in STD_LOGIC;
-            nreset       : in STD_LOGIC;
-            spi_clk      : in STD_LOGIC;
-            csn          : in STD_LOGIC;
-            mosi         : in STD_LOGIC;
-            snk_i        : in t_wrf_sink_in;
-            src_i        : in t_wrf_source_in;
-            uc_interrupt : out STD_LOGIC;
+            clk125       : in  STD_LOGIC;
+            rst_125      : in  STD_LOGIC;
+            leds         : out STD_LOGIC_VECTOR(3 downto 0);
             phy_rstb     : out STD_LOGIC;
             led_out      : out STD_LOGIC;
-            miso         : out STD_LOGIC;
-            leds         : out STD_LOGIC_VECTOR  (3 downto 0);
+            snk_i        : in  t_wrf_sink_in;
             snk_o        : out t_wrf_sink_out;
-            src_o        : out t_wrf_source_out
+            src_o        : out t_wrf_source_out;
+            src_i        : in  t_wrf_source_in;
+            uc_interrupt : out STD_LOGIC
         );
     end component;
-
-
-    -- signal spi_bridge_interface_address     : STD_LOGIC_VECTOR(31 downto 0); -- address
-    -- signal spi_bridge_interface_byte_enable : STD_LOGIC_VECTOR(3 downto 0);  -- byte_enable
-    -- signal spi_bridge_interface_read        : STD_LOGIC;                     -- read
-    -- signal spi_bridge_interface_write       : STD_LOGIC;                     -- write
-    -- signal spi_bridge_interface_write_data  : STD_LOGIC_VECTOR(31 downto 0); -- write_data
-    -- signal spi_bridge_interface_acknowledge : STD_LOGIC;                     -- acknowledge
-    -- signal spi_bridge_interface_read_data   : STD_LOGIC_VECTOR(31 downto 0); -- read_data
-
-    -- component ipbus_wr
-    --     generic (
-    --         IN_SIMULATION           : BOOLEAN                       := false;
-    --         SIMUL_DST_MAC_NUMBER    : STD_LOGIC_VECTOR(47 downto 0) := x"AAAA_BBBB_CCCC";
-    --         CLOCK_FREQ              : INTEGER                       := 125000000;
-    --         ARP_TIMEOUT             : INTEGER                       := 60;
-    --         ARP_MAX_PKT_TMO         : INTEGER                       := 5;
-    --         MAX_ARP_ENTRIES         : INTEGER                       := 255
-    --     );
-    --     port (
-    --         clk125                  : in  STD_LOGIC;
-    --         rst_125                 : in  STD_LOGIC;
-    --         leds                    : out STD_LOGIC_VECTOR(3 downto 0);
-    --         phy_rstb                : out STD_LOGIC;
-    --         led_out                 : out STD_LOGIC;
-    --         snk_i                   : in  t_wrf_sink_in;
-    --         snk_o                   : out t_wrf_sink_out;
-    --         src_o                   : out t_wrf_source_out;
-    --         src_i                   : in  t_wrf_source_in;
-    --         spi_bridge_address      : in  STD_LOGIC_VECTOR(26 downto 0);
-    --         spi_bridge_byte_enable  : in  STD_LOGIC_VECTOR(3 downto 0);
-    --         spi_bridge_read         : in  STD_LOGIC;
-    --         spi_bridge_write        : in  STD_LOGIC;
-    --         spi_bridge_write_data   : in  STD_LOGIC_VECTOR(31 downto 0);
-    --         spi_bridge_acknowledge  : out STD_LOGIC;
-    --         spi_bridge_read_data    : out STD_LOGIC_VECTOR(31 downto 0);
-    --         uc_interrupt            : out STD_LOGIC
-    --     );
-    -- end component;
-
-    -- component SPI_interface
-    --     port (
-    --         clk                     : in  STD_LOGIC;
-    --         nreset                  : in  STD_LOGIC;
-    --         csn                     : in  STD_LOGIC;
-    --         spi_clk                 : in  STD_LOGIC;
-    --         mosi                    : in  STD_LOGIC;
-    --         acknowledge             : in  STD_LOGIC;
-    --         read_data_from_avalon   : in  STD_LOGIC_VECTOR  (31 downto 0);
-    --         miso                    : out STD_LOGIC;
-    --         avalon_read             : out STD_LOGIC;
-    --         avalon_write            : out STD_LOGIC;
-    --         byte_enable             : out STD_LOGIC_VECTOR  ( 3 downto 0);
-    --         address                 : out STD_LOGIC_VECTOR  (31 downto 0);
-    --         write_data_to_avalon    : out STD_LOGIC_VECTOR  (31 downto 0)
-    --     );
-    -- end component;
 
 begin --rtl
     ----------------------------------------------------------------------------------
@@ -769,62 +716,23 @@ begin --rtl
     -----------------------------------------------------------------------------
     -- Top Ipbus 1G through WR
     -----------------------------------------------------------------------------
-
+    
     top_ipbus_wr_inst : top_ipbus_wr
         port map (
-            refclk_1G       => core_clk_125m_sfpref_i,
-            nreset          => rstn_sys,
-            leds            => open,
-            led_out         => open,
-            phy_rstb        => open,
-            spi_clk         => uC_SCLK,
-            csn             => uC_CSn,
-            mosi            => uC_MOSI,
-            miso            => uC_MISO,
-            uc_interrupt    => uC_INT,
-            src_o           => slave_snk_in(1),
-            src_i           => slave_snk_out(1),
-            snk_o           => slave_src_in(1),
-            snk_i           => slave_src_out(1)
+            clk125       => core_clk_125m_sfpref_i,
+            rst_125      => rstn_sys,
+            leds         => open,
+            phy_rstb     => open,
+            led_out      => open,
+            snk_i        => slave_src_out(1),
+            snk_o        => slave_src_in(1),
+            src_o        => slave_snk_in(1),
+            src_i        => slave_snk_out(1),
+            csn          => uC_CSn,
+            spi_clk      => uC_SCLK,
+            mosi         => uC_MOSI,
+            miso         => uC_MISO,
+            uc_interrupt => uC_INT
         );
-
-
-    -- ipbus_wr_inst : ipbus_wr
-    --     port map (
-    --         clk125                  => core_clk_125m_sfpref_i,
-    --         rst_125                 => rstn_sys,
-    --         leds                    => open,
-    --         phy_rstb                => open,
-    --         led_out                 => open,
-    --         snk_i                   => slave_src_out(1),
-    --         snk_o                   => slave_src_in(1),
-    --         src_o                   => slave_snk_in(1),
-    --         src_i                   => slave_snk_out(1),
-    --         spi_bridge_address      => spi_bridge_interface_address(26 downto 0),
-    --         spi_bridge_byte_enable  => spi_bridge_interface_byte_enable,
-    --         spi_bridge_read         => spi_bridge_interface_read,
-    --         spi_bridge_write        => spi_bridge_interface_write,
-    --         spi_bridge_write_data   => spi_bridge_interface_write_data,
-    --         spi_bridge_acknowledge  => spi_bridge_interface_acknowledge,
-    --         spi_bridge_read_data    => spi_bridge_interface_read_data,
-    --         uc_interrupt            => uC_INT
-    --     );
-
-    -- SPI_interface_inst : SPI_interface
-    --     port map (
-    --         clk                     => core_clk_125m_sfpref_i,
-    --         nreset                  => rstn_sys,
-    --         csn                     => uC_CSn,
-    --         spi_clk                 => uC_SCLK,
-    --         mosi                    => uC_MOSI,
-    --         miso                    => uC_MISO,
-    --         address                 => spi_bridge_interface_address,
-    --         avalon_read             => spi_bridge_interface_read,
-    --         avalon_write            => spi_bridge_interface_write,
-    --         byte_enable             => spi_bridge_interface_byte_enable,
-    --         acknowledge             => spi_bridge_interface_acknowledge,
-    --         write_data_to_avalon    => spi_bridge_interface_write_data,
-    --         read_data_from_avalon   => spi_bridge_interface_read_data
-    --     );
 
 end rtl;

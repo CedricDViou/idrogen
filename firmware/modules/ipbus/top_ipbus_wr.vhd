@@ -20,23 +20,20 @@ entity ipbus_wr is
         MAX_ARP_ENTRIES      : INTEGER                       := 255        -- max entries in the ARP store
     );
     port (
-        clk125                  : in  STD_LOGIC; --Modif EP
-        rst_125                 : in  STD_LOGIC; --Modif EP
-        leds                    : out STD_LOGIC_VECTOR(3 downto 0);
-        phy_rstb                : out STD_LOGIC;
-        led_out                 : out STD_LOGIC;
-        snk_i                   : in  t_wrf_sink_in;
-        snk_o                   : out t_wrf_sink_out;
-        src_o                   : out t_wrf_source_out;
-        src_i                   : in  t_wrf_source_in;
-        spi_bridge_address      : in  STD_LOGIC_VECTOR(26 downto 0);
-        spi_bridge_byte_enable  : in  STD_LOGIC_VECTOR(3 downto 0);
-        spi_bridge_read         : in  STD_LOGIC;
-        spi_bridge_write        : in  STD_LOGIC;
-        spi_bridge_write_data   : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X');
-        spi_bridge_acknowledge  : out STD_LOGIC;
-        spi_bridge_read_data    : out STD_LOGIC_VECTOR(31 downto 0);
-        uc_interrupt            : out STD_LOGIC
+        clk125       : in  STD_LOGIC; --Modif EP
+        rst_125      : in  STD_LOGIC; --Modif EP
+        leds         : out STD_LOGIC_VECTOR(3 downto 0);
+        phy_rstb     : out STD_LOGIC;
+        led_out      : out STD_LOGIC;
+        snk_i        : in  t_wrf_sink_in;
+        snk_o        : out t_wrf_sink_out;
+        src_o        : out t_wrf_source_out;
+        src_i        : in  t_wrf_source_in;
+        uc_interrupt : out STD_LOGIC;
+        csn          : in  STD_LOGIC;
+        spi_clk      : in  STD_LOGIC;
+        mosi         : in  STD_LOGIC;
+        miso         : out STD_LOGIC
         -- rst_ipb        : in STD_LOGIC; --Modif E
         -- ipb_clk        : in STD_LOGIC; --Modif EP
     );
@@ -93,7 +90,7 @@ architecture RTL of ipbus_wr is
         );
     end component;
 
-    component dhcp_client_4_wr
+    component dhcp_client_wr
         generic (
             CLOCK_FREQ        : INTEGER := 125000000; -- freq of data_in_clk -- needed to timout cntr
             LEASE_TIME_TO_REQ : INTEGER := 3600       -- lease time request (in sec)
@@ -125,28 +122,46 @@ architecture RTL of ipbus_wr is
 
     component ipbus_qsys is
         port (
-            clk_clk                                                 : in  STD_LOGIC                      := 'X';             -- clk
-            reset_reset                                             : in  STD_LOGIC := 'X';                                  -- reset
-            ipbus_avallon_master_ipbread_ipbus_read_readdata        : out STD_LOGIC_VECTOR(31 downto 0)  := (others => 'X'); -- ipbus_read_readdata
-            ipbus_avallon_master_ipbread_ipbus_read_ack             : out STD_LOGIC                      := 'X';             -- ipbus_read_ack
-            ipbus_avallon_master_ipbread_ipbus_read_err             : out STD_LOGIC                      := 'X';             -- ipbus_read_err
-            ipbus_avallon_master_ipbuswrite_ipbus_write_addr        : in  STD_LOGIC_VECTOR(31 downto 0)  := (others => 'X'); -- ipbus_write_addr
-            ipbus_avallon_master_ipbuswrite_ipbus_write_writedata   : in  STD_LOGIC_VECTOR(31 downto 0)  := (others => 'X'); -- ipbus_write_writedata
-            ipbus_avallon_master_ipbuswrite_ipbus_write_strobe      : in  STD_LOGIC                      := 'X';             -- ipbus_write_strobe
-            ipbus_avallon_master_ipbuswrite_ipbus_write_write       : in  STD_LOGIC                      := 'X';             -- ipbus_write_write
-            pio_external_connection_export                          : out STD_LOGIC_VECTOR(31 downto 0);                     -- export
-            mac_address_pio_export                                  : out STD_LOGIC_VECTOR(7 downto 0);                      -- export
-            spi_bridge_address                                      : in  STD_LOGIC_VECTOR(26 downto 0) := (others => 'X');  -- address
-            spi_bridge_byte_enable                                  : in  STD_LOGIC_VECTOR(3 downto 0)  := (others => 'X');  -- byte_enable
-            spi_bridge_read                                         : in  STD_LOGIC                     := 'X';              -- read
-            spi_bridge_write                                        : in  STD_LOGIC                     := 'X';              -- write
-            spi_bridge_write_data                                   : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X');  -- write_data
-            spi_bridge_acknowledge                                  : out STD_LOGIC;                                         -- acknowledge
-            spi_bridge_read_data                                    : out STD_LOGIC_VECTOR(31 downto 0)                      -- read_data
+            clk_clk                                                  : in  STD_LOGIC                      := 'X';             -- clk
+            reset_reset                                              : in  STD_LOGIC := 'X';                                  -- reset
+            ipbus_avallon_master_wr_ipbread_ipbus_read_readdata      : out STD_LOGIC_VECTOR(31 downto 0);                     -- ipbus_read_readdata
+			ipbus_avallon_master_wr_ipbread_ipbus_read_ack           : out STD_LOGIC;                                         -- ipbus_read_ack
+			ipbus_avallon_master_wr_ipbread_ipbus_read_err           : out STD_LOGIC;                                         -- ipbus_read_err
+			ipbus_avallon_master_wr_ipbuswrite_ipbus_write_addr      : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X');  -- ipbus_write_addr
+			ipbus_avallon_master_wr_ipbuswrite_ipbus_write_writedata : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X');  -- ipbus_write_writedata
+			ipbus_avallon_master_wr_ipbuswrite_ipbus_write_strobe    : in  STD_LOGIC                     := 'X';              -- ipbus_write_strobe
+			ipbus_avallon_master_wr_ipbuswrite_ipbus_write_write     : in  STD_LOGIC                     := 'X';              -- ipbus_write_write
+            pio_external_connection_export                           : out STD_LOGIC_VECTOR(31 downto 0);                     -- export
+            mac_address_pio_export                                   : out STD_LOGIC_VECTOR(7 downto 0);                      -- export
+            spi_bridge_address                                       : in  STD_LOGIC_VECTOR(26 downto 0) := (others => 'X');  -- address
+            spi_bridge_byte_enable                                   : in  STD_LOGIC_VECTOR(3 downto 0)  := (others => 'X');  -- byte_enable
+            spi_bridge_read                                          : in  STD_LOGIC                     := 'X';              -- read
+            spi_bridge_write                                         : in  STD_LOGIC                     := 'X';              -- write
+            spi_bridge_write_data                                    : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X');  -- write_data
+            spi_bridge_acknowledge                                   : out STD_LOGIC;                                         -- acknowledge
+            spi_bridge_read_data                                     : out STD_LOGIC_VECTOR(31 downto 0)                      -- read_data
         );
     end component ipbus_qsys;
 
-    component ipbus_main_4_wr
+    component SPI_interface
+        port (
+            clk                     : in  STD_LOGIC;
+            nreset                  : in  STD_LOGIC;
+            csn                     : in  STD_LOGIC;
+            spi_clk                 : in  STD_LOGIC;
+            mosi                    : in  STD_LOGIC;
+            acknowledge             : in  STD_LOGIC;
+            read_data_from_avalon   : in  STD_LOGIC_VECTOR  (31 downto 0);
+            miso                    : out STD_LOGIC;
+            avalon_read             : out STD_LOGIC;
+            avalon_write            : out STD_LOGIC;
+            byte_enable             : out STD_LOGIC_VECTOR  ( 3 downto 0);
+            address                 : out STD_LOGIC_VECTOR  (31 downto 0);
+            write_data_to_avalon    : out STD_LOGIC_VECTOR  (31 downto 0)
+        );
+    end component;
+
+    component ipbus_main_wr
         generic (
             -- Number of RX and TX buffers is 2**BUFWIDTH
             BUFWIDTH : NATURAL := 4;
@@ -174,8 +189,8 @@ architecture RTL of ipbus_wr is
             ipb_clk : in  STD_LOGIC; -- IPbus clock
             rst_ipb : in  STD_LOGIC; -- IPbus clock domain sync reset
             ipb_out : out ipb_wbus;
-            ipb_in  : in  ipb_rbus;
-            bidon   : out STD_LOGIC
+            ipb_in  : in  ipb_rbus
+            -- bidon   : out STD_LOGIC
         );
     end component;
 
@@ -264,9 +279,17 @@ architecture RTL of ipbus_wr is
     signal src_udp_tx                : udp_tx_vect_type(0 to nb_src - 1);
     signal src_udp_tx_result         : Array2bit_ip(0 to nb_src - 1);     -- tx status (changes during transmission)
     signal src_udp_tx_data_out_ready : STD_LOGIC_VECTOR(0 to nb_src - 1); -- indicates udp_tx is ready to take data
-    signal bidon                     : STD_LOGIC;
+    -- signal bidon                     : STD_LOGIC;
     signal pio_0_export              : STD_LOGIC_VECTOR (31 downto 0);
     -- signal out_pio                   : STD_LOGIC;
+
+    signal spi_bridge_address     : STD_LOGIC_VECTOR(31 downto 0); -- address
+    signal spi_bridge_byte_enable : STD_LOGIC_VECTOR(3 downto 0);  -- byte_enable
+    signal spi_bridge_read        : STD_LOGIC;                     -- read
+    signal spi_bridge_write       : STD_LOGIC;                     -- write
+    signal spi_bridge_write_data  : STD_LOGIC_VECTOR(31 downto 0); -- write_data
+    signal spi_bridge_acknowledge : STD_LOGIC;                     -- acknowledge
+    signal spi_bridge_read_data   : STD_LOGIC_VECTOR(31 downto 0); -- read_data
 
 begin
 
@@ -329,7 +352,7 @@ begin
     -------------------------------------------------------------------------------
     --    dhcp block
     -------------------------------------------------------------------------------
-    lbl_dhcp : dhcp_client_4_wr
+    lbl_dhcp : dhcp_client_wr
         generic map(
             CLOCK_FREQ        => DHCP_CLOCK_FREQ,
             LEASE_TIME_TO_REQ => LEASE_TIME_TO_REQ
@@ -359,7 +382,7 @@ begin
     -------------------------------------------------------------------------------
     --    IPBUS block
     -------------------------------------------------------------------------------
-    lbl_ipbus : ipbus_main_4_wr 
+    lbl_ipbus : ipbus_main_wr
         generic map(
             -- Number of RX and TX buffers is 2**BUFWIDTH
             BUFWIDTH => 4,
@@ -387,8 +410,8 @@ begin
             ipb_clk => clk125,
             rst_ipb => rst_125,
             ipb_out => ipb_out,
-            ipb_in  => ipb_in,
-            bidon   => bidon
+            ipb_in  => ipb_in
+            -- bidon   => bidon
         );
 
     -------------------------------------------------------------------------------
@@ -423,30 +446,31 @@ begin
     src_udp_tx(1)              <= udp_txi_dhcp;
     udp_tx_result_dhcp         <= src_udp_tx_result(1);
     udp_tx_data_out_ready_dhcp <= src_udp_tx_data_out_ready(1);
+
     -------------------------------------------------------------------------------
     --    slaves block
     -------------------------------------------------------------------------------
 
     ipbus_qsys_inst : ipbus_qsys
         port map(
-            clk_clk                                                 => clk125,                  --                               clk.clk
-            reset_reset                                             => rst_125,                 --                             reset.reset
-            ipbus_avallon_master_ipbread_ipbus_read_readdata        => ipb_in.ipb_rdata,        --    ipbus_avallon_master_0_ipbread.ipbus_read_readdata
-            ipbus_avallon_master_ipbread_ipbus_read_ack             => ipb_in.ipb_ack,          --                                  .ipbus_read_ack
-            ipbus_avallon_master_ipbread_ipbus_read_err             => ipb_in.ipb_err,          --                                  .ipbus_read_err
-            ipbus_avallon_master_ipbuswrite_ipbus_write_addr        => ipb_out.ipb_addr,        -- ipbus_avallon_master_0_ipbuswrite.ipbus_write_addr
-            ipbus_avallon_master_ipbuswrite_ipbus_write_writedata   => ipb_out.ipb_wdata,       --                                  .ipbus_write_writedata
-            ipbus_avallon_master_ipbuswrite_ipbus_write_strobe      => ipb_out.ipb_strobe,      --                                  .ipbus_write_strobe
-            ipbus_avallon_master_ipbuswrite_ipbus_write_write       => ipb_out.ipb_write,       --                                  .ipbus_write_write
-            pio_external_connection_export                          => pio_0_export,            --         pio_0_external_connection.export
-            mac_address_pio_export                                  => mac_address_pio,         --                   mac_address_pio.export
-            spi_bridge_address                                      => spi_bridge_address,      --                        spi_bridge.address
-            spi_bridge_byte_enable                                  => spi_bridge_byte_enable,  --                                  .byte_enable
-            spi_bridge_read                                         => spi_bridge_read,         --                                  .read
-            spi_bridge_write                                        => spi_bridge_write,        --                                  .write
-            spi_bridge_write_data                                   => spi_bridge_write_data,   --                                  .write_data
-            spi_bridge_acknowledge                                  => spi_bridge_acknowledge,  --                                  .acknowledge
-            spi_bridge_read_data                                    => spi_bridge_read_data     --                                  .read_data
+            clk_clk                                                  => clk125,                  --                               clk.clk
+            reset_reset                                              => rst_125,                 --                             reset.reset
+            ipbus_avallon_master_wr_ipbread_ipbus_read_readdata      => ipb_in.ipb_rdata,        --    ipbus_avallon_master_0_ipbread.ipbus_read_readdata
+            ipbus_avallon_master_wr_ipbread_ipbus_read_ack           => ipb_in.ipb_ack,          --                                  .ipbus_read_ack
+            ipbus_avallon_master_wr_ipbread_ipbus_read_err           => ipb_in.ipb_err,          --                                  .ipbus_read_err
+            ipbus_avallon_master_wr_ipbuswrite_ipbus_write_addr      => ipb_out.ipb_addr,        -- ipbus_avallon_master_0_ipbuswrite.ipbus_write_addr
+            ipbus_avallon_master_wr_ipbuswrite_ipbus_write_writedata => ipb_out.ipb_wdata,       --                                  .ipbus_write_writedata
+            ipbus_avallon_master_wr_ipbuswrite_ipbus_write_strobe    => ipb_out.ipb_strobe,      --                                  .ipbus_write_strobe
+            ipbus_avallon_master_wr_ipbuswrite_ipbus_write_write     => ipb_out.ipb_write,       --                                  .ipbus_write_write
+            pio_external_connection_export                           => pio_0_export,            --         pio_0_external_connection.export
+            mac_address_pio_export                                   => mac_address_pio,         --                   mac_address_pio.export
+            spi_bridge_address                                       => spi_bridge_address,      --                        spi_bridge.address
+            spi_bridge_byte_enable                                   => spi_bridge_byte_enable,  --                                  .byte_enable
+            spi_bridge_read                                          => spi_bridge_read,         --                                  .read
+            spi_bridge_write                                         => spi_bridge_write,        --                                  .write
+            spi_bridge_write_data                                    => spi_bridge_write_data,   --                                  .write_data
+            spi_bridge_acknowledge                                   => spi_bridge_acknowledge,  --                                  .acknowledge
+            spi_bridge_read_data                                     => spi_bridge_read_data     --                                  .read_data
         );
 
     -- out_pio <= pio_0_export(3) and pio_0_export(2) and pio_0_export(1) and pio_0_export(0);
@@ -457,5 +481,22 @@ begin
     -------------------------------------------------------------------------------
     phy_rstb <= '1';
     leds     <= "0000";
+    
+    SPI_interface_inst : SPI_interface
+        port map (
+            clk                     => clk125,
+            nreset                  => rst_125,
+            csn                     => uC_CSn,
+            spi_clk                 => uC_SCLK,
+            mosi                    => uC_MOSI,
+            miso                    => uC_MISO,
+            address                 => spi_bridge_address,
+            avalon_read             => spi_bridge_read,
+            avalon_write            => spi_bridge_write,
+            byte_enable             => spi_bridge_byte_enable,
+            acknowledge             => spi_bridge_acknowledge,
+            write_data_to_avalon    => spi_bridge_write_data,
+            read_data_from_avalon   => spi_bridge_read_data
+        );
 
 end RTL;
