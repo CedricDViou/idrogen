@@ -3,13 +3,13 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 
-package pll_pkg is
+package pll_pkg_idg is
 
   subtype phase_offset is unsigned(9 downto 0);
   type phase_offset_vector is array(natural range <>) of phase_offset;
   type natural_vector is array(natural range <>) of natural;
 
-  component altera_reset is
+  component altera_reset_idg is
     generic(
       g_plls    : natural := 4;
       g_clocks  : natural := 2;
@@ -24,7 +24,7 @@ package pll_pkg is
       rstn_o     : out std_logic_vector(g_clocks-1 downto 0));
   end component;
   
-  component dmtd_pll10 is -- arria10
+  component dmtd_pll10_idg is -- arria10
     port(
       refclk   : in  std_logic := 'X'; -- 20   MHz
       outclk_0 : out std_logic;        -- 62.5 MHz
@@ -32,7 +32,7 @@ package pll_pkg is
       locked   : out std_logic);
   end component;
   
-   component dmtd_pll10_hydrogen is -- arria10
+   component dmtd_pll10_hydrogen_idg is -- arria10
     port(
       refclk   : in  std_logic := 'X'; -- 125  MHz
       outclk_0 : out std_logic;        -- 62.5 MHz
@@ -40,7 +40,7 @@ package pll_pkg is
       locked   : out std_logic);
   end component;
 
-  component ref_pll10 is  -- arria10
+  component ref_pll10_idg is  -- arria10
     port(
       refclk     : in  std_logic := 'X'; -- 10 MHz
       outclk_0   : out std_logic;        -- 125 MHz
@@ -48,7 +48,7 @@ package pll_pkg is
       locked     : out std_logic);
   end component;
 
-  component sys_pll10 is  -- arria10
+  component sys_pll10_idg is  -- arria10
     port(
       refclk   : in  std_logic := 'X'; -- 125   MHz
       outclk_0 : out std_logic;        --  62.5 MHz
@@ -57,7 +57,7 @@ package pll_pkg is
       locked   : out std_logic);
   end component;
 
-  component altera_phase is
+  component altera_phase_idg is
     generic(
       g_select_bits   : natural;
       g_outputs       : natural;
@@ -76,7 +76,7 @@ package pll_pkg is
       phasestep_o : out std_logic);
   end component;
   
-  component altera_butis is
+  component altera_butis_idg is
     port(
       clk_ref_i : in  std_logic;
       clk_25m_i : in  std_logic;
@@ -84,4 +84,4 @@ package pll_pkg is
       phase_o   : out phase_offset);
   end component;
   
-end pll_pkg;
+end pll_pkg_idg;
