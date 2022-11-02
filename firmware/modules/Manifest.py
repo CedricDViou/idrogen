@@ -1,6 +1,11 @@
 files = []
-modules = {'local': [#'build_id',
-                     'misc',
-                     'pll',
-                     ]
-           }
+
+modules = {
+    'local': [
+        'misc',
+        'pll',
+        'ipbus',
+        'spi',
+        "wr_arria10_phy"
+    ]
+}
