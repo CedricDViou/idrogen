@@ -738,12 +738,12 @@
         <ipxact:parameter parameterId="clockRate" type="longint">
           <ipxact:name>clockRate</ipxact:name>
           <ipxact:displayName>clockRate</ipxact:displayName>
-          <ipxact:value>125000000</ipxact:value>
+          <ipxact:value>10000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="baudError" type="real">
           <ipxact:name>baudError</ipxact:name>
           <ipxact:displayName>Baud error</ipxact:displayName>
-          <ipxact:value>0.01</ipxact:value>
+          <ipxact:value>0.0</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="parityFisrtChar" type="string">
           <ipxact:name>parityFisrtChar</ipxact:name>
@@ -768,7 +768,7 @@
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.CMacro.FREQ" type="string">
           <ipxact:name>embeddedsw.CMacro.FREQ</ipxact:name>
-          <ipxact:value>125000000</ipxact:value>
+          <ipxact:value>10000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.CMacro.PARITY" type="string">
           <ipxact:name>embeddedsw.CMacro.PARITY</ipxact:name>
@@ -812,7 +812,7 @@
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.dts.params.clock-frequency" type="string">
           <ipxact:name>embeddedsw.dts.params.clock-frequency</ipxact:name>
-          <ipxact:value>125000000</ipxact:value>
+          <ipxact:value>10000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="embeddedsw.dts.params.current-speed" type="string">
           <ipxact:name>embeddedsw.dts.params.current-speed</ipxact:name>
@@ -1544,7 +1544,7 @@
                 &lt;suppliedSystemInfos&gt;
                     &lt;entry&gt;
                         &lt;key&gt;CLOCK_RATE&lt;/key&gt;
-                        &lt;value&gt;125000000&lt;/value&gt;
+                        &lt;value&gt;10000000&lt;/value&gt;
                     &lt;/entry&gt;
                 &lt;/suppliedSystemInfos&gt;
                 &lt;consumedSystemInfos/&gt;

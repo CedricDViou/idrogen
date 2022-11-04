@@ -399,6 +399,7 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
 
     component top_ipbus is
         port (
+            clk10           : in  STD_LOGIC := 'X';
             refclk_1G       : in  STD_LOGIC := 'X';
             nreset          : in  STD_LOGIC := 'X';
             spi_clk         : in  STD_LOGIC := 'X';
@@ -790,6 +791,7 @@ begin --rtl
 
     top_ipbus_inst : top_ipbus 
         port map (
+            clk10           => clk_sys3,
             refclk_1G       => AMC_REFCLK_1G,
             nreset          => DEV_CLRn,
             spi_clk         => uC_SCLK,

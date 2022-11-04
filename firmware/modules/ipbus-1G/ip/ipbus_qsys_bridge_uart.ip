@@ -545,7 +545,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>5</ipxact:right>
+              <ipxact:right>8</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -563,7 +563,7 @@
           <ipxact:vectors>
             <ipxact:vector>
               <ipxact:left>0</ipxact:left>
-              <ipxact:right>5</ipxact:right>
+              <ipxact:right>8</ipxact:right>
             </ipxact:vector>
           </ipxact:vectors>
           <ipxact:wireTypeDefs>
@@ -681,7 +681,7 @@
         <ipxact:parameter parameterId="addr_size" type="int">
           <ipxact:name>addr_size</ipxact:name>
           <ipxact:displayName>Address Range</ipxact:displayName>
-          <ipxact:value>64</ipxact:value>
+          <ipxact:value>512</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="addr_size_multiplier" type="string">
           <ipxact:name>addr_size_multiplier</ipxact:name>
@@ -701,7 +701,7 @@
         <ipxact:parameter parameterId="AUTO_CLK_CLOCK_RATE" type="longint">
           <ipxact:name>AUTO_CLK_CLOCK_RATE</ipxact:name>
           <ipxact:displayName>Auto CLOCK_RATE</ipxact:displayName>
-          <ipxact:value>125000000</ipxact:value>
+          <ipxact:value>10000000</ipxact:value>
         </ipxact:parameter>
       </ipxact:parameters>
     </altera:altera_module_parameters>
@@ -876,7 +876,7 @@
                     &lt;name&gt;avalon_address&lt;/name&gt;
                     &lt;role&gt;address&lt;/role&gt;
                     &lt;direction&gt;Output&lt;/direction&gt;
-                    &lt;width&gt;6&lt;/width&gt;
+                    &lt;width&gt;9&lt;/width&gt;
                     &lt;lowerBound&gt;0&lt;/lowerBound&gt;
                     &lt;vhdlType&gt;STD_LOGIC_VECTOR&lt;/vhdlType&gt;
                 &lt;/port&gt;
@@ -1033,7 +1033,7 @@
                     &lt;name&gt;address&lt;/name&gt;
                     &lt;role&gt;address&lt;/role&gt;
                     &lt;direction&gt;Input&lt;/direction&gt;
-                    &lt;width&gt;6&lt;/width&gt;
+                    &lt;width&gt;9&lt;/width&gt;
                     &lt;lowerBound&gt;0&lt;/lowerBound&gt;
                     &lt;vhdlType&gt;STD_LOGIC_VECTOR&lt;/vhdlType&gt;
                 &lt;/port&gt;
@@ -1119,7 +1119,7 @@
                 &lt;suppliedSystemInfos&gt;
                     &lt;entry&gt;
                         &lt;key&gt;CLOCK_RATE&lt;/key&gt;
-                        &lt;value&gt;125000000&lt;/value&gt;
+                        &lt;value&gt;10000000&lt;/value&gt;
                     &lt;/entry&gt;
                 &lt;/suppliedSystemInfos&gt;
                 &lt;consumedSystemInfos/&gt;

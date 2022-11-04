@@ -2,7 +2,7 @@
 <ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>E. Plaige</ipxact:vendor>
   <ipxact:library>ipbus_qsys_ipbus_avallon_master_1</ipxact:library>
-  <ipxact:name>ipbus_avallon_master_1</ipxact:name>
+  <ipxact:name>ipbus_qsys_ipbus_avallon_master_1</ipxact:name>
   <ipxact:version>1.0</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
@@ -809,13 +809,8 @@
          type = "String";
       }
    }
-   element ipbus_avallon_master_1
+   element ipbus_qsys_ipbus_avallon_master_1
    {
-      datum _sortIndex
-      {
-         value = "0";
-         type = "int";
-      }
    }
 }
 </ipxact:value>
@@ -1270,13 +1265,13 @@
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
-      <altera:interface_mapping altera:name="IpbusWrite" altera:internal="ipbus_avallon_master_1.IpbusWrite" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="IpbusWrite" altera:internal="ipbus_qsys_ipbus_avallon_master_1.IpbusWrite" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="ipb_addr" altera:internal="ipb_addr"></altera:port_mapping>
         <altera:port_mapping altera:name="ipb_strobe" altera:internal="ipb_strobe"></altera:port_mapping>
         <altera:port_mapping altera:name="ipb_wdata" altera:internal="ipb_wdata"></altera:port_mapping>
         <altera:port_mapping altera:name="ipb_write" altera:internal="ipb_write"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="avm_m0" altera:internal="ipbus_avallon_master_1.avm_m0" altera:type="avalon" altera:dir="start">
+      <altera:interface_mapping altera:name="avm_m0" altera:internal="ipbus_qsys_ipbus_avallon_master_1.avm_m0" altera:type="avalon" altera:dir="start">
         <altera:port_mapping altera:name="avm_m0_address" altera:internal="avm_m0_address"></altera:port_mapping>
         <altera:port_mapping altera:name="avm_m0_read" altera:internal="avm_m0_read"></altera:port_mapping>
         <altera:port_mapping altera:name="avm_m0_readdata" altera:internal="avm_m0_readdata"></altera:port_mapping>
@@ -1285,18 +1280,18 @@
         <altera:port_mapping altera:name="avm_m0_write" altera:internal="avm_m0_write"></altera:port_mapping>
         <altera:port_mapping altera:name="avm_m0_writedata" altera:internal="avm_m0_writedata"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="clock" altera:internal="ipbus_avallon_master_1.clock" altera:type="clock" altera:dir="end">
+      <altera:interface_mapping altera:name="clock" altera:internal="ipbus_qsys_ipbus_avallon_master_1.clock" altera:type="clock" altera:dir="end">
         <altera:port_mapping altera:name="clock_clk" altera:internal="clock_clk"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="inr_irq0" altera:internal="ipbus_avallon_master_1.inr_irq0" altera:type="interrupt" altera:dir="start">
+      <altera:interface_mapping altera:name="inr_irq0" altera:internal="ipbus_qsys_ipbus_avallon_master_1.inr_irq0" altera:type="interrupt" altera:dir="start">
         <altera:port_mapping altera:name="inr_irq0_irq" altera:internal="inr_irq0_irq"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="ipbRead" altera:internal="ipbus_avallon_master_1.ipbRead" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="ipbRead" altera:internal="ipbus_qsys_ipbus_avallon_master_1.ipbRead" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="ipb_ack" altera:internal="ipb_ack"></altera:port_mapping>
         <altera:port_mapping altera:name="ipb_err" altera:internal="ipb_err"></altera:port_mapping>
         <altera:port_mapping altera:name="ipb_rdata" altera:internal="ipb_rdata"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="reset" altera:internal="ipbus_avallon_master_1.reset" altera:type="reset" altera:dir="end">
+      <altera:interface_mapping altera:name="reset" altera:internal="ipbus_qsys_ipbus_avallon_master_1.reset" altera:type="reset" altera:dir="end">
         <altera:port_mapping altera:name="reset_reset" altera:internal="reset_reset"></altera:port_mapping>
       </altera:interface_mapping>
     </altera:altera_interface_boundary>

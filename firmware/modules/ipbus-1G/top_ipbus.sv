@@ -1,4 +1,5 @@
 module top_ipbus (
+    input  logic clk10,
     input  logic refclk_1G,
     input  logic nreset,
     // SPI interface
@@ -24,6 +25,7 @@ module top_ipbus (
     logic [31:0] spi_interface_write_data   ;
 
     ipbus_1G ipbus_1G_inst (
+        .clk10                      (clk10),
         .clk125                     (refclk_1G),
         .rst_125                    (~nreset),
         .rx_gbt                     (rx_gbt), //! Configure pour passer par le fond de panier (AMC_1GbE_RX[0]) mais peut être remplace par QSFP_RX[0]
@@ -41,7 +43,7 @@ module top_ipbus (
     );
 
     SPI_interface SPI_interface_inst (
-        .clk                    (refclk_1G),	                //! Signal d'horloge
+        .clk                    (clk10),	                    //! Signal d'horloge
         .nreset                 (nreset), 		                //! Signal de Reset (actif a l'etat bas)
         .spi_clk                (spi_clk),		                //! Horloge SPI
         .csn                    (csn),			                //! Chip select
