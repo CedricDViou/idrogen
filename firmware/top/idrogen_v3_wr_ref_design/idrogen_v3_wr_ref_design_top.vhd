@@ -336,7 +336,7 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
     component ISSP is
         port (
             source : out STD_LOGIC_VECTOR(0 downto 0);                  -- source
-            probe  : in STD_LOGIC_VECTOR(8 downto 0) := (others => 'X') -- probe
+            probe  : in  STD_LOGIC_VECTOR(8 downto 0) := (others => 'X') -- probe
         );
     end component ISSP;
 
@@ -378,17 +378,19 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
     -- JTAG to UART ------------------------------------------------------------------
     ----------------------------------------------------------------------------------
 
-    -- signal JTAG_RX : STD_LOGIC;
-    -- signal JTAG_TX : STD_LOGIC;
+    signal JTAG_RX : STD_LOGIC;
+    signal JTAG_TX : STD_LOGIC;
 
-    -- component jtag_uart_qsys is
-	-- 	port (
-	-- 		clk_clk       : in  STD_LOGIC := 'X'; -- clk
-	-- 		jtag_uart_rxd : in  STD_LOGIC := 'X'; -- rxd
-	-- 		jtag_uart_txd : out STD_LOGIC ;        -- txd
-	-- 		reset_reset_n : in  STD_LOGIC := 'X'  -- reset
-	-- 	);
-	-- end component jtag_uart_qsys;
+    component jtag_2_uart
+        port (
+            clk           : in  STD_LOGIC;
+            nreset        : in  STD_LOGIC;
+            jtag_uart_rxd : in  STD_LOGIC;
+            jtag_uart_txd : out STD_LOGIC
+        );
+    end component;
+
+
 
     ----------------------------------------------------------------------------------
     -- IpBus to UART ------------------------------------------------------------------
@@ -754,12 +756,12 @@ begin --rtl
     -- UART connections between WR, PCIe and USB
     WR_RX   <=  USB_TX   when pio_port(1 downto 0) = "00" else
                 PCIE_TX  when pio_port(1 downto 0) = "01" else
+                JTAG_TX  when pio_port(1 downto 0) = "10" else
                 IPBUS_TX when pio_port(1 downto 0) = "11" ;
-                    -- JTAG_TX  when pio_port(1 downto 0) = "10" else
 
     USB_RX      <= WR_TX;
     PCIE_RX     <= WR_TX;
-    -- JTAG_RX     <= WR_TX;
+    JTAG_RX     <= WR_TX;
     IPBUS_RX    <= WR_TX;
 
     pcie_qsys_inst : component pcie_qsys
@@ -781,13 +783,13 @@ begin --rtl
 			uart_external_connection_txd     => PCIE_TX             --                         .txd
 		);
 
-	-- jtag_uart_qsys_inst : component jtag_uart_qsys
-	-- 	port map (
-	-- 		clk_clk       => AMC_REFCLK_1G, --       clk.clk
-	-- 		jtag_uart_rxd => JTAG_RX,       -- jtag_uart.rxd
-	-- 		jtag_uart_txd => JTAG_TX,       --          .txd
-	-- 		reset_reset_n => DEV_CLRn       --     reset.reset
-	-- 	);
+	jtag_2_uart_inst : jtag_2_uart
+        port map (
+            clk           => clk_sys3,
+            nreset        => DEV_CLRn,
+            jtag_uart_rxd => JTAG_RX,
+            jtag_uart_txd => JTAG_TX
+        );
 
     top_ipbus_inst : top_ipbus 
         port map (

@@ -326,6 +326,7 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name ENABLE_SIGNALTAP ON
 set_global_assignment -name USE_SIGNALTAP_FILE debug_ipbus_uart.stp
+set_global_assignment -name VERILOG_FILE ../../modules/jtag_uart_qsys/jtag_2_uart.v
 set_global_assignment -name VERILOG_FILE "../../modules/ipbus-1G/wr_monitor.v"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_arp_types.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_axi.vhd"
@@ -561,3 +562,5 @@ set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_bridge
 set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_ipbus_avallon_master_1.ip"
 set_global_assignment -name SIGNALTAP_FILE debug_ipbus_uart.stp
 set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_clock_bridge_10M.ip"
+set_global_assignment -name IP_FILE ../../modules/jtag_uart_qsys/ip/jtag_uart_qsys_bridge.ip
+set_global_assignment -name IP_FILE ../../modules/jtag_uart_qsys/ip/jtag_uart_qsys_fifo.ip
