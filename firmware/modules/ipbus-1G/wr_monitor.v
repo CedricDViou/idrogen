@@ -17,17 +17,19 @@ module  wr_monitor(
 
     localparam WAIT_READ   = 0;
     localparam READ_UART   = 1;
-    localparam FIFO_STATUS = 2;
-    localparam WRITE_FIFO  = 4;
-    localparam RESET_ERROR = 8;
+    localparam DECISION    = 2;
+    localparam FIFO_STATUS = 4;
+    localparam WRITE_FIFO  = 8;
+    localparam RESET_ERROR = 16;
 
     reg [1:0] fifo_shift   = 0;
-    reg [3:0] reg_fstate   = 0;
+    reg [4:0] reg_fstate   = 0;
 
     always @(posedge clock or negedge nreset)
         begin : state_machine
             if (~nreset) begin
                 reg_fstate              <= 0;
+                fifo_shift              <= 0;
                 bridge_uart_read        <= 0;
                 bridge_uart_write       <= 0;
                 bridge_uart_byte_enable <= 0;
@@ -61,26 +63,33 @@ module  wr_monitor(
                         bridge_uart_address     <= UART_ADDRESS_READ;
 
                         if (bridge_uart_acknowledge) begin
+                            reg_fstate              <= DECISION;
                             bridge_uart_read        <= 0;
                             bridge_uart_byte_enable <= 0;
-                            fifo_shift              <= fifo_shift + 1;
                             bridge_uart_write_data  <= {bridge_uart_write_data[23:0], bridge_uart_read_data[7:0]};
-
-                            if (fifo_shift==3)
-                                reg_fstate          <= FIFO_STATUS;
-                            else
-                                reg_fstate          <= WAIT_READ;
                         end
                         else begin
                             reg_fstate <= READ_UART;
+                        end                      
+                    end
+                    DECISION: begin
+                        if (fifo_shift==3) begin
+                            reg_fstate  <= FIFO_STATUS;
+                            fifo_shift  <= 0;
                         end
-
-                        
+                        else if (bridge_uart_write_data[15:0] == 16'h0D0A) begin
+                            reg_fstate  <= FIFO_STATUS;
+                            fifo_shift  <= 0;
+                        end
+                        else begin
+                            reg_fstate  <= WAIT_READ;
+                            fifo_shift  <= fifo_shift + 1;
+                        end
                     end
                     FIFO_STATUS: begin
-                        bridge_uart_read        <= 1;
-                        bridge_uart_byte_enable <= 1;
-                        bridge_uart_address     <= FIFO_STATUS_REG;
+                        bridge_uart_read            <= 1;
+                        bridge_uart_byte_enable     <= 1;
+                        bridge_uart_address         <= FIFO_STATUS_REG;
 
                         if (bridge_uart_acknowledge) begin
                             bridge_uart_read        <= 0;
@@ -96,9 +105,9 @@ module  wr_monitor(
                         end
                     end
                     WRITE_FIFO: begin
-                        bridge_uart_write       <= 1;
-                        bridge_uart_byte_enable <= 4'hF;
-                        bridge_uart_address     <= FIFO_WR_REG;
+                        bridge_uart_write           <= 1;
+                        bridge_uart_byte_enable     <= 4'hF;
+                        bridge_uart_address         <= FIFO_WR_REG;
 
                         if (bridge_uart_acknowledge) begin
                             reg_fstate              <= WAIT_READ;
