@@ -342,6 +342,7 @@ set_global_assignment -name IP_FILE ../../modules/ipbus/ip/ipbus_qsys_clock_in.i
 set_global_assignment -name IP_FILE ../../modules/ipbus/ip/ipbus_qsys_mac_address_pio.ip
 set_global_assignment -name IP_FILE "../../ip_cores/ipbus-1g/ipbus/ip/qsys_sysco/qsys_sysco_eth_tse_0.ip"
 set_global_assignment -name IP_FILE "../../ip_cores/ipbus-1g/ipbus/ip/MyFpll.ip"
+set_global_assignment -name QSYS_FILE "../../ip_cores/ipbus-1g/modules/pll/arria10/dmtd_pll10_idrogen.qsys"
 set_global_assignment -name QSYS_FILE "../../ip_cores/wr-cores/platform/altera/wr_arria10_phy/wr_arria10_scu4_phy/wr_arria10_scu4_atx_pll/wr_arria10_scu4_atx_pll.qsys"
 set_global_assignment -name QSYS_FILE "../../ip_cores/wr-cores/platform/altera/wr_arria10_phy/wr_arria10_scu4_phy/wr_arria10_scu4_phy/wr_arria10_scu4_phy.qsys"
 set_global_assignment -name QSYS_FILE "../../ip_cores/ipbus-1g/ipbus/qsys_sysco.qsys"
@@ -353,9 +354,11 @@ set_global_assignment -name QSYS_FILE ../../modules/misc/ISSP.qsys
 set_global_assignment -name QSYS_FILE ../../modules/wr_arria10_phy/altera_xcvr_native_phy_a10.qsys
 set_global_assignment -name QSYS_FILE ../../modules/wr_arria10_phy/ATX_pll_125_to_625.qsys
 set_global_assignment -name QSYS_FILE ../../modules/wr_arria10_phy/xcvr_phy_reset_controller.qsys
-set_global_assignment -name QSYS_FILE "../../ip_cores/ipbus-1g/modules/pll/arria10/dmtd_pll10_hydrogen.qsys"
 set_global_assignment -name QSYS_FILE "../../ip_cores/ipbus-1g/modules/pll/arria10/ref_pll10.qsys"
 set_global_assignment -name QSYS_FILE "../../ip_cores/ipbus-1g/modules/pll/arria10/sys_pll10.qsys"
+set_global_assignment -name QSYS_FILE "../../modules/pll/arria10/dmtd_pll10_hydrogen_idg.qsys"
+set_global_assignment -name QSYS_FILE "../../modules/pll/arria10/ref_pll10_idg.qsys"
+set_global_assignment -name QSYS_FILE "../../modules/pll/arria10/sys_pll10_idg.qsys"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_axi.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_arp_types.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_ipv4_types.vhd"
@@ -503,8 +506,8 @@ set_global_assignment -name VHDL_FILE "../../ip_cores/etherbone-core/hdl/eb_slav
 set_global_assignment -name VHDL_FILE "../../ip_cores/wr-cores/modules/wr_endpoint/ep_leds_controller.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/general-cores/modules/genrams/altera/generic_dpram.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/etherbone-core/hdl/eb_slave_core/eb_slave_top.vhd"
-set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/modules/pll/altera_reset.vhd"
-set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/dhcp/dhcp_client_wr.vhd"
+set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/modules/altera_reset.vhd"
+set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/dhcp/dhcp_client_4_wr.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/dhcp/udp_tx_arbitrer.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/arp_store.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/arp.vhd"
@@ -512,7 +515,7 @@ set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/crc_gen.vhd
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/IP_complete_nomac.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/IP_tx_arbitrator.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/ipbus_dpram32.vhd"
-set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/ipbus_main_wr.vhd"
+set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/ipbus_main_4_wr.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/IPv4_RX.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/IPv4_TX.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/IPv4.vhd"
@@ -522,7 +525,7 @@ set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/mac_tx_arbi
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/MAC_TX_engine.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/MyGbt.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/ping.vhd"
-set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/transactor_lpsc_wr.vhd"
+set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/transactor_lpsc_4_wr.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/tri_mode_eth_mac.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/UDP_RX.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/UDP_TX.vhd"
@@ -531,7 +534,7 @@ set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/vect_domain
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/whisbone2udp_int.vhd"
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/UDP_Complete_nomac.vhd"
 set_global_assignment -name VHDL_FILE ../../modules/ipbus/ip/ipbus_avallon_master_wr_v4.vhd
-set_global_assignment -name VHDL_FILE ../../modules/ipbus/top_ipbus_wr.vhd
+set_global_assignment -name VHDL_FILE ../../modules/ipbus/ipbus_wr.vhd
 set_global_assignment -name VERILOG_FILE "../../ip_cores/general-cores/modules/wishbone/wb_lm32/src/lm32_addsub.v"
 set_global_assignment -name VERILOG_FILE "../../ip_cores/general-cores/modules/wishbone/wb_lm32/platform/generic/lm32_multiplier.v"
 set_global_assignment -name VERILOG_FILE "../../ip_cores/general-cores/modules/wishbone/wb_lm32/src/lm32_shifter.v"

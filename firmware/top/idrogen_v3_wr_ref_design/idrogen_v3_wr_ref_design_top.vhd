@@ -398,7 +398,11 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
             snk_o        : out t_wrf_sink_out;
             src_o        : out t_wrf_source_out;
             src_i        : in  t_wrf_source_in;
-            uc_interrupt : out STD_LOGIC
+            uc_interrupt : out STD_LOGIC;
+            csn          : in  STD_LOGIC;
+            spi_clk      : in  STD_LOGIC;
+            mosi         : in  STD_LOGIC;
+            miso         : out STD_LOGIC
         );
     end component;
 
@@ -442,11 +446,10 @@ begin --rtl
             rstn_o(2)     => rstn_ref
         );
 
-    dmtd_inst : dmtd_pll10_hydrogen 
+    dmtd_inst : dmtd_pll10_idrogen
         port map (
             rst      => pll_rst,
             refclk   => WR_CLK_DMTD, --  125  MHz
-            --    outclk_0 => clk_dmtd0,      --  62.5MHz
             outclk_0 => clk_dmtd, --  62.5MHz
             locked   => dmtd_locked
         );
@@ -717,7 +720,7 @@ begin --rtl
     -- Top Ipbus 1G through WR
     -----------------------------------------------------------------------------
     
-    top_ipbus_wr_inst : top_ipbus_wr
+    ipbus_wr_inst : ipbus_wr
         port map (
             clk125       => core_clk_125m_sfpref_i,
             rst_125      => rstn_sys,

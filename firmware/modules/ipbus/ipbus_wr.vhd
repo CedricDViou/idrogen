@@ -90,7 +90,7 @@ architecture RTL of ipbus_wr is
         );
     end component;
 
-    component dhcp_client_wr
+    component dhcp_client_4_wr
         generic (
             CLOCK_FREQ        : INTEGER := 125000000; -- freq of data_in_clk -- needed to timout cntr
             LEASE_TIME_TO_REQ : INTEGER := 3600       -- lease time request (in sec)
@@ -161,7 +161,7 @@ architecture RTL of ipbus_wr is
         );
     end component;
 
-    component ipbus_main_wr
+    component ipbus_main_4_wr
         generic (
             -- Number of RX and TX buffers is 2**BUFWIDTH
             BUFWIDTH : NATURAL := 4;
@@ -352,7 +352,7 @@ begin
     -------------------------------------------------------------------------------
     --    dhcp block
     -------------------------------------------------------------------------------
-    lbl_dhcp : dhcp_client_wr
+    lbl_dhcp : dhcp_client_4_wr
         generic map(
             CLOCK_FREQ        => DHCP_CLOCK_FREQ,
             LEASE_TIME_TO_REQ => LEASE_TIME_TO_REQ
@@ -382,7 +382,7 @@ begin
     -------------------------------------------------------------------------------
     --    IPBUS block
     -------------------------------------------------------------------------------
-    lbl_ipbus : ipbus_main_wr
+    lbl_ipbus : ipbus_main_4_wr
         generic map(
             -- Number of RX and TX buffers is 2**BUFWIDTH
             BUFWIDTH => 4,
@@ -464,7 +464,7 @@ begin
             ipbus_avallon_master_wr_ipbuswrite_ipbus_write_write     => ipb_out.ipb_write,       --                                  .ipbus_write_write
             pio_external_connection_export                           => pio_0_export,            --         pio_0_external_connection.export
             mac_address_pio_export                                   => mac_address_pio,         --                   mac_address_pio.export
-            spi_bridge_address                                       => spi_bridge_address,      --                        spi_bridge.address
+            spi_bridge_address                                       => spi_bridge_address(26 downto 0), --                        spi_bridge.address
             spi_bridge_byte_enable                                   => spi_bridge_byte_enable,  --                                  .byte_enable
             spi_bridge_read                                          => spi_bridge_read,         --                                  .read
             spi_bridge_write                                         => spi_bridge_write,        --                                  .write
@@ -486,10 +486,10 @@ begin
         port map (
             clk                     => clk125,
             nreset                  => rst_125,
-            csn                     => uC_CSn,
-            spi_clk                 => uC_SCLK,
-            mosi                    => uC_MOSI,
-            miso                    => uC_MISO,
+            csn                     => csn,
+            spi_clk                 => spi_clk,
+            mosi                    => mosi,
+            miso                    => miso,
             address                 => spi_bridge_address,
             avalon_read             => spi_bridge_read,
             avalon_write            => spi_bridge_write,
