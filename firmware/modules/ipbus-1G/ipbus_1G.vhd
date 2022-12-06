@@ -20,22 +20,22 @@ entity ipbus_1G is
         MAX_ARP_ENTRIES      : INTEGER                       := 255        -- max entries in the ARP store
     );
     port (
-        clk10                     : in  STD_LOGIC;
-        clk125                    : in  STD_LOGIC;
-        rst_125                   : in  STD_LOGIC;
-        phy_rstb                  : out STD_LOGIC;
-        rx_gbt                    : in  STD_LOGIC;
-        tx_gbt                    : out STD_LOGIC;
-        spi_interface_address     : in  STD_LOGIC_VECTOR(21 downto 0);  -- address
-        spi_interface_byte_enable : in  STD_LOGIC_VECTOR(3 downto 0);   -- byte_enable
-        spi_interface_read        : in  STD_LOGIC;                      -- read
-        spi_interface_write       : in  STD_LOGIC;                      -- write
-        spi_interface_write_data  : in  STD_LOGIC_VECTOR(31 downto 0);  -- write_data
-        spi_interface_acknowledge : out STD_LOGIC;                      -- acknowledge
-        spi_interface_read_data   : out STD_LOGIC_VECTOR(31 downto 0);  -- read_data
-        uc_interrupt              : out STD_LOGIC;
-        ipbus_uart_rxd            : in  STD_LOGIC;                      -- uart.rxd
-        ipbus_uart_txd            : out STD_LOGIC                       --     .txd
+        clk10                     : in  STD_LOGIC;                      --! 10 MHz clock signal 
+        clk125                    : in  STD_LOGIC;                      --! 125 MHZ clock signal 
+        rst_125                   : in  STD_LOGIC;                      --! Reset signal
+        phy_rstb                  : out STD_LOGIC;                      --! 
+        rx_gbt                    : in  STD_LOGIC;                      --! 
+        tx_gbt                    : out STD_LOGIC;                      --! 
+        spi_interface_address     : in  STD_LOGIC_VECTOR(21 downto 0);  --! SPI Avalon Master interface address
+        spi_interface_byte_enable : in  STD_LOGIC_VECTOR(3 downto 0);   --! SPI Avalon Master interface byte_enable
+        spi_interface_read        : in  STD_LOGIC;                      --! SPI Avalon Master interface read request
+        spi_interface_write       : in  STD_LOGIC;                      --! SPI Avalon Master interface write request
+        spi_interface_write_data  : in  STD_LOGIC_VECTOR(31 downto 0);  --! SPI Avalon Master interface write data
+        spi_interface_acknowledge : out STD_LOGIC;                      --! SPI Avalon Master interface acknowledge
+        spi_interface_read_data   : out STD_LOGIC_VECTOR(31 downto 0);  --! SPI Avalon Master interface read data
+        uc_interrupt              : out STD_LOGIC;                      --! Interrupt signal for ATMega uc
+        ipbus_uart_rxd            : in  STD_LOGIC;                      --! RX signal for White Rabbit UART interface
+        ipbus_uart_txd            : out STD_LOGIC                       --! TX signal for White Rabbit UART interface
     );
 end ipbus_1G;
 
@@ -46,19 +46,19 @@ architecture RTL of ipbus_1G is
         generic (
             IN_SIMULATION         : BOOLEAN                       := false;
             SIMUL_DST_MAC_NUMBER  : STD_LOGIC_VECTOR(47 downto 0) := x"AAAA_BBBB_CCCC";
-            CLOCK_FREQ            : INTEGER                       := 125000000; -- freq of data_in_clk -- needed to timout cntr
-            ARP_TIMEOUT           : INTEGER                       := 60;        -- ARP response timeout (s)
-            ARP_MAX_PKT_TMO       : INTEGER                       := 5;         -- # wrong nwk pkts received before set error
-            MAX_ARP_ENTRIES       : INTEGER                       := 255        -- max entries in the ARP store
+            CLOCK_FREQ            : INTEGER                       := 125000000;         -- freq of data_in_clk -- needed to timout cntr
+            ARP_TIMEOUT           : INTEGER                       := 60;                -- ARP response timeout (s)
+            ARP_MAX_PKT_TMO       : INTEGER                       := 5;                 -- # wrong nwk pkts received before set error
+            MAX_ARP_ENTRIES       : INTEGER                       := 255                -- max entries in the ARP store
         );
         port (
             -- UDP TX signals
-            udp_tx_start          : in  STD_LOGIC;   -- indicates req to tx UDP
-            udp_txi               : in  udp_tx_type; -- UDP tx cxns
-            udp_tx_result         : out STD_LOGIC_VECTOR (1 downto 0);-- tx status (changes during transmission)
-            udp_tx_data_out_ready : out STD_LOGIC; -- indicates udp_tx is ready to take data
+            udp_tx_start          : in  STD_LOGIC;                      -- indicates req to tx UDP
+            udp_txi               : in  udp_tx_type;                    -- UDP tx cxns
+            udp_tx_result         : out STD_LOGIC_VECTOR (1 downto 0);  -- tx status (changes during transmission)
+            udp_tx_data_out_ready : out STD_LOGIC;                      -- indicates udp_tx is ready to take data
             -- UDP RX signals
-            udp_rx_start          : out STD_LOGIC; -- indicates receipt of udp header
+            udp_rx_start          : out STD_LOGIC;                      -- indicates receipt of udp header
             udp_rxo               : out udp_rx_type;
             -- IP RX signals
             ip_rx_hdr             : out ipv4_rx_header_type;
@@ -71,8 +71,8 @@ architecture RTL of ipbus_1G is
             netmask               : in  STD_LOGIC_VECTOR(31 downto 0);
             control               : in  udp_control_type;
             -- status signals
-            arp_pkt_count         : out STD_LOGIC_VECTOR(7 downto 0); -- count of arp pkts received
-            ip_pkt_count          : out STD_LOGIC_VECTOR(7 downto 0); -- number of IP pkts received for us
+            arp_pkt_count         : out STD_LOGIC_VECTOR(7 downto 0);   -- count of arp pkts received
+            ip_pkt_count          : out STD_LOGIC_VECTOR(7 downto 0);   -- number of IP pkts received for us
             -- gmii TX interface
             --     gmii_gtx_clk : out STD_LOGIC; -- must be generated with appropriate system
             gmii_tx_en            : out STD_LOGIC;
@@ -107,7 +107,6 @@ architecture RTL of ipbus_1G is
             gateway               : out STD_LOGIC_VECTOR(31 downto 0);
             netmask               : out STD_LOGIC_VECTOR(31 downto 0);
             allocated_ip_address  : out STD_LOGIC_VECTOR(31 downto 0)
-
         );
     end component;
 
@@ -251,8 +250,8 @@ architecture RTL of ipbus_1G is
     signal gmii_rxd_del                : STD_LOGIC_VECTOR(7 downto 0);
     signal gmii_rx_dv_del              : STD_LOGIC;
     signal gmii_rx_er_del              : STD_LOGIC;
-    signal our_ip_address              : STD_LOGIC_VECTOR (31 downto 0);
-    signal our_mac_address             : STD_LOGIC_VECTOR (47 downto 0);
+    signal our_ip_address              : STD_LOGIC_VECTOR (31 downto 0);    --! IP address register
+    signal our_mac_address             : STD_LOGIC_VECTOR (47 downto 0);    --! MAC address register
 
     -- IPBUS connection
     signal ipb_out                     : ipb_wbus;
@@ -284,16 +283,16 @@ architecture RTL of ipbus_1G is
     signal src_udp_tx_result           : Array2bit_ip(0 to nb_src - 1);     -- tx status (changes during transmission)
     signal src_udp_tx_data_out_ready   : STD_LOGIC_VECTOR(0 to nb_src - 1); -- indicates udp_tx is ready to take data
 
-    signal spi_export                  : STD_LOGIC_VECTOR (7 downto 0);
-    signal mac_address_export          : STD_LOGIC_VECTOR (7 downto 0);
+    signal spi_export                  : STD_LOGIC_VECTOR (7 downto 0);     --! 8-bits register controled with SPI for uC interrupt 
+    signal mac_address_export          : STD_LOGIC_VECTOR (7 downto 0);     --! 8-bits register controled with SPI to control MAC address value
 	 
-    signal bridge_uart_read            : STD_LOGIC;
-    signal bridge_uart_write           : STD_LOGIC;
-    signal bridge_uart_acknowledge     : STD_LOGIC;
-    signal bridge_uart_byte_enable     : STD_LOGIC_VECTOR ( 3 downto 0);
-    signal bridge_uart_address         : STD_LOGIC_VECTOR ( 8 downto 0);
-    signal bridge_uart_read_data       : STD_LOGIC_VECTOR (31 downto 0);
-    signal bridge_uart_write_data      : STD_LOGIC_VECTOR (31 downto 0);
+    signal bridge_uart_read            : STD_LOGIC;                         --! Avalon master interface for White Rabbit UART interface: read request
+    signal bridge_uart_write           : STD_LOGIC;                         --! Avalon master interface for White Rabbit UART interface: write request
+    signal bridge_uart_acknowledge     : STD_LOGIC;                         --! Avalon master interface for White Rabbit UART interface: acknowledge
+    signal bridge_uart_byte_enable     : STD_LOGIC_VECTOR ( 3 downto 0);    --! Avalon master interface for White Rabbit UART interface: byte_enable
+    signal bridge_uart_address         : STD_LOGIC_VECTOR ( 8 downto 0);    --! Avalon master interface for White Rabbit UART interface: address
+    signal bridge_uart_read_data       : STD_LOGIC_VECTOR (31 downto 0);    --! Avalon master interface for White Rabbit UART interface: read data
+    signal bridge_uart_write_data      : STD_LOGIC_VECTOR (31 downto 0);    --! Avalon master interface for White Rabbit UART interface: write data
     
 begin
 

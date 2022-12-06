@@ -7,7 +7,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 384)">
         <title>state transitions</title>
-        <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-384 852.816,-384 852.816,4 -4,4" />
+        <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-384 784,-384 784,4 -4,4" />
         <g id="clust1" class="cluster state regular">
             <title>cluster_reg_fstate</title>
             <path fill="none" stroke="#000000" stroke-width="2"
@@ -33,9 +33,9 @@
                 d="M396.7453,-320.839C409.1005,-320.5837 418.5,-318.9707 418.5,-316 418.5,-313.9112 413.853,-312.4937 406.7991,-311.7474" />
             <polygon fill="#000000" stroke="#000000"
                 points="406.9322,-308.2493 396.7453,-311.161 406.5245,-315.2374 406.9322,-308.2493" />
-            <text text-anchor="start" x="418.5" y="-319" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="420" y="-330" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">not (bridge_uart_read_data[8]) &#160;&#160;</text>
-            <text text-anchor="start" x="418.5" y="-307" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="420" y="-318" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">not (bridge_uart_read_data[7]) &#160;&#160;</text>
         </g>
         <!-- READ_UART -->
@@ -55,7 +55,7 @@
                 d="M379.6753,-297.8696C399.2846,-285.7482 426.0384,-269.7474 450.397,-257 458.5788,-252.7183 467.3859,-248.419 476.0118,-244.3714" />
             <polygon fill="#000000" stroke="#000000"
                 points="477.6569,-247.4668 485.2626,-240.0909 474.7172,-241.114 477.6569,-247.4668" />
-            <text text-anchor="start" x="450" y="-266" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="440" y="-266" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">bridge_uart_read_data[7] &#160;&#160;</text>
         </g>
         <!-- RESET_ERROR -->
@@ -85,9 +85,9 @@
                 d="M558.4713,-240.3306C563.9398,-245.0293 568.8691,-250.5985 572,-257 576.6864,-266.582 578.9275,-272.889 572,-281 561.3503,-293.4691 468.6066,-304.7158 406.6956,-310.9282" />
             <polygon fill="#000000" stroke="#000000"
                 points="406.2699,-307.4532 396.6619,-311.9183 406.9573,-314.4193 406.2699,-307.4532" />
-            <text text-anchor="start" x="576" y="-272" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="580" y="-272" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">not (fifo_shift==3) &#160;&#160;</text>
-            <text text-anchor="start" x="576" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="580" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">bridge_uart_acknowledge &#160;&#160;</text>
         </g>
         <!-- READ_UART&#45;&gt;READ_UART -->
@@ -97,7 +97,7 @@
                 d="M574.0851,-226.8322C586.5552,-226.556 596,-224.9453 596,-222 596,-219.9291 591.3306,-218.518 584.2234,-217.7666" />
             <polygon fill="#000000" stroke="#000000"
                 points="584.2741,-214.2636 574.0851,-217.1678 583.8613,-221.2514 584.2741,-214.2636" />
-            <text text-anchor="start" x="596" y="-219" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="600" y="-219" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">not (bridge_uart_acknowledge) &#160;&#160;</text>
         </g>
         <!-- FIFO_STATUS -->
@@ -129,9 +129,9 @@
                 d="M348.1342,-129.4715C248.038,-133.0064 38,-144.1048 38,-175 38,-269 38,-269 38,-269 38,-294.7277 205.5165,-307.9663 295.449,-313.2198" />
             <polygon fill="#000000" stroke="#000000"
                 points="295.3041,-316.7171 305.4871,-313.7919 295.7025,-309.7285 295.3041,-316.7171" />
-            <text text-anchor="start" x="38" y="-225" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="43" y="-225" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">bridge_uart_read_data[0] &#160;&#160;</text>
-            <text text-anchor="start" x="38" y="-213" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="43" y="-213" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">bridge_uart_acknowledge &#160;&#160;</text>
         </g>
         <!-- FIFO_STATUS&#45;&gt;FIFO_STATUS -->
@@ -141,7 +141,7 @@
                 d="M451.5182,-132.7988C464.1211,-132.4434 473.5,-130.8438 473.5,-128 473.5,-126.0005 468.8632,-124.6161 461.7292,-123.8467" />
             <polygon fill="#000000" stroke="#000000"
                 points="461.7191,-120.3392 451.5182,-123.2012 461.2774,-127.3252 461.7191,-120.3392" />
-            <text text-anchor="start" x="473.5" y="-125" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="478" y="-125" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">not (bridge_uart_acknowledge) &#160;&#160;</text>
         </g>
         <!-- WRITE_FIFO -->
@@ -173,7 +173,7 @@
                 d="M523.1464,-38.3838C571.2865,-44.2012 639,-56.7025 639,-81 639,-154.5 639,-154.5 639,-154.5 639,-208.1109 719.8909,-158.9802 749,-204 770.5222,-237.286 740.2111,-264.878 704,-281 677.5299,-292.7851 499.2076,-306.1578 406.6025,-312.4149" />
             <polygon fill="#000000" stroke="#000000"
                 points="406.3053,-308.9269 396.5619,-313.0881 406.7737,-315.9112 406.3053,-308.9269" />
-            <text text-anchor="start" x="726" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="650" y="-162" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">bridge_uart_acknowledge &#160;&#160;</text>
         </g>
         <!-- WRITE_FIFO&#45;&gt;WRITE_FIFO -->
@@ -183,7 +183,7 @@
                 d="M523.0851,-38.8322C535.5552,-38.556 545,-36.9453 545,-34 545,-31.9291 540.3306,-30.518 533.2234,-29.7666" />
             <polygon fill="#000000" stroke="#000000"
                 points="533.2741,-26.2636 523.0851,-29.1678 532.8613,-33.2514 533.2741,-26.2636" />
-            <text text-anchor="start" x="545" y="-31" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="550" y="-31" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">not (bridge_uart_acknowledge) &#160;&#160;</text>
         </g>
         <!-- RESET_ERROR&#45;&gt;WAIT_READ -->
@@ -203,7 +203,7 @@
                 d="M293.7324,-226.756C306.3044,-226.3275 315.5,-224.7422 315.5,-222 315.5,-220.0719 310.9539,-218.7157 303.8844,-217.9315" />
             <polygon fill="#000000" stroke="#000000"
                 points="303.946,-214.4278 293.7324,-217.244 303.473,-221.4118 303.946,-214.4278" />
-            <text text-anchor="start" x="315.5" y="-219" font-family="Helvetica,sans-Serif" font-size="10.00"
+            <text text-anchor="start" x="320" y="-219" font-family="Helvetica,sans-Serif" font-size="10.00"
                 fill="#000000">not (bridge_uart_acknowledge) &#160;&#160;</text>
         </g>
     </g>
