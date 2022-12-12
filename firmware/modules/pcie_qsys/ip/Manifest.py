@@ -1,5 +1,6 @@
 files = [
     "pcie_qsys_clock_bridge.ip",
+    "pcie_qsys_onchip_memory.ip",
     "pcie_qsys_pcie.ip",
     "pcie_qsys_pio.ip",
     "pcie_qsys_sysid.ip",
