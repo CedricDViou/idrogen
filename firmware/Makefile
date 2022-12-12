@@ -17,7 +17,7 @@ gateware:	all idrogen_v3_ref_design
 
 install::	etherbone-install tools-install eca-install tlu-install driver-install
 
-clean::		etherbone-clean tools-clean eca-clean tlu-clean sdbfs-clean driver-clean toolchain-clean firmware-clean idrogen_v3_ref_design-clean
+clean::		etherbone-clean tools-clean eca-clean tlu-clean sdbfs-clean driver-clean toolchain-clean firmware-clean idrogen_v3_wr_ref_design-clean
 
 distclean::	clean
 	git clean -xfd .
