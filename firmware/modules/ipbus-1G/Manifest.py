@@ -1,7 +1,7 @@
 files = [
     "ipbus_qsys.qsys",
     "ipbus_1G.vhd",
-    "top_ipbus.sv",
+    "top_ipbus.v",
     "wr_monitor.v"
 ]
 
