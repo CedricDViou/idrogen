@@ -110,7 +110,7 @@
    {
       datum baseAddress
       {
-         value = "8192";
+         value = "4096";
          type = "String";
       }
    }
@@ -126,7 +126,7 @@
    {
       datum baseAddress
       {
-         value = "4224";
+         value = "8192";
          type = "String";
       }
    }
@@ -8483,7 +8483,7 @@
    name="onchip_memory2_0"
    kind="altera_generic_component"
    version="1.0"
-   enabled="0">
+   enabled="1">
   <parameter name="componentDefinition"><![CDATA[<componentDefinition>
     <boundary>
         <interfaces>
@@ -9756,7 +9756,7 @@
                         <name>out_port</name>
                         <role>export</role>
                         <direction>Output</direction>
-                        <width>8</width>
+                        <width>9</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -10271,7 +10271,7 @@
                     <name>out_port</name>
                     <role>export</role>
                     <direction>Output</direction>
-                    <width>8</width>
+                    <width>9</width>
                     <lowerBound>0</lowerBound>
                     <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                 </port>
@@ -10337,7 +10337,7 @@
         </entry>
         <entry>
             <key>embeddedsw.CMacro.DATA_WIDTH</key>
-            <value>8</value>
+            <value>9</value>
         </entry>
         <entry>
             <key>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</key>
@@ -10389,7 +10389,7 @@
         </entry>
         <entry>
             <key>embeddedsw.dts.params.altr,gpio-bank-width</key>
-            <value>8</value>
+            <value>9</value>
         </entry>
         <entry>
             <key>embeddedsw.dts.params.resetvalue</key>
@@ -13457,7 +13457,6 @@
                     </entry>
                     <entry>
                         <key>bridgedAddressOffset</key>
-                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToMaster</key>
@@ -13852,7 +13851,7 @@
             <ports>
                 <port>
                     <name>rxd</name>
-                    <role>rxd</role>
+                    <role>export</role>
                     <direction>Input</direction>
                     <width>1</width>
                     <lowerBound>0</lowerBound>
@@ -13860,7 +13859,7 @@
                 </port>
                 <port>
                     <name>txd</name>
-                    <role>txd</role>
+                    <role>export</role>
                     <direction>Output</direction>
                     <width>1</width>
                     <lowerBound>0</lowerBound>
@@ -13906,7 +13905,7 @@
                 <parameterValueMap>
                     <entry>
                         <key>associatedAddressablePoint</key>
-                        <value>uart.s1</value>
+                        <value>ipbus_qsys_uart.s1</value>
                     </entry>
                     <entry>
                         <key>associatedClock</key>
@@ -13918,7 +13917,6 @@
                     </entry>
                     <entry>
                         <key>bridgedReceiverOffset</key>
-                        <value>0</value>
                     </entry>
                     <entry>
                         <key>bridgesToReceiver</key>
@@ -14097,7 +14095,7 @@
    start="bridge_spi.avalon_master"
    end="pio_mac_address.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x1080" />
+  <parameter name="baseAddress" value="0x2000" />
   <parameter name="defaultConnection" value="false" />
   <parameter name="domainAlias" value="" />
   <parameter name="qsys_mm.burstAdapterImplementation" value="GENERIC_CONVERTER" />
@@ -14118,6 +14116,26 @@
    end="uart.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+  <parameter name="domainAlias" value="" />
+  <parameter name="qsys_mm.burstAdapterImplementation" value="GENERIC_CONVERTER" />
+  <parameter name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+  <parameter name="qsys_mm.enableEccProtection" value="FALSE" />
+  <parameter name="qsys_mm.enableInstrumentation" value="FALSE" />
+  <parameter name="qsys_mm.insertDefaultSlave" value="FALSE" />
+  <parameter name="qsys_mm.interconnectResetSource" value="DEFAULT" />
+  <parameter name="qsys_mm.interconnectType" value="STANDARD" />
+  <parameter name="qsys_mm.maxAdditionalLatency" value="1" />
+  <parameter name="qsys_mm.syncResets" value="FALSE" />
+  <parameter name="qsys_mm.widthAdapterImplementation" value="GENERIC_CONVERTER" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="19.3"
+   start="bridge_spi.avalon_master"
+   end="onchip_memory2_0.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
   <parameter name="domainAlias" value="" />
   <parameter name="qsys_mm.burstAdapterImplementation" value="GENERIC_CONVERTER" />
@@ -14198,6 +14216,46 @@
    end="pio_spi.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0080" />
+  <parameter name="defaultConnection" value="false" />
+  <parameter name="domainAlias" value="" />
+  <parameter name="qsys_mm.burstAdapterImplementation" value="GENERIC_CONVERTER" />
+  <parameter name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+  <parameter name="qsys_mm.enableEccProtection" value="FALSE" />
+  <parameter name="qsys_mm.enableInstrumentation" value="FALSE" />
+  <parameter name="qsys_mm.insertDefaultSlave" value="FALSE" />
+  <parameter name="qsys_mm.interconnectResetSource" value="DEFAULT" />
+  <parameter name="qsys_mm.interconnectType" value="STANDARD" />
+  <parameter name="qsys_mm.maxAdditionalLatency" value="1" />
+  <parameter name="qsys_mm.syncResets" value="FALSE" />
+  <parameter name="qsys_mm.widthAdapterImplementation" value="GENERIC_CONVERTER" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="19.3"
+   start="ipbus_avallon_master.avm_m0"
+   end="uart.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+  <parameter name="domainAlias" value="" />
+  <parameter name="qsys_mm.burstAdapterImplementation" value="GENERIC_CONVERTER" />
+  <parameter name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+  <parameter name="qsys_mm.enableEccProtection" value="FALSE" />
+  <parameter name="qsys_mm.enableInstrumentation" value="FALSE" />
+  <parameter name="qsys_mm.insertDefaultSlave" value="FALSE" />
+  <parameter name="qsys_mm.interconnectResetSource" value="DEFAULT" />
+  <parameter name="qsys_mm.interconnectType" value="STANDARD" />
+  <parameter name="qsys_mm.maxAdditionalLatency" value="1" />
+  <parameter name="qsys_mm.syncResets" value="FALSE" />
+  <parameter name="qsys_mm.widthAdapterImplementation" value="GENERIC_CONVERTER" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="19.3"
+   start="ipbus_avallon_master.avm_m0"
+   end="onchip_memory2_0.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
   <parameter name="domainAlias" value="" />
   <parameter name="qsys_mm.burstAdapterImplementation" value="GENERIC_CONVERTER" />

@@ -106,7 +106,8 @@ architecture RTL of ipbus_1G is
             udp_rxo               : in  udp_rx_type;
             gateway               : out STD_LOGIC_VECTOR(31 downto 0);
             netmask               : out STD_LOGIC_VECTOR(31 downto 0);
-            allocated_ip_address  : out STD_LOGIC_VECTOR(31 downto 0)
+            allocated_ip_address  : out STD_LOGIC_VECTOR(31 downto 0);
+            stop_dhcp             : in  STD_LOGIC
         );
     end component;
 
@@ -132,7 +133,7 @@ architecture RTL of ipbus_1G is
             ipbus_to_uart_rxd                                       : in  STD_LOGIC                     := 'X';               -- uart.rxd
             ipbus_to_uart_txd                                       : out STD_LOGIC;                                          --     .txd
             spi_export                                              : out STD_LOGIC_VECTOR(7 downto 0);                       -- export
-            mac_address_export                                      : out STD_LOGIC_VECTOR(7 downto 0);
+            mac_address_export                                      : out STD_LOGIC_VECTOR(8 downto 0);
             bridge_uart_address                                     : in  STD_LOGIC_VECTOR(8 downto 0)  := (others => 'X'); -- address
             bridge_uart_byte_enable                                 : in  STD_LOGIC_VECTOR(3 downto 0)  := (others => 'X'); -- byte_enable
             bridge_uart_read                                        : in  STD_LOGIC                     := 'X';             -- read
@@ -284,7 +285,7 @@ architecture RTL of ipbus_1G is
     signal src_udp_tx_data_out_ready   : STD_LOGIC_VECTOR(0 to nb_src - 1); -- indicates udp_tx is ready to take data
 
     signal spi_export                  : STD_LOGIC_VECTOR (7 downto 0);     --! 8-bits register controled with SPI for uC interrupt 
-    signal mac_address_export          : STD_LOGIC_VECTOR (7 downto 0);     --! 8-bits register controled with SPI to control MAC address value
+    signal mac_address_export          : STD_LOGIC_VECTOR (8 downto 0);     --! 8-bits register controled with SPI to control MAC address value
 	 
     signal bridge_uart_read            : STD_LOGIC;                         --! Avalon master interface for White Rabbit UART interface: read request
     signal bridge_uart_write           : STD_LOGIC;                         --! Avalon master interface for White Rabbit UART interface: write request
@@ -348,7 +349,7 @@ begin
             gmii_rx_er            => '0'
         );
 
-    our_mac_address                              <= x"00228f5555" & mac_address_export;
+    our_mac_address                              <= x"00228f5555" & mac_address_export(7 downto 0);
     control.ip_controls.arp_controls.clear_cache <= '0';
 
     -------------------------------------------------------------------------------
@@ -377,7 +378,8 @@ begin
 
             gateway               => gateway,
             netmask               => netmask,
-            allocated_ip_address  => our_ip_address
+            allocated_ip_address  => our_ip_address,
+            stop_dhcp             => mac_address_export(8)
         );
 
     -------------------------------------------------------------------------------
