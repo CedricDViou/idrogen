@@ -23,6 +23,19 @@
 
 # Search "---customize here---" for the few decisions you need to make
 #
+# Track lenth measured by Daniel on the 2022/12/16
+# TCK 143,4 mm
+# TMS 155,5 mm
+# TDI 153 mm
+# TDO 148 mm
+# 71 ps par cm 
+# 
+# TCK 1.018 ns
+# TMS 1.104 ns
+# TDI 1.083 ns
+# TDO 1.051 ns
+
+
 # By default, the most challenging timing spec is applied to work in
 # many JTAG chain setup situations
 set_time_format -unit ns -decimal_places 3
@@ -101,8 +114,8 @@ proc set_tck_timing_spec { } {
     # USB Blaster 2 running at 16 MHz clock safe mode = 62.5 ns period
     set ub2_safe_t_period 62.5
     # ---customize here---
-    #set tck_t_period $ub2_default_t_period
-    set tck_t_period $ub2_safe_t_period
+    set tck_t_period $ub2_default_t_period
+    #set tck_t_period $ub2_safe_t_period
     create_clock -name {altera_reserved_tck} -period $tck_t_period [get_ports {altera_reserved_tck}]
 
     # Comment this out, and instead make altera_reserved_tck exclusive from only named clocks
@@ -115,7 +128,7 @@ proc get_tck_delay_max { } {
     # header to FPGA on board. In general on the PCB, the signal travels
     # at the speed of ~160 ps/inch (1000 mils = 1 inch).
     # ---customize here---
-    set tck_header_trace_max 0.5
+    set tck_header_trace_max 1.05
     return [expr $tck_blaster_tco_max + $tck_cable_max + $tck_header_trace_max]
 }
 proc get_tck_delay_min { } {
@@ -125,7 +138,7 @@ proc get_tck_delay_min { } {
     # header to FPGA on board. In general on the PCB, the signal travels
     # at the speed of ~160 ps/inch (1000 mils = 1 inch).
     # ---customize here---
-    set tck_header_trace_min 0.1
+    set tck_header_trace_min 1.0
     return [expr $tck_blaster_tco_min + $tck_cable_min + $tck_header_trace_min]
 }
 proc set_tms_timing_spec { } {
@@ -137,8 +150,8 @@ proc set_tms_timing_spec { } {
     # header to FPGA on board. In general on the PCB, the signal travels
     # at the speed of ~160 ps/inch (1000 mils = 1 inch).
     # ---customize here---
-    set tms_header_trace_max 0.5
-    set tms_header_trace_min 0.1
+    set tms_header_trace_max 1.2
+    set tms_header_trace_min 1.0
     set tms_in_max [expr $tms_cable_max + $tms_header_trace_max + $tms_blaster_tco_max - [get_tck_delay_min]]
     set tms_in_min [expr $tms_cable_min + $tms_header_trace_min + $tms_blaster_tco_min - [get_tck_delay_max]]
     set_input_delay -add_delay -clock_fall -clock altera_reserved_tck -max $tms_in_max [get_ports {altera_reserved_tms}]
@@ -153,8 +166,8 @@ proc set_tdi_timing_spec_when_driven_by_blaster { } {
     # header to FPGA on board. In general on the PCB, the signal travels
     # at the speed of ~160 ps/inch (1000 mils = 1 inch).
     # ---customize here---
-    set tdi_header_trace_max 0.5
-    set tdi_header_trace_min 0.1
+    set tdi_header_trace_max 1.1
+    set tdi_header_trace_min 1.0
     set tdi_in_max [expr $tdi_cable_max + $tdi_header_trace_max + $tdi_blaster_tco_max - [get_tck_delay_min]]
     set tdi_in_min [expr $tdi_cable_min + $tdi_header_trace_min + $tdi_blaster_tco_min - [get_tck_delay_max]]
     #TDI launches at the falling edge of TCK per standard
@@ -187,8 +200,8 @@ proc set_tdo_timing_spec_when_drive_blaster { } {
     # header to FPGA on board. In general on the PCB, the signal travels
     # at the speed of ~160 ps/inch (1000 mils = 1 inch).
     # ---customize here---
-    set tdo_header_trace_max 0.5
-    set tdo_header_trace_min 0.1
+    set tdo_header_trace_max 1.1
+    set tdo_header_trace_min 1.0
     set tdo_out_max [expr $tdo_cable_max + $tdo_header_trace_max + $tdo_blaster_tsu + [get_tck_delay_max]]
     set tdo_out_min [expr $tdo_cable_min + $tdo_header_trace_min - $tdo_blaster_th + [get_tck_delay_min]]
     #TDO does not latch inside the USB Blaster II at the rising edge of TCK,
