@@ -355,24 +355,24 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
     
 
     component pcie_qsys is
-		port (
-			pcie_refclk_clk                  : in  STD_LOGIC                     := 'X';             -- clk
-			pcie_npor_npor                   : in  STD_LOGIC                     := 'X';             -- npor
-			pcie_npor_pin_perst              : in  STD_LOGIC                     := 'X';             -- pin_perst
-			pcie_hip_serial_rx_in0           : in  STD_LOGIC                     := 'X';             -- rx_in0
-			pcie_hip_serial_rx_in1           : in  STD_LOGIC                     := 'X';             -- rx_in1
-			pcie_hip_serial_rx_in2           : in  STD_LOGIC                     := 'X';             -- rx_in2
-			pcie_hip_serial_rx_in3           : in  STD_LOGIC                     := 'X';             -- rx_in3
-			pcie_hip_serial_tx_out0          : out STD_LOGIC;                                        -- tx_out0
-			pcie_hip_serial_tx_out1          : out STD_LOGIC;                                        -- tx_out1
-			pcie_hip_serial_tx_out2          : out STD_LOGIC;                                        -- tx_out2
-			pcie_hip_serial_tx_out3          : out STD_LOGIC;                                        -- tx_out3
+        port (
+            pcie_refclk_clk                  : in  STD_LOGIC                     := 'X';             -- clk
+            pcie_npor_npor                   : in  STD_LOGIC                     := 'X';             -- npor
+            pcie_npor_pin_perst              : in  STD_LOGIC                     := 'X';             -- pin_perst
+            pcie_hip_serial_rx_in0           : in  STD_LOGIC                     := 'X';             -- rx_in0
+            pcie_hip_serial_rx_in1           : in  STD_LOGIC                     := 'X';             -- rx_in1
+            pcie_hip_serial_rx_in2           : in  STD_LOGIC                     := 'X';             -- rx_in2
+            pcie_hip_serial_rx_in3           : in  STD_LOGIC                     := 'X';             -- rx_in3
+            pcie_hip_serial_tx_out0          : out STD_LOGIC;                                        -- tx_out0
+            pcie_hip_serial_tx_out1          : out STD_LOGIC;                                        -- tx_out1
+            pcie_hip_serial_tx_out2          : out STD_LOGIC;                                        -- tx_out2
+            pcie_hip_serial_tx_out3          : out STD_LOGIC;                                        -- tx_out3
             pcie_hip_ctrl_test_in            : in  STD_LOGIC_VECTOR(31 downto 0) := (others => 'X'); -- test_in
             pio_external_connection_export   : out STD_LOGIC_VECTOR(31 downto 0);                    -- out_port
-			uart_external_connection_rxd     : in  STD_LOGIC                     := 'X';             -- rxd
-			uart_external_connection_txd     : out STD_LOGIC                                         -- txd
-		);
-	end component pcie_qsys;
+            uart_external_connection_rxd     : in  STD_LOGIC                     := 'X';             -- rxd
+            uart_external_connection_txd     : out STD_LOGIC                                         -- txd
+        );
+    end component pcie_qsys;
 
     ----------------------------------------------------------------------------------
     -- JTAG to UART ------------------------------------------------------------------
@@ -794,7 +794,7 @@ begin --rtl
     top_ipbus_inst : top_ipbus 
         port map (
             clk10           => clk_sys3,
-            refclk_1G       => AMC_REFCLK_1G,
+            refclk_1G       => WR_REFCLK_125,
             nreset          => DEV_CLRn,
             spi_clk         => uC_SCLK,
             csn             => uC_CSn,

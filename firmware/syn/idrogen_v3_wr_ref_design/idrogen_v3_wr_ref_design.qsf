@@ -88,7 +88,7 @@ set_instance_assignment -name IO_STANDARD LVDS -to TRIGGER_IN_P -entity idrogen_
 set_instance_assignment -name IO_STANDARD LVDS -to TRIGGER_OUT_P -entity idrogen_v3_wr_ref_design_top
 set_global_assignment -name TOP_LEVEL_ENTITY idrogen_v3_wr_ref_design_top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 19.3.0
-set_global_assignment -name PROJECT_CREATION_TIME_DATE "09:32:11  DECEMBER 07, 2022"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "16:32:06  MARCH 09, 2023"
 set_global_assignment -name LAST_QUARTUS_VERSION "19.3.0 Pro Edition"
 set_global_assignment -name FAMILY "Arria 10"
 set_global_assignment -name PRE_FLOW_SCRIPT_FILE "quartus_sh:preflow.tcl"
@@ -212,6 +212,7 @@ set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_axi.vh
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/pack_ipv4_types.vhd" -library work
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/ping.vhd" -library work
 set_global_assignment -name QSYS_FILE "../../ip_cores/ipbus-1g/ipbus/qsys_sysco.qsys"
+set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/top_ipbus_lpsc_extphy.vhd" -library work
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/transactor_lpsc.vhd" -library work
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/tri_mode_eth_mac.vhd" -library work
 set_global_assignment -name VHDL_FILE "../../ip_cores/ipbus-1g/ipbus/vect_domain_xfer.vhd" -library work
@@ -301,9 +302,8 @@ set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_pio_ma
 set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_reset_in.ip"
 set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_sysid_qsys_1.ip"
 set_global_assignment -name IP_FILE "../../modules/ipbus-1G/ip/ipbus_qsys_uart.ip"
-set_global_assignment -name VHDL_FILE "../../modules/ipbus-1G/ipbus_1G.vhd" -library work
 set_global_assignment -name QSYS_FILE "../../modules/ipbus-1G/ipbus_qsys.qsys"
-set_global_assignment -name VERILOG_FILE "../../modules/ipbus-1G/top_ipbus.v" -library work
+set_global_assignment -name SYSTEMVERILOG_FILE "../../modules/ipbus-1G/top_ipbus.sv" -library work
 set_global_assignment -name VERILOG_FILE "../../modules/ipbus-1G/wr_monitor.v" -library work
 set_global_assignment -name IP_FILE ../../modules/jtag_uart_qsys/ip/jtag_uart_qsys_bridge.ip
 set_global_assignment -name IP_FILE ../../modules/jtag_uart_qsys/ip/jtag_uart_qsys_clock_in.ip
@@ -569,5 +569,3 @@ set_location_assignment PIN_J27 -to PPS_IN
 set_location_assignment PIN_AF23 -to PPS_OUT
 set_location_assignment PIN_H27 -to TRIGGER_IN
 set_location_assignment PIN_AH23 -to TRIGGER_OUT
-set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
-set_global_assignment -name IP_FILE ../../modules/reset_source/reset_source.ip
