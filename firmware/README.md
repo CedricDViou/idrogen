@@ -22,8 +22,7 @@ $ pip install hdlmake
 
 
 ## Modify ip-cores
-  - Add "matrix_pkg.vhd," in ```ip_cores/general-cores/modules/common/Manifest.py```, line 3
-  - Copy ```firmware/modules/ip_cores/platform/altera/xwrc_platform_altera.vhd``` to ```firmware/ip_cores/wr-cores/platform/altera```
+  - Copy/merge ```firmware/modules/ip_cores/platform/altera/*``` to ```firmware/ip_cores/wr-cores/platform/altera/```
 
 
 ## Compile
