@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<system name="$${FILENAME}">
+<system name="ISSP">
  <component
    name="$${FILENAME}"
    displayName="$${FILENAME}"
    version="1.0"
    description=""
-   tags="INTERNAL_COMPONENT=true"
-   categories="" />
+   tags="AUTHORSHIP=Intel Corporation /// INTERNAL_COMPONENT=true"
+   categories="System"
+   tool="QsysPro" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
    element in_system_sources_probes_0
@@ -19,7 +20,7 @@
    }
 }
 ]]></parameter>
- <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="designId" value="" />
  <parameter name="device" value="10AX027H4F34I3SG" />
  <parameter name="deviceFamily" value="Arria 10" />
  <parameter name="deviceSpeedGrade" value="3" />
@@ -30,10 +31,12 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="true" />
  <parameter name="lockedInterfaceDefinition" value="" />
- <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
+ <parameter name="systemInfos"><![CDATA[<systemInfosDefinition>
+    <connPtSystemInfos/>
+</systemInfosDefinition>]]></parameter>
+ <parameter name="systemScripts" value="" />
  <parameter name="testBenchDutName" value="" />
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
@@ -55,7 +58,7 @@
  <module
    name="in_system_sources_probes_0"
    kind="altera_in_system_sources_probes"
-   version="18.1"
+   version="19.2.0"
    enabled="1"
    autoexport="1">
   <parameter name="create_source_clock" value="false" />
@@ -63,13 +66,9 @@
   <parameter name="device_family" value="Arria 10" />
   <parameter name="gui_use_auto_index" value="true" />
   <parameter name="instance_id" value="NONE" />
-  <parameter name="probe_width" value="9" />
+  <parameter name="probe_width" value="32" />
   <parameter name="sld_instance_index" value="0" />
   <parameter name="source_initial_value" value="0" />
-  <parameter name="source_width" value="1" />
+  <parameter name="source_width" value="32" />
  </module>
- <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
- <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
