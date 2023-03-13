@@ -1,3 +1,17 @@
 qdb/*
 tmp-clearbox/*
 *.sld
+*.rpt
+*.summary
+idrogen_v3_wr_ref_design.done
+idrogen_v3_wr_ref_design.pin
+idrogen_v3_wr_ref_design.qpf
+idrogen_v3_wr_ref_design.sof
+idrogen_v3_wr_ref_design.syn.smsg
+Makefile
+bitstream
+bitstream.tcl
+project
+project.tcl
+files.tcl
+
