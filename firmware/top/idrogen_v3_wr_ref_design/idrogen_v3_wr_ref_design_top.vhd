@@ -72,8 +72,9 @@ entity idrogen_v3_wr_ref_design_top is
 
   -- FPGA Reset input, active low.
   DEV_CLRn                :    in       STD_LOGIC ;
-  -- free-running 100 MHz oscillator, or SI5338A.  See R290 or R140 for selection
-  CLKUSR                  :    in       STD_LOGIC ;
+  -- free-running 100 MHz oscillator, or SI5338A.  But should NOT be used for fabric if transceivers or ActiveSerial are used
+  -- see https://www.intel.com/content/www/us/en/docs/programmable/683814/current/transceiver-pins.html
+  -- CLKUSR                  :    in       STD_LOGIC ;
 
   -- reference clocks from LMK
   LMK_CLKREF_2            :    in       STD_LOGIC ;
@@ -295,7 +296,6 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
   signal core_rstn_i            : std_logic;
 
   -- Non-PLL reset stuff
-  signal clk_free         : std_logic;
   signal rstn_free        : std_logic;
 
   
@@ -354,8 +354,6 @@ architecture rtl of idrogen_v3_wr_ref_design_top is
 
 
 begin --rtl
-
-  clk_free              <= CLKUSR;
 
 
   -----------------------------------------------------------------------------
@@ -444,32 +442,5 @@ begin --rtl
   LEDn(1) <= not link_up;   -- led D21
   LEDn(2) <= not link_act;  -- led D20
   LEDn(3) <= not pps_long;  -- led D19
-
-  
-  -----------------------------------------------------------------------------------
-  -- timer for leds
-  -----------------------------------------------------------------------------------
-  led_blink: process (clk_free, DEV_CLRn)
-  begin
-    if DEV_CLRn = '0' then
-      cnt       <= (others=> '0');
-      tick_1s   <= '0';
-      pulse_1s  <= '0';
-    elsif rising_edge(clk_free) then
-      cnt                   <= cnt + 1;
-      tick_1s               <= '0';
-      if cnt = 100000000/2-1 then
-        cnt <= (others=> '0');
-        tick_1s <= '1';
-      end if;
-      if tick_1s = '1' then
-        pulse_1s <= not pulse_1s;
-      end if;
-    end if;
-  end process led_blink;
-
-
-
-
 
 end rtl;
