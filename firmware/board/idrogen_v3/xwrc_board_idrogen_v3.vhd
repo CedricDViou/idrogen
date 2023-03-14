@@ -382,7 +382,7 @@ begin  -- architecture struct
       clk_dmtd_locked_i    => clk_dmtd_locked,
       clk_62m5_sys_i       => clk_pll_sys,
       clk_sys_locked_i     => pll_sys_locked,
-      clk_125m_ref_i       => clk_pll_ref,
+      clk_125m_ref_i       => clk_125m_pllref_i, --clk_pll_ref,
       clk_125m_ext_i       => ext_ref_mul_gen,
       clk_ext_locked_i     => ext_ref_mul_gen_locked,
       clk_ext_stopped_i    => '0',
