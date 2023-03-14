@@ -1,6 +1,6 @@
 [submodule "firmware/ip_cores/wr-cores"]
 	path = firmware/ip_cores/wr-cores
-	url = https://ohwr.org/project/wr-cores.git
+	url = https://gitlab.in2p3.fr/NEBULA/wr-cores.git
 [submodule "firmware/ip_cores/wrpc-sw"]
 	path = firmware/ip_cores/wrpc-sw
 	url = https://ohwr.org/project/wrpc-sw.git
