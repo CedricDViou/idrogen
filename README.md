@@ -16,7 +16,9 @@ git clone https://gitlab.in2p3.fr/NEBULA/idrogen.git
 cd idrogen
 git submodule init
 git submodule update
-cd firmware
+cd firmware/ip_cores/wr-cores
+git checkout idrogen_arria10
+cd ../../../firmware
 more README.md  -> to install dependencies and start compiling designs
 ```
 
