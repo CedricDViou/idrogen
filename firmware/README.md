@@ -21,10 +21,6 @@ $ pip install hdlmake
 ```
 
 
-## Modify ip-cores
-  - Copy/merge ```firmware/modules/ip_cores/platform/altera/*``` to ```firmware/ip_cores/wr-cores/platform/altera/```
-
-
 ## Compile
 ```
 $ make idrogen_v3_wr_ref_design

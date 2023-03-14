@@ -1,3 +1,0 @@
-qsys-generate wr_arria10_idrogen_rst_ctl
-qsys-generate wr_arria10_idrogen_det_phy
-qsys-generate wr_arria10_idrogen_cmu_pll
