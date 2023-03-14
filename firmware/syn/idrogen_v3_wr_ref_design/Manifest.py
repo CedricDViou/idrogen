@@ -15,7 +15,8 @@ syn_tool = "quartus"
 
 syn_properties = [
     {"name": "VHDL_INPUT_VERSION", "value": "VHDL_2008"},
-    {"name": "PHYSICAL_SYNTHESIS_EFFORT", "value": "NORMAL"}
+    {"name": "PHYSICAL_SYNTHESIS_EFFORT", "value": "NORMAL"},
+    {"name": "PROJECT_OUTPUT_DIRECTORY", "value": "output_files"},
 ]
 
 quartus_preflow = "preflow.tcl"
