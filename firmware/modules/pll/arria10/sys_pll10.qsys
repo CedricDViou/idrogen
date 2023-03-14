@@ -10,9 +10,6 @@
    tool="QsysStandard" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element $system
-   {
-   }
    element iopll_0
    {
       datum _sortIndex
@@ -63,58 +60,6 @@
                 </consumedSystemInfos>
             </value>
         </entry>
-        <entry>
-            <key>outclk2</key>
-            <value>
-                <connectionPointName>outclk2</connectionPointName>
-                <suppliedSystemInfos/>
-                <consumedSystemInfos>
-                    <entry>
-                        <key>CLOCK_RATE</key>
-                        <value>125000000</value>
-                    </entry>
-                </consumedSystemInfos>
-            </value>
-        </entry>
-        <entry>
-            <key>outclk3</key>
-            <value>
-                <connectionPointName>outclk3</connectionPointName>
-                <suppliedSystemInfos/>
-                <consumedSystemInfos>
-                    <entry>
-                        <key>CLOCK_RATE</key>
-                        <value>10000000</value>
-                    </entry>
-                </consumedSystemInfos>
-            </value>
-        </entry>
-        <entry>
-            <key>outclk4</key>
-            <value>
-                <connectionPointName>outclk4</connectionPointName>
-                <suppliedSystemInfos/>
-                <consumedSystemInfos>
-                    <entry>
-                        <key>CLOCK_RATE</key>
-                        <value>100000000</value>
-                    </entry>
-                </consumedSystemInfos>
-            </value>
-        </entry>
-        <entry>
-            <key>outclk5</key>
-            <value>
-                <connectionPointName>outclk5</connectionPointName>
-                <suppliedSystemInfos/>
-                <consumedSystemInfos>
-                    <entry>
-                        <key>CLOCK_RATE</key>
-                        <value>100000000</value>
-                    </entry>
-                </consumedSystemInfos>
-            </value>
-        </entry>
     </connPtSystemInfos>
 </systemInfosDefinition>]]></parameter>
  <parameter name="systemScripts" value="" />
@@ -131,18 +76,10 @@
  <interface name="outclk1" internal="iopll_0.outclk1" type="clock" dir="start">
   <port name="outclk_1" internal="outclk_1" />
  </interface>
- <interface name="outclk2" internal="iopll_0.outclk2" type="clock" dir="start">
-  <port name="outclk_2" internal="outclk_2" />
- </interface>
- <interface name="outclk3" internal="iopll_0.outclk3" type="clock" dir="start">
-  <port name="outclk_3" internal="outclk_3" />
- </interface>
- <interface name="outclk4" internal="iopll_0.outclk4" type="clock" dir="start">
-  <port name="outclk_4" internal="outclk_4" />
- </interface>
- <interface name="outclk5" internal="iopll_0.outclk5" type="clock" dir="start">
-  <port name="outclk_5" internal="outclk_5" />
- </interface>
+ <interface name="outclk2" internal="iopll_0.outclk2" />
+ <interface name="outclk3" internal="iopll_0.outclk3" />
+ <interface name="outclk4" internal="iopll_0.outclk4" />
+ <interface name="outclk5" internal="iopll_0.outclk5" />
  <interface name="refclk" internal="iopll_0.refclk" type="clock" dir="end">
   <port name="refclk" internal="refclk" />
  </interface>
@@ -279,7 +216,7 @@
   <parameter name="gui_multiply_factor" value="6" />
   <parameter name="gui_new_mif_file_path" value="~/pll.mif" />
   <parameter name="gui_number_of_clocks" value="2" />
-  <parameter name="gui_operation_mode" value="normal" />
+  <parameter name="gui_operation_mode" value="direct" />
   <parameter name="gui_output_clock_frequency0" value="62.5" />
   <parameter name="gui_output_clock_frequency1" value="125.0" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />

@@ -10,9 +10,6 @@
    tool="QsysStandard" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element $system
-   {
-   }
    element iopll_0
    {
       datum _sortIndex
@@ -198,7 +195,7 @@
   <parameter name="gui_multiply_factor" value="6" />
   <parameter name="gui_new_mif_file_path" value="~/pll.mif" />
   <parameter name="gui_number_of_clocks" value="1" />
-  <parameter name="gui_operation_mode" value="normal" />
+  <parameter name="gui_operation_mode" value="direct" />
   <parameter name="gui_output_clock_frequency0" value="62.5" />
   <parameter name="gui_output_clock_frequency1" value="100.0" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
