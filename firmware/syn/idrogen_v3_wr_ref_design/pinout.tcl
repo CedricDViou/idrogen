@@ -122,7 +122,6 @@ set_instance_assignment -name IO_STANDARD LVDS -to TRIGGER_OUT_P
 
 set_location_assignment PIN_AC17 -to DEV_CLRn
 set_location_assignment PIN_AK16 -to CLKUSR
-set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
 
 set_location_assignment PIN_AC24 -to USB_RESETn
 set_location_assignment PIN_AN24 -to USB_CLK
