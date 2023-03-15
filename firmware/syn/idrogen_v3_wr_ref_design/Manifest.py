@@ -21,10 +21,6 @@ syn_properties = [
 
 quartus_preflow = "preflow.tcl"
 
-files = [
-  "preflow.tcl",
-  ]
-
 modules = {
   "local" : [ 
     "../../top/idrogen_v3_wr_ref_design", 
