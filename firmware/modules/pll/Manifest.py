@@ -1,6 +1,6 @@
 def __helper():
   dirs = []
-  if syn_device[:9] == "10ax027h4":      dirs.extend(["arria10"])
+  if syn_device[:9] == "10AX027H4":      dirs.extend(["arria10"])
   return dirs
 
 files = [
