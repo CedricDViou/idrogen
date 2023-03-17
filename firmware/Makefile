@@ -104,6 +104,10 @@ idrogen_v3_wr_ref_design:	firmware
 	$(MAKE) -C syn/idrogen_v3_wr_ref_design PATH=$(PWD)/toolchain/bin:$(PATH) all
 
 idrogen_v3_wr_ref_design-clean::
-	$(MAKE) -C syn/idrogen_v3_wr_ref_design PATH=$(PWD)/toolchain/bin:$(PATH) clean
 	rm -f syn/idrogen_v3_wr_ref_design/Makefile
-
+	rm -rf $(PWD)/ip_cores/wr-cores/platform/altera/wr_arria10_phy/wr_arria10_idrogen_phy/wr_arria10_idrogen_rst_ctl/wr_arria10_idrogen_rst_ctl
+	rm -rf $(PWD)/ip_cores/wr-cores/platform/altera/wr_arria10_phy/wr_arria10_idrogen_phy/wr_arria10_idrogen_det_phy/wr_arria10_idrogen_det_phy
+	rm -rf $(PWD)/ip_cores/wr-cores/platform/altera/wr_arria10_phy/wr_arria10_idrogen_phy/wr_arria10_idrogen_cmu_pll/wr_arria10_idrogen_cmu_pll
+	rm -rf $(PWD)/ip_cores/wr-cores/platform/altera/wr_arria10_phy/wr_arria10_idrogen_phy/wr_arria10_idrogen_atx_pll/wr_arria10_idrogen_atx_pll
+	rm -rf $(PWD)/ip_cores/wr-cores/platform/altera/wr_arria10_phy/wr_arria10_idrogen_phy/wr_arria10_idrogen_f_pll/wr_arria10_idrogen_f_pll
+	$(MAKE) -C syn/idrogen_v3_wr_ref_design PATH=$(PWD)/toolchain/bin:$(PATH) clean
