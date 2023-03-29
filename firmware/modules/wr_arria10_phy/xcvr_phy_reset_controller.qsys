@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<system name="$${FILENAME}">
+<system name="xcvr_phy_reset_controller">
  <component
    name="$${FILENAME}"
    displayName="$${FILENAME}"
    version="1.0"
    description=""
-   tags="INTERNAL_COMPONENT=true"
-   categories="System" />
+   tags="AUTHORSHIP=Intel Corporation /// INTERNAL_COMPONENT=true"
+   categories="System"
+   tool="QsysStandard" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element $system
+   {
+   }
    element xcvr_reset_control_0
    {
       datum _sortIndex
@@ -19,7 +23,6 @@
    }
 }
 ]]></parameter>
- <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
  <parameter name="device" value="10AX027H4F34I3SG" />
  <parameter name="deviceFamily" value="Arria 10" />
  <parameter name="deviceSpeedGrade" value="3" />
@@ -30,10 +33,12 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="true" />
  <parameter name="lockedInterfaceDefinition" value="" />
- <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
+ <parameter name="systemInfos"><![CDATA[<systemInfosDefinition>
+    <connPtSystemInfos/>
+</systemInfosDefinition>]]></parameter>
+ <parameter name="systemScripts" value="" />
  <parameter name="testBenchDutName" value="" />
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
@@ -146,7 +151,7 @@
  <module
    name="xcvr_reset_control_0"
    kind="altera_xcvr_reset_control"
-   version="18.1"
+   version="19.1"
    enabled="1"
    autoexport="1">
   <parameter name="CHANNELS" value="1" />
@@ -172,8 +177,4 @@
   <parameter name="gui_split_interfaces" value="0" />
   <parameter name="gui_tx_auto_reset" value="0" />
  </module>
- <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
- <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

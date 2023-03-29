@@ -89,7 +89,13 @@ architecture rtl of arria10_phy is
 					pll_refclk0   : in  std_logic := 'X'; -- clk
 					tx_serial_clk : out std_logic;        -- clk
 					pll_locked    : out std_logic;        -- pll_locked
-					pll_cal_busy  : out std_logic         -- pll_cal_busy
+					pll_cal_busy  : out std_logic;        -- pll_cal_busy
+					reconfig_clk0         : in  std_logic                     := 'X';             -- clk
+					reconfig_reset0       : in  std_logic                     := 'X';             -- reset
+					reconfig_write0       : in  std_logic                     := 'X';             -- write
+					reconfig_read0        : in  std_logic                     := 'X';             -- read
+					reconfig_address0     : in  std_logic_vector(9 downto 0)  := (others => 'X'); -- address
+					reconfig_writedata0   : in  std_logic_vector(31 downto 0) := (others => 'X')  -- writedata
 			);
 	end component ATX_pll_125_to_625;
 
@@ -164,7 +170,13 @@ begin
 						pll_refclk0   => pll_ref_clk(0),
 						tx_serial_clk => tx_serial_clk(0),
 						pll_locked    => pll_locked_i(0),
-						pll_cal_busy  => pll_cal_busy(0)
+						pll_cal_busy  => pll_cal_busy(0),
+						reconfig_clk0         => clk_reconf_i,
+						reconfig_reset0       => clk_reconf_rst_i,
+						reconfig_write0       => '0',
+						reconfig_read0        => '0',
+						reconfig_address0     => (others => '0'),
+						reconfig_writedata0   => (others => '0')
 				);
 
 
@@ -176,8 +188,8 @@ begin
             reconfig_writedata        => (others => '0'),
             reconfig_readdata         => open,
             reconfig_waitrequest      => open,
-            reconfig_clk              => (others => clk_reconf_i),
-            reconfig_reset            => (others => clk_reconf_rst_i),
+            reconfig_clk(0)           => clk_reconf_i,
+            reconfig_reset(0)         => clk_reconf_rst_i,
 				rx_analogreset            => rx_analogreset,
 				rx_cal_busy               => rx_cal_busy,
 				rx_cdr_refclk0            => pll_ref_clk(0),

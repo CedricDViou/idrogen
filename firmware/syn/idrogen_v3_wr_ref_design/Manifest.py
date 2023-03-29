@@ -19,9 +19,9 @@ syn_properties = [
 
 quartus_preflow = "preflow.tcl"
 
-files = [
-  "preflow.tcl",
-  ]
+#files = [
+#   "preflow.tcl",
+#]
 
 modules = {
   "local" : [ 
