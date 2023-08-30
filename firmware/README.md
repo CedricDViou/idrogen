@@ -27,4 +27,6 @@ $ make idrogen_v3_wr_ref_design
 ## Harware setup
   - During the first use of a FPGA running the WhiteRabbit core, we need to format the EEPROM at the wrpc-sw prompt:
   ```wrc# sdb fs 1 0 80```
+  - Configure MAC address
+  ```mac setp <your mac>```
 
