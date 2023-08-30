@@ -13,10 +13,7 @@ $ sudo ln -sf /opt/altera/19.3_pro/quartus/bin/quartus /opt/quartus
 
 ## Dependencies and tools:
 ```
-$ sudo apt install docbook-utils libreadline-dev
-or
-$ yum install docbook-utils readline-devel.x86_64 glibs.i686 zlib.i686
-
+$ sudo apt install docbook-utils libreadline-dev autotools-dev automake libtool
 $ pip install hdlmake
 ```
 
