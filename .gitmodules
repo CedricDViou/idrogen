@@ -13,3 +13,6 @@
 [submodule "firmware/ip_cores/general-cores"]
 	path = firmware/ip_cores/general-cores
 	url = https://ohwr.org/project/general-cores.git
+[submodule "firmware/ip_cores/hdl-make"]
+	path = firmware/ip_cores/hdl-make
+	url = https://ohwr.org/project/hdl-make.git
