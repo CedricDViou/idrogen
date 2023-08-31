@@ -5,6 +5,7 @@ Procedure for compiling an idrogen firmware:
 
 ## Simlink for Quartus 
 ```$ export LM_LICENSE_FILE=  ...  
+$ export PATH=${QUARTUS_ROOTDIR}/bin:${QSYS_ROOTDIR}:${PATH}
 $ which quartus  
 /opt/altera/19.3_pro/quartus/bin/quartus
 $ sudo ln -sf /opt/altera/19.3_pro/quartus/bin/quartus /opt/quartus
@@ -14,7 +15,9 @@ $ sudo ln -sf /opt/altera/19.3_pro/quartus/bin/quartus /opt/quartus
 ## Dependencies and tools:
 ```
 $ sudo apt install docbook-utils libreadline-dev autotools-dev automake libtool
-$ pip install hdlmake
+
+$ cd firmware/ip_cores/hdl-make
+$ python setup.py install
 ```
 
 
